@@ -8,12 +8,9 @@ public class Category {
     private String name;
 
     private Entry first = null;
+    private Entry last = null;
 
-    public Category(String name){
-        this.name = name;
-    }
-
-    public void setName(String name) {
+    public Category(String name) {
         this.name = name;
     }
 
@@ -21,44 +18,79 @@ public class Category {
         return name;
     }
 
-    public boolean isEmpty(){
-        if(first == null){
+    public boolean isEmpty() {
+        if (first == null) {
             return true;
         }
         return false;
     }
 
-    public int size(){
+    public int size() {
         int size = 0;
-        Entry tmp = first;
-        while(tmp != null){
+        Entry current = first;
+        while (current != null) {
+            current = current.next;
             size++;
         }
         return size;
     }
 
-    public Entry getEntry(int random) {
-        Entry tmp = first;
-        while(random - 1 > 0){
-            tmp = tmp.next;
-            random--;
+    public Entry getEntry(int position) throws IndexOutOfBoundsException {
+        if (isEmpty() || position > size()) {
+            throw new IndexOutOfBoundsException();
         }
-        return tmp;
+
+        Entry current = first;
+        for (int i = 0; i < position; i++) {
+            current = current.next;
+        }
+        return current;
     }
 
-    public class Entry{
+    public void addEntry(String name) {
+        Entry entry = new Entry(name);
+        if (last == null) {
+            first = last = entry;
+        } else {
+            last.next = entry;
+            last = entry;
+        }
+    }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
+    public void changeEntryName(String name, int position) {
+        if (isEmpty() || position > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Entry current = first;
+        for (int i = 0; i < position; i++) {
+            current = current.next;
+        }
+
+        current.setName(name);
+    }
+
+    public class Entry {
 
         private String name;
 
-        public Entry next;
+        private Entry next;
 
-        public void setName(String name) {
+        public Entry(String name) {
             this.name = name;
         }
 
         public String getName() {
             return name;
         }
-    }
-}
 
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+}
