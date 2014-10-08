@@ -47,13 +47,43 @@ public class Category {
         return current;
     }
 
+    /**
+     * Add entry last.
+     *
+     * @param name
+     */
     public void addEntry(String name) {
-        Entry entry = new Entry(name);
+        Entry newEntry = new Entry(name);
         if (last == null) {
-            first = last = entry;
+            first = last = newEntry;
         } else {
-            last.next = entry;
-            last = entry;
+            last.next = newEntry;
+            newEntry.prev = last;
+            last = newEntry;
+        }
+    }
+
+    public void removeEntry(int position) throws IndexOutOfBoundsException {
+        if (isEmpty() || position > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Entry current = first;
+        for (int i = 0; i < position; i++) {
+            current = current.next;
+        }
+        Entry prev = current.prev;
+        Entry next = current.next;
+
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+        }
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
         }
     }
 
@@ -61,7 +91,8 @@ public class Category {
         this.name = name;
     }
 
-    public void changeEntryName(String name, int position) {
+    public void changeEntryName(String name, int position)
+            throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
             throw new IndexOutOfBoundsException();
         }
@@ -79,6 +110,8 @@ public class Category {
         private String name;
 
         private Entry next;
+
+        private Entry prev;
 
         public Entry(String name) {
             this.name = name;

@@ -92,6 +92,50 @@ public class CategoryTest {
         String bk2 = "Burger King";
         food.changeEntryName(bk2, 2);
         assertEquals(bk2, food.getEntry(2).getName());
+
+    }
+
+    @Test
+    public void testDeleteEntry() {
+        String foodName = "Food";
+        Category food = new Category(foodName);
+
+        String grieche = "Grieche";
+        food.addEntry(grieche);
+        String thai = "Thai";
+        food.addEntry(thai);
+        String bk = "BK";
+        food.addEntry(bk);
+        String mecces = "Mecces";
+        food.addEntry(mecces);
+
+        try {
+            food.removeEntry(5);
+        } catch (IndexOutOfBoundsException e) {
+            e = null;
+        }
+
+        try {
+            food.removeEntry(0);
+        } catch (IndexOutOfBoundsException e) {
+            e = null;
+        }
+        assertEquals(thai, food.getEntry(0).getName());
+        assertEquals(bk, food.getEntry(1).getName());
+        assertEquals(mecces, food.getEntry(2).getName());
+
+        String speed = "SpeedPizza";
+        food.addEntry(speed);
+
+        try {
+            food.removeEntry(1);
+        } catch (IndexOutOfBoundsException e) {
+            e = null;
+        }
+        assertEquals(thai, food.getEntry(0).getName());
+        assertEquals(mecces, food.getEntry(1).getName());
+        assertEquals(speed, food.getEntry(2).getName());
+
     }
 
 }
