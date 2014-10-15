@@ -27,8 +27,6 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:hapticFeedbackEnabled="true"
-
-
             />
         <EditText
             android:id = "@+id/etRU"
