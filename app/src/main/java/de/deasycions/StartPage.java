@@ -28,9 +28,6 @@ public class StartPage extends Activity {
         l = (EditText) findViewById(R.id.etL);
         ld = (EditText) findViewById(R.id.etLD);
         rd = (EditText) findViewById(R.id.etRD);
-
-
-
     }
 
     public void defineOnClickListener(final EditText et, final EditText etNext){
@@ -39,6 +36,7 @@ public class StartPage extends Activity {
             @Override
             public void onClick(View view) {
                 et.setTextSize(20);
+                et.setSelected(true);
                 etNext.setVisibility(View.VISIBLE);
             }
         });
@@ -65,6 +63,25 @@ public class StartPage extends Activity {
 
     public void startRandom(View view){
 
+    }
+
+    public void newCategory(View view){
+       int i = view.getId();
+        switch (i){
+            case R.id.etLU:
+                defineOnClickListener(lu, ru);
+            case R.id.etRU:
+                defineOnClickListener(ru, r);
+            case R.id.etR:
+                defineOnClickListener(r, rd);
+            case R.id.etRD:
+                defineOnClickListener(rd, ld);
+            case R.id.etLD:
+                defineOnClickListener(ld, l);
+            case R.id.etL:
+               l.setTextSize(20);
+               l.setSelected(true);
+        }
     }
 }
 
