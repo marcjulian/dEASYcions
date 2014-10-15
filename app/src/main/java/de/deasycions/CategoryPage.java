@@ -31,7 +31,28 @@ public class CategoryPage extends Activity {
         ((Button) findViewById(R.id.crandom)).setText(categoryName);
 
         newCategory = categoryStorage.getCategory(categoryName);
+        if(!newCategory.isEmpty()){
+            showEntries();
+        }
 
+    }
+
+    private void showEntries() {
+        int size = newCategory.size();
+        switch (size){
+            case 1: setNextETVisible(clu,cru);
+                clu.setText(newCategory.getEntry(0).getName());
+                break;
+            case 2:
+                setNextETVisible(clu, cru);
+                setNextETVisible(cru, cr);
+                clu.setText(newCategory.getEntry(0).getName());
+                cru.setText(newCategory.getEntry(1).getName());
+                break;
+            //TODO more cases
+            default:break;
+
+        }
     }
 
     private void initialize() {
@@ -87,6 +108,9 @@ public class CategoryPage extends Activity {
         etNext.setVisibility(View.VISIBLE);
         et.performHapticFeedback(1);
         et.setEnabled(false);
+
+        String entryName = et.getText().toString();
+        newCategory.addEntry(entryName);
       }
 
     public void startRandom(View view){

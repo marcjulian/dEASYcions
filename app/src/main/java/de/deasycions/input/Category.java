@@ -35,6 +35,7 @@ public class Category {
         return size;
     }
 
+    //TODO is 0 start number?
     public Entry getEntry(int position) throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
             throw new IndexOutOfBoundsException();

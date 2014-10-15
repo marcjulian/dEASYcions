@@ -23,7 +23,9 @@ public class CategoryStorage {
     }
 
     public void addCategory(Category category){
-        savedCategories.put(category.getName(),category);
+        if(getCategory(category.getName()) == null) {
+            savedCategories.put(category.getName(), category);
+        }
     }
 
     public Category getCategory(String name){
