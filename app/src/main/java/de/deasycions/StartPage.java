@@ -32,7 +32,7 @@ public class StartPage extends Activity {
 
     public void setNextETVisible(final EditText et, final EditText etNext){
          et.setTextSize(20);
-         et.setSelected(true);
+         et.setText("");
          etNext.setVisibility(View.VISIBLE);
     }
 
@@ -65,17 +65,23 @@ public class StartPage extends Activity {
         switch (i){
             case R.id.etLU:
                 setNextETVisible(lu, ru);
+                break;
             case R.id.etRU:
                 setNextETVisible(ru, r);
+                break;
             case R.id.etR:
                 setNextETVisible(r, rd);
+                break;
             case R.id.etRD:
                 setNextETVisible(rd, ld);
+                break;
             case R.id.etLD:
                 setNextETVisible(ld, l);
+                break;
             case R.id.etL:
                l.setTextSize(20);
-               l.setSelected(true);
+               l.setText("");
+              default:break;
         }
     }
 }
