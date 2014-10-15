@@ -26,6 +26,9 @@
             android:layout_marginRight="5dp"
             android:textSize="50dp"
             android:textColorHint="#000000"
+            android:hapticFeedbackEnabled="true"
+
+
             />
         <EditText
             android:id = "@+id/etRU"
@@ -39,6 +42,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:visibility="invisible"
+            android:hapticFeedbackEnabled="true"
             />
         </LinearLayout>
     <LinearLayout
@@ -57,6 +61,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:visibility="invisible"
+            android:hapticFeedbackEnabled="true"
             />
         <Button
             android:layout_width="120dp"
@@ -81,6 +86,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:visibility="invisible"
+            android:hapticFeedbackEnabled="true"
            />
         </LinearLayout>
 
@@ -101,6 +107,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:visibility="invisible"
+            android:hapticFeedbackEnabled="true"
 
              />
         <EditText
@@ -115,6 +122,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:visibility="invisible"
+            android:hapticFeedbackEnabled="true"
             />
 
         </LinearLayout>

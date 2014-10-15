@@ -72,6 +72,7 @@ public class StartPage extends Activity {
     public void setNextETVisible(final EditText et, final EditText etNext){
          et.setTextSize(20);
          etNext.setVisibility(View.VISIBLE);
+        et.performHapticFeedback(1);
          et.setEnabled(false);
          Intent intent = new Intent(this, CategoryPage.class);
         String catName = et.getText().toString();
