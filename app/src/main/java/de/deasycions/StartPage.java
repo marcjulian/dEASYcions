@@ -23,16 +23,52 @@ public class StartPage extends Activity {
     private void initialize() {
         randomize = (Button) findViewById(R.id.random);
         lu = (EditText) findViewById(R.id.etLU);
+        lu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNextETVisible(lu, ru);
+            }
+        });
         ru = (EditText) findViewById(R.id.etRU);
+        ru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNextETVisible(ru, r);
+            }
+        });
         r = (EditText) findViewById(R.id.etR);
-        l = (EditText) findViewById(R.id.etL);
-        ld = (EditText) findViewById(R.id.etLD);
+        r.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNextETVisible(r, rd);
+            }
+        });
         rd = (EditText) findViewById(R.id.etRD);
+        rd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNextETVisible(rd, ld);
+            }
+        });
+        ld = (EditText) findViewById(R.id.etLD);
+        ld.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNextETVisible(ld, l);
+            }
+        });
+        l = (EditText) findViewById(R.id.etL);
+        l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                l.setTextSize(20);
+            }
+        });
+
     }
 
     public void setNextETVisible(final EditText et, final EditText etNext){
          et.setTextSize(20);
-         et.setText("");
          etNext.setVisibility(View.VISIBLE);
     }
 
@@ -80,7 +116,6 @@ public class StartPage extends Activity {
                 break;
             case R.id.etL:
                l.setTextSize(20);
-               l.setText("");
               default:break;
         }
     }

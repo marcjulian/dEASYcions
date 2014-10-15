@@ -16,26 +16,25 @@
             android:id = "@+id/etLU"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="@string/plus"
+            android:hint="@string/plus"
             android:background="@drawable/round_shape_violet"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_marginRight="5dp"
             android:textSize="50dp"
-            android:onClick="newCategory"
+            android:textColorHint="#000000"
             />
-
         <EditText
             android:id = "@+id/etRU"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="@string/plus"
+            android:hint="@string/plus"
             android:background="@drawable/round_shape_orange"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:textSize="50dp"
-            android:onClick="newCategory"
+            android:textColorHint="#000000"
             android:visibility="invisible"
             />
         </LinearLayout>
@@ -48,12 +47,12 @@
             android:id = "@+id/etL"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="@string/plus"
+            android:hint="@string/plus"
             android:background="@drawable/round_shape_brown"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="50dp"
-            android:onClick="newCategory"
+            android:textColorHint="#000000"
             android:visibility="invisible"
             />
         <Button
@@ -72,12 +71,12 @@
             android:id = "@+id/etR"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="@string/plus"
+            android:hint="@string/plus"
             android:background="@drawable/round_shape_lightblue"
             android:layout_gravity="center"
             android:gravity="center"
-            android:onClick="newCategory"
             android:textSize="50dp"
+            android:textColorHint="#000000"
             android:visibility="invisible"
            />
         </LinearLayout>
@@ -91,13 +90,13 @@
             android:id = "@+id/etLD"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="@string/plus"
+            android:hint="@string/plus"
             android:background="@drawable/round_shape_yellow"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:onClick="newCategory"
             android:layout_marginRight="5dp"
             android:textSize="50dp"
+            android:textColorHint="#000000"
             android:visibility="invisible"
 
              />
@@ -105,13 +104,13 @@
             android:id = "@+id/etRD"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:text="@string/plus"
+            android:hint="@string/plus"
             android:background="@drawable/round_shape_blue"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:onClick="newCategory"
             android:layout_marginLeft="5dp"
             android:textSize="50dp"
+            android:textColorHint="#000000"
             android:visibility="invisible"
             />
 
