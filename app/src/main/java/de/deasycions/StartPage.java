@@ -96,28 +96,5 @@ public class StartPage extends Activity {
 
     }
 
-    public void newCategory(View view){
-       int i = view.getId();
-        switch (i){
-            case R.id.etLU:
-                setNextETVisible(lu, ru);
-                break;
-            case R.id.etRU:
-                setNextETVisible(ru, r);
-                break;
-            case R.id.etR:
-                setNextETVisible(r, rd);
-                break;
-            case R.id.etRD:
-                setNextETVisible(rd, ld);
-                break;
-            case R.id.etLD:
-                setNextETVisible(ld, l);
-                break;
-            case R.id.etL:
-               l.setTextSize(20);
-              default:break;
-        }
-    }
 }
 
