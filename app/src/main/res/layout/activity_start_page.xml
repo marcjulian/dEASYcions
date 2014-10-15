@@ -17,13 +17,17 @@
             android:layout_height="100dp"
             android:hint="@string/plus"
             android:background="@drawable/round_shape_violet"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginRight="5dp" />
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
             android:background="@drawable/round_shape_orange"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="5dp" />
         </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -36,25 +40,28 @@
             android:hint="@string/plus"
             android:background="@drawable/round_shape_brown"
             android:layout_gravity="center"
-            />
+            android:id="@+id/"
+            android:gravity="center" />
 
         <Button
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:text="Randomize"
+            android:text="@string/random"
             android:id="@+id/random"
             android:background="@drawable/button_shape"
             android:gravity="center"
             android:onClick="startRandom"
             android:textSize="19dp"
             android:textStyle="bold"
-            />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
             android:background="@drawable/round_shape_lightblue"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:gravity="center" />
 
 
         </LinearLayout>
@@ -70,13 +77,16 @@
             android:hint="@string/plus"
             android:background="@drawable/round_shape_yellow"
             android:layout_gravity="center_horizontal"
-             />
+            android:gravity="center"
+            android:layout_marginRight="5dp" />
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
             android:background="@drawable/round_shape_blue"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="5dp" />
 
         </LinearLayout>
 </LinearLayout>

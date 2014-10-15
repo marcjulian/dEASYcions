@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">dEASYcions</string>
-    <string name="random">Random</string>
+    <string name="random">Randomize</string>
     <string name="action_settings">Settings</string>
     <string name="plus">+</string>
 
