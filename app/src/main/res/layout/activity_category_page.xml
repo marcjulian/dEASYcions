@@ -40,7 +40,7 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             />
-        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,8 +61,7 @@
         <Button
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:text="@string/random"
-            android:id="@+id/random"
+            android:id="@+id/crandom"
             android:background="@drawable/button_shape"
             android:gravity="center"
             android:onClick="startRandom"
@@ -81,8 +80,8 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:visibility="invisible"
-           />
-        </LinearLayout>
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -102,7 +101,7 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
 
-             />
+            />
         <EditText
             android:id = "@+id/etRD"
             android:layout_width="100dp"
@@ -117,5 +116,5 @@
             android:visibility="invisible"
             />
 
-        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

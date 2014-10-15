@@ -1,15 +1,17 @@
 package de.deasycions;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import de.deasycions.input.Category;
+
 
 public class StartPage extends Activity {
+   public final static String CATEGORYNAME = "de.deasycions.MESSAGE";
    private Button randomize;
    private EditText lu,ru,r,l,ld,rd;
 
@@ -70,26 +72,12 @@ public class StartPage extends Activity {
     public void setNextETVisible(final EditText et, final EditText etNext){
          et.setTextSize(20);
          etNext.setVisibility(View.VISIBLE);
-    }
+         et.setEnabled(false);
+         Intent intent = new Intent(this, CategoryPage.class);
+        String catName = et.getText().toString();
+        intent.putExtra(CATEGORYNAME, catName);
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.start_page, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+         startActivity(intent);
     }
 
     public void startRandom(View view){

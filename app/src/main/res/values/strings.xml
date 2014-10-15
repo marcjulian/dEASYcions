@@ -5,5 +5,7 @@
     <string name="random">Randomize</string>
     <string name="action_settings">Settings</string>
     <string name="plus">+</string>
+    <string name="title_activity_category_page">CategoryPage</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
