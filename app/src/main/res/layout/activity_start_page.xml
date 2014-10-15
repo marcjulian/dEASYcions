@@ -44,7 +44,6 @@
             android:hint="@string/plus"
             android:background="@drawable/round_shape_brown"
             android:layout_gravity="center"
-            android:id="@+id/"
             android:gravity="center"
             android:textSize="50dp"
             android:textColorHint="#000000"/>
