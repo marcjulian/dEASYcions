@@ -16,13 +16,13 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
-            android:background="@drawable/round_shape"
+            android:background="@drawable/round_shape_violet"
             android:layout_gravity="center_horizontal" />
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
-            android:background="@drawable/round_shape"
+            android:background="@drawable/round_shape_orange"
             android:layout_gravity="center_horizontal" />
         </LinearLayout>
     <LinearLayout
@@ -34,23 +34,29 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
-            android:background="@drawable/round_shape"
-            android:layout_gravity="center_horizontal" />
+            android:background="@drawable/round_shape_brown"
+            android:layout_gravity="center"
+            />
+
         <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="@string/random"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:text="Randomize"
             android:id="@+id/random"
             android:background="@drawable/button_shape"
             android:gravity="center"
             android:onClick="startRandom"
+            android:textSize="19dp"
+            android:textStyle="bold"
             />
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
-            android:background="@drawable/round_shape"
-            android:layout_gravity="center_horizontal" />
+            android:background="@drawable/round_shape_lightblue"
+            android:layout_gravity="center"/>
+
+
         </LinearLayout>
 
     <LinearLayout
@@ -62,13 +68,14 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
-            android:background="@drawable/round_shape"
-            android:layout_gravity="center_horizontal" />
+            android:background="@drawable/round_shape_yellow"
+            android:layout_gravity="center_horizontal"
+             />
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
-            android:background="@drawable/round_shape"
+            android:background="@drawable/round_shape_blue"
             android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
