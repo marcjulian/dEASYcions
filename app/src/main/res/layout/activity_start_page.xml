@@ -19,7 +19,9 @@
             android:background="@drawable/round_shape_violet"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:textSize="50dp"
+            android:textColorHint="#000000"/>
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -27,7 +29,9 @@
             android:background="@drawable/round_shape_orange"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:textSize="50dp"
+            android:textColorHint="#000000"/>
         </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,7 +45,9 @@
             android:background="@drawable/round_shape_brown"
             android:layout_gravity="center"
             android:id="@+id/"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textSize="50dp"
+            android:textColorHint="#000000"/>
 
         <Button
             android:layout_width="120dp"
@@ -61,9 +67,9 @@
             android:hint="@string/plus"
             android:background="@drawable/round_shape_lightblue"
             android:layout_gravity="center"
-            android:gravity="center" />
-
-
+            android:gravity="center"
+            android:textSize="50dp"
+            android:textColorHint="#000000"/>
         </LinearLayout>
 
     <LinearLayout
@@ -78,7 +84,9 @@
             android:background="@drawable/round_shape_yellow"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:textSize="50dp"
+            android:textColorHint="#000000"/>
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -86,7 +94,9 @@
             android:background="@drawable/round_shape_blue"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:textSize="50dp"
+            android:textColorHint="#000000"/>
 
         </LinearLayout>
 </LinearLayout>
