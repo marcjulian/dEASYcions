@@ -9,24 +9,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import de.deasycions.input.Category;
+import de.deasycions.input.CategoryStorage;
+
 
 public class CategoryPage extends Activity {
-private    EditText clu,cru,cr,cl,cld,crd;
+    private CategoryStorage categoryStorage;
+    private Category newCategory;
+
+    private EditText clu,cru,cr,cl,cld,crd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
+        initialize();
 
         Intent intent = getIntent();
-        String catName = intent.getStringExtra(StartPage.CATEGORYNAME);
-        ((Button) findViewById(R.id.crandom)).setText(catName);
+        String categoryName = intent.getStringExtra(StartPage.CATEGORY_NAME);
+        ((Button) findViewById(R.id.crandom)).setText(categoryName);
 
-        initialize();
+        newCategory = categoryStorage.getCategory(categoryName);
+
     }
 
     private void initialize() {
-
+       categoryStorage = CategoryStorage.getInstance();
+        
         clu = (EditText) findViewById(R.id.cetLU);
         clu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +94,3 @@ private    EditText clu,cru,cr,cl,cld,crd;
     }
 
 }
-
-
-

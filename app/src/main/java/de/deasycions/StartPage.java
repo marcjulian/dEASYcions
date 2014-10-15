@@ -7,13 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.HashMap;
+
 import de.deasycions.input.Category;
+import de.deasycions.input.CategoryStorage;
 
 
 public class StartPage extends Activity {
-   public final static String CATEGORYNAME = "de.deasycions.MESSAGE";
+   public final static String CATEGORY_NAME = "de.deasycions.MESSAGE";
    private Button randomize;
    private EditText lu,ru,r,l,ld,rd;
+   private CategoryStorage categoryStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,7 @@ public class StartPage extends Activity {
     }
 
     private void initialize() {
+        categoryStorage = CategoryStorage.getInstance();
         randomize = (Button) findViewById(R.id.random);
         lu = (EditText) findViewById(R.id.etLU);
         lu.setOnClickListener(new View.OnClickListener() {
@@ -74,12 +79,16 @@ public class StartPage extends Activity {
          etNext.setVisibility(View.VISIBLE);
         et.performHapticFeedback(1);
          et.setEnabled(false);
-         Intent intent = new Intent(this, CategoryPage.class);
-        String catName = et.getText().toString();
-        intent.putExtra(CATEGORYNAME, catName);
 
+         String categoryName = et.getText().toString();
+         Category category = new Category(categoryName);
+         categoryStorage.addCategory(category);
+
+         Intent intent = new Intent(this, CategoryPage.class);
+         intent.putExtra(CATEGORY_NAME, categoryName);
          startActivity(intent);
     }
+
 
     public void startRandom(View view){
 
