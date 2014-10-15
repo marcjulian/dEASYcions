@@ -1,13 +1,10 @@
 package de.deasycions;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import de.deasycions.display.NewCategoryActivity;
 
 
 public class StartPage extends Activity {
@@ -36,11 +33,6 @@ public class StartPage extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void addCategory(View view){
-        Intent intent = new Intent(this, NewCategoryActivity.class );
-        startActivity(intent);
     }
 
     public void startRandom(View view){

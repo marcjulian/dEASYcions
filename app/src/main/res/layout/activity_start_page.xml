@@ -1,37 +1,75 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="100dp"
     tools:context=".StartPage"
-    android:background="@drawable/splashscreen">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="@string/random"
-        android:id="@+id/random"
-        android:background="@drawable/button_shape"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="startRandom"
-        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:hint="@string/plus"
+            android:background="@drawable/round_shape"
+            android:layout_gravity="center_horizontal" />
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:hint="@string/plus"
+            android:background="@drawable/round_shape"
+            android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:hint="@string/plus"
+            android:background="@drawable/round_shape"
+            android:layout_gravity="center_horizontal" />
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="@string/random"
+            android:id="@+id/random"
+            android:background="@drawable/button_shape"
+            android:gravity="center"
+            android:onClick="startRandom"
+            />
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:hint="@string/plus"
+            android:background="@drawable/round_shape"
+            android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
-    <Button
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="@string/plus"
-        android:id="@+id/plus"
-        android:background="@drawable/round_shape"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:onClick="addCategory"
-        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:hint="@string/plus"
+            android:background="@drawable/round_shape"
+            android:layout_gravity="center_horizontal" />
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:hint="@string/plus"
+            android:background="@drawable/round_shape"
+            android:layout_gravity="center_horizontal" />
 
-</RelativeLayout>
+        </LinearLayout>
+</LinearLayout>
