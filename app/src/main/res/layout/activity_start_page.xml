@@ -33,7 +33,8 @@
             android:layout_marginLeft="5dp"
             android:textSize="50dp"
             android:textColorHint="#000000"
-            android:cursorVisible="false"/>
+            android:cursorVisible="false"
+            android:visibility="invisible"/>
         </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -50,6 +51,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:cursorVisible="false"
+            android:visibility="invisible"
             />
 
         <Button
@@ -73,7 +75,8 @@
             android:gravity="center"
             android:textSize="50dp"
             android:textColorHint="#000000"
-            android:cursorVisible="false"/>
+            android:cursorVisible="false"
+            android:visibility="invisible"/>
 
 
         </LinearLayout>
@@ -94,6 +97,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:cursorVisible="false"
+            android:visibility="invisible"
              />
         <EditText
             android:layout_width="100dp"
@@ -106,6 +110,7 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:cursorVisible="false"
+            android:visibility="invisible"
             />
 
         </LinearLayout>
