@@ -21,7 +21,8 @@
             android:gravity="center"
             android:layout_marginRight="5dp"
             android:textSize="50dp"
-            android:textColorHint="#000000"/>
+            android:textColorHint="#000000"
+            android:cursorVisible="false"/>
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -31,7 +32,8 @@
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:textSize="50dp"
-            android:textColorHint="#000000"/>
+            android:textColorHint="#000000"
+            android:cursorVisible="false"/>
         </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -44,10 +46,11 @@
             android:hint="@string/plus"
             android:background="@drawable/round_shape_brown"
             android:layout_gravity="center"
-            android:id="@+id/"
             android:gravity="center"
             android:textSize="50dp"
-            android:textColorHint="#000000"/>
+            android:textColorHint="#000000"
+            android:cursorVisible="false"
+            />
 
         <Button
             android:layout_width="120dp"
@@ -69,7 +72,10 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="50dp"
-            android:textColorHint="#000000"/>
+            android:textColorHint="#000000"
+            android:cursorVisible="false"/>
+
+
         </LinearLayout>
 
     <LinearLayout
@@ -86,7 +92,9 @@
             android:gravity="center"
             android:layout_marginRight="5dp"
             android:textSize="50dp"
-            android:textColorHint="#000000"/>
+            android:textColorHint="#000000"
+            android:cursorVisible="false"
+             />
         <EditText
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -96,7 +104,9 @@
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:textSize="50dp"
-            android:textColorHint="#000000"/>
+            android:textColorHint="#000000"
+            android:cursorVisible="false"
+            />
 
         </LinearLayout>
 </LinearLayout>
