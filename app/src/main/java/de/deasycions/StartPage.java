@@ -10,8 +10,8 @@ import android.widget.EditText;
 
 
 public class StartPage extends Activity {
-    Button randomize;
-    EditText lu,ru,r,l,ld,rd;
+   private Button randomize;
+   private EditText lu,ru,r,l,ld,rd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +30,12 @@ public class StartPage extends Activity {
         rd = (EditText) findViewById(R.id.etRD);
     }
 
-    public void defineOnClickListener(final EditText et, final EditText etNext){
-        et.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                et.setTextSize(20);
-                et.setSelected(true);
-                etNext.setVisibility(View.VISIBLE);
-            }
-        });
+    public void setNextETVisible(final EditText et, final EditText etNext){
+         et.setTextSize(20);
+         et.setSelected(true);
+         etNext.setVisibility(View.VISIBLE);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,15 +64,15 @@ public class StartPage extends Activity {
        int i = view.getId();
         switch (i){
             case R.id.etLU:
-                defineOnClickListener(lu, ru);
+                setNextETVisible(lu, ru);
             case R.id.etRU:
-                defineOnClickListener(ru, r);
+                setNextETVisible(ru, r);
             case R.id.etR:
-                defineOnClickListener(r, rd);
+                setNextETVisible(r, rd);
             case R.id.etRD:
-                defineOnClickListener(rd, ld);
+                setNextETVisible(rd, ld);
             case R.id.etLD:
-                defineOnClickListener(ld, l);
+                setNextETVisible(ld, l);
             case R.id.etL:
                l.setTextSize(20);
                l.setSelected(true);
