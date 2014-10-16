@@ -77,7 +77,7 @@ public class CategoryTest {
         String foodName = "Food";
         Category food = new Category(foodName);
         String lunch = "Lunch";
-        food.changeName(lunch);
+        food.changeCategoryName(lunch);
         assertEquals(lunch, food.getName());
 
         String grieche = "Grieche";

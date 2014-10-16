@@ -64,10 +64,9 @@
         <Button
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:id="@+id/crandom"
+            android:id="@+id/categoryName"
             android:background="@drawable/button_shape"
             android:gravity="center"
-            android:onClick="startRandom"
             android:textSize="19dp"
             android:textStyle="bold"
             android:layout_marginLeft="5dp"

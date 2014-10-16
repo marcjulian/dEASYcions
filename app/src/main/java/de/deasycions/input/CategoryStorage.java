@@ -3,7 +3,7 @@ package de.deasycions.input;
 import java.util.HashMap;
 
 /**
- * Created by marc on 15.10.2014.
+ * @author Marc Stammerjohann
  */
 public class CategoryStorage {
 
@@ -23,6 +23,7 @@ public class CategoryStorage {
     }
 
     public void addCategory(Category category){
+        //TODO use the new method if the categoryName already exists
         if(getCategory(category.getName()) == null) {
             savedCategories.put(category.getName(), category);
         }
@@ -31,4 +32,6 @@ public class CategoryStorage {
     public Category getCategory(String name){
         return savedCategories.get(name);
     }
+
+    //TODO new method which can tell, if a categoryName already exist or not
 }

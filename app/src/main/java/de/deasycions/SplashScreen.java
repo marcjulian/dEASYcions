@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 /**
- * Created by Gary on 14.10.2014.
+ * @author Gary Grossgarten
  */
 public class SplashScreen extends Activity {
 

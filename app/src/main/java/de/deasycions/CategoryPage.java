@@ -15,6 +15,7 @@ public class CategoryPage extends Activity {
     private CategoryStorage categoryStorage;
     private Category newCategory;
 
+    //TODO change to array
     private EditText clu,cru,cr,cl,cld,crd;
 
     @Override
@@ -26,7 +27,7 @@ public class CategoryPage extends Activity {
 
         Intent intent = getIntent();
         String categoryName = intent.getStringExtra(StartPage.CATEGORY_NAME);
-        ((Button) findViewById(R.id.crandom)).setText(categoryName);
+        ((Button) findViewById(R.id.categoryName)).setText(categoryName);
 
         newCategory = categoryStorage.getCategory(categoryName);
         if(!newCategory.isEmpty()){
@@ -35,10 +36,12 @@ public class CategoryPage extends Activity {
 
     }
 
+    // TODO use the array index (for loop?), maybe then we won't need the switch case anymore
     private void showEntries() {
         int size = newCategory.size();
         switch (size){
             case 1: setNextETVisible(clu,cru);
+
                 clu.setText(newCategory.getEntry(0).getName());
                 break;
             case 2:
@@ -47,7 +50,7 @@ public class CategoryPage extends Activity {
                 clu.setText(newCategory.getEntry(0).getName());
                 cru.setText(newCategory.getEntry(1).getName());
                 break;
-            //TODO more cases
+            //TODO more cases or for loop?
             default:break;
 
         }
@@ -55,7 +58,8 @@ public class CategoryPage extends Activity {
 
     private void initialize() {
        categoryStorage = CategoryStorage.getInstance();
-        
+
+        //TODO initialize the array of EditText, add the EditText in the correct Order (clu, cru, cr, crd, cld, cl)
         clu = (EditText) findViewById(R.id.cetLU);
         clu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,9 +114,4 @@ public class CategoryPage extends Activity {
         String entryName = et.getText().toString();
         newCategory.addEntry(entryName);
       }
-
-    public void startRandom(View view){
-
-    }
-
 }

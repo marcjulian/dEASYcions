@@ -35,7 +35,7 @@ public class Category {
         return size;
     }
 
-    //TODO is 0 start number?
+    //TODO is 0 the start number? add comment
     public Entry getEntry(int position) throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
             throw new IndexOutOfBoundsException();
@@ -64,6 +64,7 @@ public class Category {
         }
     }
 
+    //TODO is 0 the start number? add comment
     public void removeEntry(int position) throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
             throw new IndexOutOfBoundsException();
@@ -88,10 +89,12 @@ public class Category {
         }
     }
 
-    public void changeName(String name) {
+
+    public void changeCategoryName(String name) {
         this.name = name;
     }
 
+    //TODO is 0 the start number? add comment
     public void changeEntryName(String name, int position)
             throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
