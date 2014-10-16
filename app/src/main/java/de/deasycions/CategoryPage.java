@@ -15,7 +15,7 @@ public class CategoryPage extends Activity {
     private CategoryStorage categoryStorage;
     private Category newCategory;
 
-    //TODO change to array
+    //TODO change to one edittext array, see StartPage class
     private EditText clu,cru,cr,cl,cld,crd;
 
     @Override
@@ -59,7 +59,7 @@ public class CategoryPage extends Activity {
     private void initialize() {
        categoryStorage = CategoryStorage.getInstance();
 
-        //TODO initialize the array of EditText, add the EditText in the correct Order (clu, cru, cr, crd, cld, cl)
+        //TODO initialize the array of EditText, add the EditText in the correct order (clu, cru, cr, crd, cld, cl), see StartPage Class
         clu = (EditText) findViewById(R.id.cetLU);
         clu.setOnClickListener(new View.OnClickListener() {
             @Override
