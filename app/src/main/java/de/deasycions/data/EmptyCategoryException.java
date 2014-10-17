@@ -1,4 +1,4 @@
-package de.deasycions.input;
+package de.deasycions.data;
 
 public class EmptyCategoryException extends Exception {
 

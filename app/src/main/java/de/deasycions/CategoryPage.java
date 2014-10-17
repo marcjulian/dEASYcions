@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import de.deasycions.input.Category;
-import de.deasycions.input.CategoryStorage;
+import de.deasycions.data.Category;
+import de.deasycions.data.CategoryStorage;
 
 
 public class CategoryPage extends Activity {

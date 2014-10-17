@@ -3,6 +3,7 @@ package de.deasycions;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,8 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import de.deasycions.input.Category;
-import de.deasycions.input.CategoryStorage;
+import java.util.Map;
+import java.util.Set;
+
+import de.deasycions.data.Category;
+import de.deasycions.data.CategoryStorage;
 
 
 public class StartPage extends Activity {
@@ -24,6 +28,12 @@ public class StartPage extends Activity {
    private  InputMethodManager imm;
    private int position;
 
+    private static final String filename = "CategoryStorage";
+    private SharedPreferences savedData;
+    private static final String CATEGORY = "CATEGORY";
+    private static final String CATEGORY_NOT_EXIST = "CATEGORY NOT EXIST";
+    private static final String ENTRY_NOT_EXIST = "ENTRY NOT EXIST";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +41,24 @@ public class StartPage extends Activity {
         initialize();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+        if(!categoryStorage.isEmpty()){
+            displayCategories();
+        }
+    }
+
     private void initialize() {
+        position = 0;
+        savedData = getSharedPreferences(filename, MODE_PRIVATE);
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         categoryStorage = CategoryStorage.getInstance();
         randomize = (Button) findViewById(R.id.random);
@@ -62,12 +89,22 @@ public class StartPage extends Activity {
     private void createCategory(String categoryName){
         editText[position + 1].setVisibility(View.VISIBLE);
         editText[position].performHapticFeedback(1);
-        Category category = new Category(categoryName);
         //TODO use exist method vom Category Storage, if doesn't exist call addCategory, startCategoryPageAcitivity and add new Listener
-        categoryStorage.addCategory(category);
+        categoryStorage.createCategory(categoryName);
         editText[position].setOnClickListener(new SecondOnClickListener());
         startCategoryPageActivity(categoryName);
 
+    }
+
+    private void displayCategories() {
+        Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
+        for(Map.Entry<String, Category> entry : categorySet){
+            Category currentCategory = entry.getValue();
+            editText[position].setTextSize(20);
+            editText[position].setText(currentCategory.getName());
+            editText[position + 1].setVisibility(View.VISIBLE);
+            position++;
+        }
     }
 
     private void startCategoryPageActivity(String categoryName) {
@@ -88,6 +125,41 @@ public class StartPage extends Activity {
     public void startRandom(View view){
 
     }
+
+    private void saveData(){
+        int counter = 0;
+        SharedPreferences.Editor editor = savedData.edit();
+        Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
+        for(Map.Entry<String, Category> entry : categorySet){
+            Category currentCategory = entry.getValue();
+            String categoryName = currentCategory.getName();
+            editor.putString(CATEGORY + counter, categoryName);
+            for (int i = 0; i < currentCategory.size(); i++){
+                editor.putString(categoryName + i, currentCategory.getEntry(i).getName());
+            }
+          counter++;
+        }
+        editor.commit();
+    }
+
+    private void loadData(){
+        int counterCategory = 0;
+        savedData = getSharedPreferences(filename, MODE_PRIVATE);
+        String categoryName = savedData.getString(CATEGORY + counterCategory, CATEGORY_NOT_EXIST);
+        while(!categoryName.equals(CATEGORY_NOT_EXIST)){
+            categoryStorage.createCategory(categoryName);
+            int counterEntry = 0;
+            String entryName = savedData.getString(categoryName + counterEntry, ENTRY_NOT_EXIST);
+            while (!entryName.equals(ENTRY_NOT_EXIST)){
+                categoryStorage.getCategory(categoryName).addEntry(entryName);
+                counterEntry++;
+                entryName = savedData.getString(categoryName + counterEntry, ENTRY_NOT_EXIST);
+            }
+            counterCategory++;
+            categoryName = savedData.getString(CATEGORY + counterCategory, CATEGORY_NOT_EXIST);
+        }
+    }
+
 
     private class FirstOnClickListener implements View.OnClickListener {
 

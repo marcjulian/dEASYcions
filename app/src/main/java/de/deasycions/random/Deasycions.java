@@ -1,7 +1,7 @@
 package de.deasycions.random;
 
-import de.deasycions.input.Category;
-import de.deasycions.input.EmptyCategoryException;
+import de.deasycions.data.Category;
+import de.deasycions.data.EmptyCategoryException;
 
 /**
  *

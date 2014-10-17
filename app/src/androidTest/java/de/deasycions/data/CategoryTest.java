@@ -1,4 +1,4 @@
-package de.deasycions.input;
+package de.deasycions.data;
 
 import org.junit.Test;
 
