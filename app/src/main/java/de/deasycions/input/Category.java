@@ -1,6 +1,9 @@
 package de.deasycions.input;
 
 /**
+ *
+ * Category is a data structure saving a category name and entries objects.
+ *
  * @author Marc Stammerjohann
  */
 public class Category {
@@ -35,7 +38,13 @@ public class Category {
         return size;
     }
 
-    //TODO is 0 the start number? add comment
+    /**
+     * returns an entry at the given position.
+     *
+     * @param position starts at 0
+     * @return entry at the give position
+     * @throws IndexOutOfBoundsException
+     */
     public Entry getEntry(int position) throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
             throw new IndexOutOfBoundsException();
@@ -64,7 +73,12 @@ public class Category {
         }
     }
 
-    //TODO is 0 the start number? add comment
+    /**
+     * removes an entry at the given position.
+     *
+     * @param position starts at 0
+     * @throws IndexOutOfBoundsException
+     */
     public void removeEntry(int position) throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
             throw new IndexOutOfBoundsException();
@@ -89,12 +103,22 @@ public class Category {
         }
     }
 
-
+    /**
+     * changes the category name.
+     *
+     * @param name to change the category name to
+     */
     public void changeCategoryName(String name) {
         this.name = name;
     }
 
-    //TODO is 0 the start number? add comment
+    /**
+     * changes the entry name at the given position.
+     *
+     * @param name     to change the entry name to
+     * @param position starts at 0
+     * @throws IndexOutOfBoundsException
+     */
     public void changeEntryName(String name, int position)
             throws IndexOutOfBoundsException {
         if (isEmpty() || position > size()) {
@@ -109,6 +133,12 @@ public class Category {
         current.setName(name);
     }
 
+
+    /**
+     * Entry is saving the entry name and positions.
+     *
+     * @author Marc Stammerjohann
+     */
     public class Entry {
 
         private String name;
