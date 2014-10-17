@@ -1,13 +1,16 @@
 package de.deasycions;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.HashMap;
+import android.widget.TextView;
 
 import de.deasycions.input.Category;
 import de.deasycions.input.CategoryStorage;
@@ -18,6 +21,8 @@ public class StartPage extends Activity {
    private Button randomize;
    private EditText[] editText;
    private CategoryStorage categoryStorage;
+   private  InputMethodManager imm;
+   private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,7 @@ public class StartPage extends Activity {
     }
 
     private void initialize() {
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         categoryStorage = CategoryStorage.getInstance();
         randomize = (Button) findViewById(R.id.random);
         editText = new EditText[6];
@@ -40,6 +46,7 @@ public class StartPage extends Activity {
         //the last editText gets another OnClickListener
         for(int i = 0; i < editText.length; i++){
             editText[i].setOnClickListener(new FirstOnClickListener());
+            editText[i].setOnEditorActionListener(new DoneEditorListener());
             if(i == 5){
                 editText[i].setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -52,19 +59,13 @@ public class StartPage extends Activity {
         }
     }
 
-    private void setNextETVisible(final EditText et, final EditText etNext){
-        //TODO do the action only, if the categoryName is not null
-        String categoryName = et.getText().toString();
-
-         et.setTextSize(20);
-         etNext.setVisibility(View.VISIBLE);
-         et.performHapticFeedback(1);
-         //et.setEnabled(false);
-
+    private void createCategory(String categoryName){
+        editText[position + 1].setVisibility(View.VISIBLE);
+        editText[position].performHapticFeedback(1);
         Category category = new Category(categoryName);
-        //TODO use exist method vom Category Storage, if doesn't exist addCategory,  startCategoryPageAcitivity and add new Listener
+        //TODO use exist method vom Category Storage, if doesn't exist call addCategory, startCategoryPageAcitivity and add new Listener
         categoryStorage.addCategory(category);
-        et.setOnClickListener(new SecondOnClickListener());
+        editText[position].setOnClickListener(new SecondOnClickListener());
         startCategoryPageActivity(categoryName);
 
     }
@@ -88,13 +89,16 @@ public class StartPage extends Activity {
 
     }
 
-
     private class FirstOnClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View view) {
-           int counter = getEditTextPosition(view);
-           setNextETVisible(editText[counter], editText[counter+1]);
+           position = getEditTextPosition(view);
+           EditText current = editText[position];
+           current.setFocusableInTouchMode(true);
+           current.setTextSize(20);
+           current.requestFocus();
+           imm.showSoftInput(current, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
@@ -102,10 +106,25 @@ public class StartPage extends Activity {
 
         @Override
         public void onClick(View view) {
-            int counter = getEditTextPosition(view);
-            startCategoryPageActivity(editText[counter].getText().toString());
+            position = getEditTextPosition(view);
+            startCategoryPageActivity(editText[position].getText().toString());
         }
     }
 
-}
+    private class DoneEditorListener implements TextView.OnEditorActionListener{
 
+        @Override
+        public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                String categoryName = textView.getText().toString();
+                imm.hideSoftInputFromWindow(textView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+                //TODO call the method createCategory only, if the categoryName is not null, if it is null set the text size back to 50
+                createCategory(categoryName);
+                textView.clearFocus();
+                handled = true;
+            }
+            return handled;
+        }
+    }
+}

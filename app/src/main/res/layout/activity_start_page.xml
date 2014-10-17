@@ -27,6 +27,10 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
         <EditText
             android:id = "@+id/etRU"
@@ -41,6 +45,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
         </LinearLayout>
     <LinearLayout
@@ -60,6 +68,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
         <Button
             android:layout_width="120dp"
@@ -85,6 +97,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
            />
         </LinearLayout>
 
@@ -106,7 +122,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
-
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
              />
         <EditText
             android:id = "@+id/etRD"
@@ -121,6 +140,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
 
         </LinearLayout>

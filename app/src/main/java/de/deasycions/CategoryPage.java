@@ -41,7 +41,6 @@ public class CategoryPage extends Activity {
         int size = newCategory.size();
         switch (size){
             case 1: setNextETVisible(clu,cru);
-
                 clu.setText(newCategory.getEntry(0).getName());
                 break;
             case 2:
