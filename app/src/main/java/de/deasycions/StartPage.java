@@ -199,4 +199,22 @@ public class StartPage extends Activity {
             return handled;
         }
     }
+
+    /** private class OnHoldClickListener implements View.OnLongClickListener{
+
+    @Override
+    public boolean onLongClick(View view) {
+    view.performHapticFeedback(1);
+    position = getEditTextPosition(view);
+    EditText current = editText[position];
+    current.setFocusableInTouchMode(true);
+    current.setTextSize(20);
+    current.requestFocus();
+    imm.showSoftInput(current, InputMethodManager.SHOW_IMPLICIT);
+
+    return false;
+    }
+    }
+    //TODO Disable Editing of TextViews without LongClick
+     */
 }
