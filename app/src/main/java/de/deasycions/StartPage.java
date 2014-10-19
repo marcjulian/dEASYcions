@@ -18,6 +18,7 @@ import java.util.Set;
 
 import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
+import de.deasycions.data.SharedData;
 
 
 public class StartPage extends Activity {
@@ -27,10 +28,6 @@ public class StartPage extends Activity {
    private CategoryStorage categoryStorage;
    private  InputMethodManager imm;
    private int position;
-
-    private static final String filename = "CategoryStorage";
-    private SharedPreferences savedData;
-    private static final String CATEGORY = "CATEGORY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +40,14 @@ public class StartPage extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        saveData();
+        SharedData sharedData = new SharedData(this);
+        sharedData.saveData();
     }
 
     private void initialize() {
         position = 0;
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         categoryStorage = CategoryStorage.getInstance();
-        savedData = getSharedPreferences(filename, MODE_PRIVATE);
         randomize = (Button) findViewById(R.id.random);
         editText = new EditText[6];
         editText[0] = (EditText) findViewById(R.id.etLU);
@@ -119,24 +116,6 @@ public class StartPage extends Activity {
 
     }
 
-
-    public void saveData(){
-        int counter = 0;
-        SharedPreferences.Editor editor = savedData.edit();
-        Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
-        for(Map.Entry<String, Category> entry : categorySet){
-            Category currentCategory = entry.getValue();
-            String categoryName = currentCategory.getName();
-            editor.putString(CATEGORY + counter, categoryName);
-            for (int i = 0; i < currentCategory.size(); i++){
-                editor.putString(categoryName + i, currentCategory.getEntry(i).getName());
-            }
-            counter++;
-        }
-        editor.commit();
-    }
-
-
     private class FirstOnClickListener implements View.OnClickListener {
 
         @Override
@@ -169,6 +148,7 @@ public class StartPage extends Activity {
                 imm.hideSoftInputFromWindow(textView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
                 //TODO call the method createCategory only, if the categoryName is not null, if it is null set the text size back to 50
                 createCategory(categoryName);
+                //disabled editing of the text
                 textView.setFocusableInTouchMode(false);
                 textView.clearFocus();
                 handled = true;
