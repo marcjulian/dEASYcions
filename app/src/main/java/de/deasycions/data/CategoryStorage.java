@@ -14,8 +14,7 @@ public class CategoryStorage {
     private static CategoryStorage instance;
 
     private CategoryStorage() {
-        savedCategories = new HashMap<String, Category>();
-    }
+        savedCategories = new HashMap<String, Category>();    }
 
     public static CategoryStorage getInstance(){
         if(CategoryStorage.instance == null){

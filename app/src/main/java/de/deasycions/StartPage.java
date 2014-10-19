@@ -31,36 +31,26 @@ public class StartPage extends Activity {
     private static final String filename = "CategoryStorage";
     private SharedPreferences savedData;
     private static final String CATEGORY = "CATEGORY";
-    private static final String CATEGORY_NOT_EXIST = "CATEGORY NOT EXIST";
-    private static final String ENTRY_NOT_EXIST = "ENTRY NOT EXIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
         initialize();
+        displayCategories();
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         saveData();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadData();
-        if(!categoryStorage.isEmpty()){
-            displayCategories();
-        }
     }
 
     private void initialize() {
         position = 0;
-        savedData = getSharedPreferences(filename, MODE_PRIVATE);
         imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         categoryStorage = CategoryStorage.getInstance();
+        savedData = getSharedPreferences(filename, MODE_PRIVATE);
         randomize = (Button) findViewById(R.id.random);
         editText = new EditText[6];
         editText[0] = (EditText) findViewById(R.id.etLU);
@@ -97,13 +87,16 @@ public class StartPage extends Activity {
     }
 
     private void displayCategories() {
-        Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
-        for(Map.Entry<String, Category> entry : categorySet){
-            Category currentCategory = entry.getValue();
-            editText[position].setTextSize(20);
-            editText[position].setText(currentCategory.getName());
-            editText[position + 1].setVisibility(View.VISIBLE);
-            position++;
+        if(!categoryStorage.isEmpty()){
+            Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
+            for(Map.Entry<String, Category> entry : categorySet){
+                Category currentCategory = entry.getValue();
+                editText[position].setTextSize(20);
+                editText[position].setText(currentCategory.getName());
+                editText[position].setOnClickListener(new SecondOnClickListener());
+                editText[position + 1].setVisibility(View.VISIBLE);
+                position++;
+            }
         }
     }
 
@@ -126,7 +119,8 @@ public class StartPage extends Activity {
 
     }
 
-    private void saveData(){
+
+    public void saveData(){
         int counter = 0;
         SharedPreferences.Editor editor = savedData.edit();
         Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
@@ -137,27 +131,9 @@ public class StartPage extends Activity {
             for (int i = 0; i < currentCategory.size(); i++){
                 editor.putString(categoryName + i, currentCategory.getEntry(i).getName());
             }
-          counter++;
+            counter++;
         }
         editor.commit();
-    }
-
-    private void loadData(){
-        int counterCategory = 0;
-        savedData = getSharedPreferences(filename, MODE_PRIVATE);
-        String categoryName = savedData.getString(CATEGORY + counterCategory, CATEGORY_NOT_EXIST);
-        while(!categoryName.equals(CATEGORY_NOT_EXIST)){
-            categoryStorage.createCategory(categoryName);
-            int counterEntry = 0;
-            String entryName = savedData.getString(categoryName + counterEntry, ENTRY_NOT_EXIST);
-            while (!entryName.equals(ENTRY_NOT_EXIST)){
-                categoryStorage.getCategory(categoryName).addEntry(entryName);
-                counterEntry++;
-                entryName = savedData.getString(categoryName + counterEntry, ENTRY_NOT_EXIST);
-            }
-            counterCategory++;
-            categoryName = savedData.getString(CATEGORY + counterCategory, CATEGORY_NOT_EXIST);
-        }
     }
 
 
@@ -193,6 +169,7 @@ public class StartPage extends Activity {
                 imm.hideSoftInputFromWindow(textView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
                 //TODO call the method createCategory only, if the categoryName is not null, if it is null set the text size back to 50
                 createCategory(categoryName);
+                textView.setFocusableInTouchMode(false);
                 textView.clearFocus();
                 handled = true;
             }
