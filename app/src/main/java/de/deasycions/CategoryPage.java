@@ -35,7 +35,7 @@ public class CategoryPage extends Activity {
         ((Button) findViewById(R.id.categoryName)).setText(categoryName);
 
         newCategory = categoryStorage.getCategory(categoryName);
-        if(!newCategory.isEmpty()){
+        if(newCategory!=null){
             showEntries();
         }
 

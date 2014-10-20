@@ -42,7 +42,10 @@ public class SharedData {
             }
             counterCategory++;
             categoryName = savedData.getString(CATEGORY + counterCategory, CATEGORY_NOT_EXIST);
+
         }
+
+
     }
 
     public void saveData(){
@@ -58,6 +61,12 @@ public class SharedData {
             }
             counter++;
         }
+        editor.commit();
+    }
+
+    public void clearSharedPreferences(){
+        SharedPreferences.Editor editor = savedData.edit();
+        editor.clear();
         editor.commit();
     }
 

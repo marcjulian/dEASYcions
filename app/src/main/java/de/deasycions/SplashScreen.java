@@ -19,6 +19,7 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splashscreen);
         SharedData sharedData = new SharedData(this);
         sharedData.loadData();
+        sharedData.clearSharedPreferences();
         Thread timer = new Thread(){
             public void run(){
                 try{

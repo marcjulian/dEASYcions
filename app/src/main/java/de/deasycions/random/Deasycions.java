@@ -1,5 +1,7 @@
 package de.deasycions.random;
 
+import java.util.Random;
+
 import de.deasycions.data.Category;
 import de.deasycions.data.EmptyCategoryException;
 
@@ -14,7 +16,8 @@ public class Deasycions {
         if (category.isEmpty()) {
             throw new EmptyCategoryException();
         }
-        int random = (int) (Math.random() * category.size());
-        return category.getEntry(random);
+
+        Random random = new Random();
+        return category.getEntry( random.nextInt(category.size()));
     }
 }

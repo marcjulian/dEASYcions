@@ -25,9 +25,15 @@ public class CategoryStorage {
 
     public void createCategory(String categoryName){
         Category category = new Category(categoryName);
-        //TODO use the new method if the categoryName already exists
-        if(getCategory(categoryName) == null) {
+        if(!containsCategory(categoryName)) {
             savedCategories.put(category.getName(), category);
+        }
+    }
+
+    public void deleteCategory(String categoryName){
+        Category category = new Category(categoryName);
+        if(getCategory(categoryName) != null) {
+            savedCategories.remove(category);
         }
     }
 
@@ -44,6 +50,11 @@ public class CategoryStorage {
        return savedCategories.entrySet();
     }
 
-    //TODO new method which can tell, if a categoryName already exist or not
+    public boolean containsCategory(String categoryName){
+
+        return savedCategories.containsKey(categoryName);
+
+
+    }
 
 }
