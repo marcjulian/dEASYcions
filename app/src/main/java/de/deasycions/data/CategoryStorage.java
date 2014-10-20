@@ -14,47 +14,62 @@ public class CategoryStorage {
     private static CategoryStorage instance;
 
     private CategoryStorage() {
-        savedCategories = new HashMap<String, Category>();    }
+        savedCategories = new HashMap<String, Category>();
+    }
 
-    public static CategoryStorage getInstance(){
-        if(CategoryStorage.instance == null){
+    public static CategoryStorage getInstance() {
+        if (CategoryStorage.instance == null) {
             CategoryStorage.instance = new CategoryStorage();
         }
         return CategoryStorage.instance;
     }
 
-    public void createCategory(String categoryName){
+    /**
+     * It is Case-insensitivity.
+     * @param categoryName
+     */
+    public void createCategory(String categoryName) {
         Category category = new Category(categoryName);
-        if(!containsCategory(categoryName)) {
-            savedCategories.put(category.getName(), category);
-        }
+        savedCategories.put(category.getName().toLowerCase(), category);
     }
 
-    public void deleteCategory(String categoryName){
+    public void deleteCategory(String categoryName) {
         Category category = new Category(categoryName);
-        if(getCategory(categoryName) != null) {
+        if (getCategory(categoryName) != null) {
             savedCategories.remove(category);
         }
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return savedCategories.isEmpty();
     }
 
-    public Category getCategory(String name){
-        return savedCategories.get(name);
+    /**
+     * It is Case-insensitivity.
+     * @param name
+     * @return
+     */
+    public Category getCategory(String name) {
+        return savedCategories.get(name.toLowerCase());
     }
 
 
-    public Set<Map.Entry<String, Category>> getCategorySet(){
-       return savedCategories.entrySet();
+    public Set<Map.Entry<String, Category>> getCategorySet() {
+        return savedCategories.entrySet();
     }
 
-    public boolean containsCategory(String categoryName){
-
-        return savedCategories.containsKey(categoryName);
-
-
+    /**
+     * It is Case-insensitivity.
+     *
+     * @param categoryName
+     * @return
+     */
+    public boolean containsCategory(String categoryName) {
+        return savedCategories.containsKey(categoryName.toLowerCase());
     }
 
+    public void setNewCategoryName(String currentName, String newCategoryName) {
+        Category category = getCategory(currentName);
+        category.changeCategoryName(newCategoryName);
+    }
 }

@@ -2,43 +2,45 @@ package de.deasycions;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.Map;
-import java.util.Set;
+import android.widget.TextView;
 
 import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
 import de.deasycions.data.SharedData;
+import de.deasycions.listener.CategoryDoneEditorListener;
+import de.deasycions.listener.EntryDoneEditorListener;
+import de.deasycions.listener.FirstOnClickListener;
+import de.deasycions.listener.LongHoldClickListener;
+import de.deasycions.utilities.ListenerUtility;
 
-
+/**
+ * Category age of dEASYcions app.
+ * Category page is displaying and managing the entries of a category (add, edit, deleting).
+ *
+ * @author Marc Stammerjohann
+ */
 public class CategoryPage extends Activity {
     private CategoryStorage categoryStorage;
     private Category newCategory;
-
-    //TODO change to one edittext array, see StartPage class
-    private EditText clu,cru,cr,cl,cld,crd;
+    private EditText[] editText;
+    private TextView message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
-        initialize();
-
         Intent intent = getIntent();
         String categoryName = intent.getStringExtra(StartPage.CATEGORY_NAME);
         ((Button) findViewById(R.id.categoryName)).setText(categoryName);
-
+        categoryStorage = CategoryStorage.getInstance();
         newCategory = categoryStorage.getCategory(categoryName);
-        if(newCategory!=null){
-            showEntries();
-        }
 
+        initialize();
+        displayEntries();
     }
 
     @Override
@@ -51,84 +53,48 @@ public class CategoryPage extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         SharedData sharedData = new SharedData(this);
+        sharedData.clearSharedPreferences();
         sharedData.saveData();
     }
 
-    // TODO use the array index (for loop?), maybe then we won't need the switch case anymore
-    private void showEntries() {
+    private void displayEntries() {
         int size = newCategory.size();
-        switch (size){
-            case 1: setNextETVisible(clu,cru);
-                clu.setText(newCategory.getEntry(0).getName());
-                break;
-            case 2:
-                setNextETVisible(clu, cru);
-                setNextETVisible(cru, cr);
-                clu.setText(newCategory.getEntry(0).getName());
-                cru.setText(newCategory.getEntry(1).getName());
-                break;
-            //TODO more cases or for loop?
-            default:break;
-
+        for (int i = 0; i < size; i++) {
+            EditText currentEditText = editText[i];
+            currentEditText.setTextSize(20);
+            currentEditText.setVisibility(View.VISIBLE);
+            editText[i].setText(newCategory.getEntry(i).getName());
         }
+        editText[size % editText.length].setVisibility(View.VISIBLE);
     }
 
     private void initialize() {
-       categoryStorage = CategoryStorage.getInstance();
+        message = (TextView) findViewById(R.id.ContainsMessage);
+        EntryDoneEditorListener entryDoneEditorListener = new EntryDoneEditorListener(this, message, newCategory);
 
-        //TODO initialize the array of EditText, add the EditText in the correct order (clu, cru, cr, crd, cld, cl), see StartPage Class
-        clu = (EditText) findViewById(R.id.cetLU);
-        clu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setNextETVisible(clu,cru);
-            }
-        });
-        cru = (EditText) findViewById(R.id.cetRU);
-        cru.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setNextETVisible(cru, cr);
-            }
-        });
-        cr = (EditText) findViewById(R.id.cetR);
-        cr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setNextETVisible(cr, crd);
-            }
-        });
-        crd = (EditText) findViewById(R.id.cetRD);
-        crd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setNextETVisible(crd, cld);
-            }
-        });
-        cld = (EditText) findViewById(R.id.cetLD);
-        cld.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setNextETVisible(cld, cl);
-            }
-        });
-        cl = (EditText) findViewById(R.id.cetL);
-        cl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cl.setTextSize(20);
-            }
-        });
+        editText = new EditText[6];
+        editText[0] = (EditText) findViewById(R.id.cetLU);
+        editText[1] = (EditText) findViewById(R.id.cetRU);
+        editText[2] = (EditText) findViewById(R.id.cetR);
+        editText[3] = (EditText) findViewById(R.id.cetRD);
+        editText[4] = (EditText) findViewById(R.id.cetLD);
+        editText[5] = (EditText) findViewById(R.id.cetL);
 
+        for (int i = 0; i < editText.length; i++) {
+            editText[i].setOnClickListener(new FirstOnClickListener(this, editText));
+            editText[i].setOnEditorActionListener(entryDoneEditorListener);
+            editText[i].setOnLongClickListener(new LongHoldClickListener(this, editText, entryDoneEditorListener));
+        }
     }
 
-    public void setNextETVisible(final EditText et, final EditText etNext){
-        et.setTextSize(20);
-        etNext.setVisibility(View.VISIBLE);
-        et.performHapticFeedback(1);
-        et.setEnabled(false);
-
-        String entryName = et.getText().toString();
-        newCategory.addEntry(entryName);
-      }
+    public void addEntry(String newEntryName) {
+        editText[(ListenerUtility.editTextPosition + 1) % editText.length].setVisibility(View.VISIBLE);
+        newCategory.addEntry(newEntryName);
+        editText[ListenerUtility.editTextPosition].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do nothing
+            }
+        });
+    }
 }

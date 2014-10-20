@@ -2,13 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="175dp"
-    tools:context=".StartPage"
+    android:paddingTop="50dp"
+    tools:context=".CategoryPage"
     android:orientation="vertical"
     android:background="@drawable/background"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     >
+    <TextView
+        android:id="@+id/ContainsMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="top"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:paddingBottom="125dp"
+        android:visibility="invisible"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,6 +37,10 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
         <EditText
             android:id = "@+id/cetRU"
@@ -41,6 +55,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
     </LinearLayout>
     <LinearLayout
@@ -60,6 +78,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
         <Button
             android:layout_width="120dp"
@@ -84,6 +106,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
     </LinearLayout>
 
@@ -105,6 +131,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
 
             />
         <EditText
@@ -120,6 +150,10 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
+            android:maxLength="7"
+            android:focusable="false"
+            android:imeOptions="actionDone"
+            android:inputType="text"
             />
 
     </LinearLayout>

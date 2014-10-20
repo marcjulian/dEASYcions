@@ -9,6 +9,8 @@ import de.deasycions.data.CategoryStorage;
 import de.deasycions.data.SharedData;
 
 /**
+ * Splash Screen of dEASYcions app. Loading data from shared preferences and displaying the app icon.
+ *
  * @author Gary Grossgarten
  */
 public class SplashScreen extends Activity {
@@ -19,7 +21,6 @@ public class SplashScreen extends Activity {
         setContentView(R.layout.activity_splashscreen);
         SharedData sharedData = new SharedData(this);
         sharedData.loadData();
-        sharedData.clearSharedPreferences();
         Thread timer = new Thread(){
             public void run(){
                 try{
@@ -27,7 +28,7 @@ public class SplashScreen extends Activity {
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }finally{
-
+                    //Starting the Startpage
                     Intent intent = new Intent("de.deasycions.StartPage");
                     startActivity(intent);
                 }

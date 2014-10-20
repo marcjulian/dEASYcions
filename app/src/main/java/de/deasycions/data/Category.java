@@ -1,7 +1,6 @@
 package de.deasycions.data;
 
 /**
- *
  * Category is a data structure saving a category name and entries objects.
  *
  * @author Marc Stammerjohann
@@ -115,22 +114,40 @@ public class Category {
     /**
      * changes the entry name at the given position.
      *
-     * @param name     to change the entry name to
-     * @param position starts at 0
+     * @param currentName of the entry
+     * @param newName to change the entry name to
      * @throws IndexOutOfBoundsException
      */
-    public void changeEntryName(String name, int position)
+    public void changeEntryName(String currentName, String newName)
             throws IndexOutOfBoundsException {
-        if (isEmpty() || position > size()) {
+        if (isEmpty()) {
             throw new IndexOutOfBoundsException();
         }
 
         Entry current = first;
-        for (int i = 0; i < position; i++) {
+        while(!current.getName().equals(currentName)){
             current = current.next;
         }
 
-        current.setName(name);
+        current.setName(newName);
+    }
+
+    /**
+     * Returns whether an entry of the same name exists already or not.
+     * It is Case-insensitivity.
+     *
+     * @param name for a new entry
+     * @return
+     */
+    public boolean containsEntry(String name) {
+        Entry current = first;
+        while (current != null) {
+            if (current.getName().toLowerCase().equals(name.toLowerCase())) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
     }
 
 

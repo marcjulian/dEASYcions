@@ -21,42 +21,39 @@ public class SharedData {
 
     private Activity currentActivity;
 
-    public SharedData(Activity currentActivity){
+    public SharedData(Activity currentActivity) {
         this.currentActivity = currentActivity;
         this.categoryStorage = CategoryStorage.getInstance();
         savedData = currentActivity.getSharedPreferences(filename, currentActivity.MODE_PRIVATE);
     }
 
-    public void loadData(){
+    public void loadData() {
         int counterCategory = 0;
         savedData = currentActivity.getSharedPreferences(filename, currentActivity.MODE_PRIVATE);
         String categoryName = savedData.getString(CATEGORY + counterCategory, CATEGORY_NOT_EXIST);
-        while(!categoryName.equals(CATEGORY_NOT_EXIST)){
+        while (!categoryName.equals(CATEGORY_NOT_EXIST)) {
             categoryStorage.createCategory(categoryName);
             int counterEntry = 0;
             String entryName = savedData.getString(categoryName + counterEntry, ENTRY_NOT_EXIST);
-            while (!entryName.equals(ENTRY_NOT_EXIST)){
+            while (!entryName.equals(ENTRY_NOT_EXIST)) {
                 categoryStorage.getCategory(categoryName).addEntry(entryName);
                 counterEntry++;
                 entryName = savedData.getString(categoryName + counterEntry, ENTRY_NOT_EXIST);
             }
             counterCategory++;
             categoryName = savedData.getString(CATEGORY + counterCategory, CATEGORY_NOT_EXIST);
-
         }
-
-
     }
 
-    public void saveData(){
+    public void saveData() {
         int counter = 0;
         SharedPreferences.Editor editor = savedData.edit();
         Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
-        for(Map.Entry<String, Category> entry : categorySet){
+        for (Map.Entry<String, Category> entry : categorySet) {
             Category currentCategory = entry.getValue();
             String categoryName = currentCategory.getName();
             editor.putString(CATEGORY + counter, categoryName);
-            for (int i = 0; i < currentCategory.size(); i++){
+            for (int i = 0; i < currentCategory.size(); i++) {
                 editor.putString(categoryName + i, currentCategory.getEntry(i).getName());
             }
             counter++;
@@ -64,7 +61,7 @@ public class SharedData {
         editor.commit();
     }
 
-    public void clearSharedPreferences(){
+    public void clearSharedPreferences() {
         SharedPreferences.Editor editor = savedData.edit();
         editor.clear();
         editor.commit();
