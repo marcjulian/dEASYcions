@@ -43,7 +43,6 @@ public class EntryDoneEditorListener implements TextView.OnEditorActionListener 
             String newEntryName = textView.getText().toString();
             // hiding the keyboard
             imm.hideSoftInputFromWindow(textView.getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
-
             if(!verifyNewEntryName(newEntryName)){
                 ListenerUtility.setInfoTextMessage(message, textView, infoMessage, currentName);
             }else{

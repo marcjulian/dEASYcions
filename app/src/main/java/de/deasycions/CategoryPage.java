@@ -64,6 +64,12 @@ public class CategoryPage extends Activity {
             currentEditText.setTextSize(20);
             currentEditText.setVisibility(View.VISIBLE);
             editText[i].setText(newCategory.getEntry(i).getName());
+            editText[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //do nothing
+                }
+            });
         }
         editText[size % editText.length].setVisibility(View.VISIBLE);
     }

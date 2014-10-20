@@ -33,7 +33,6 @@ public class StartPage extends Activity {
      * Constant for recieving the category name in the intent.
      */
     public final static String CATEGORY_NAME = "de.deasycions.MESSAGE";
-    // private Button randomize;
     private EditText[] editText;
     private TextView message;
     private CategoryStorage categoryStorage;
@@ -56,7 +55,6 @@ public class StartPage extends Activity {
 
     private void initialize() {
         categoryStorage = CategoryStorage.getInstance();
-        //randomize = (Button) findViewById(R.id.random);
         message = (TextView) findViewById(R.id.ContainsMessage);
         CategoryDoneEditorListener categoryDoneEditorListener = new CategoryDoneEditorListener(this, message);
 
@@ -112,9 +110,6 @@ public class StartPage extends Activity {
         intent.putExtra(CATEGORY_NAME, categoryName);
         startActivity(intent);
     }
-
-    //public void startRandom(View view) {
-    //}
 
     //private void deleteCategory(String categoryName) {
     //    categoryStorage.deleteCategory(categoryName);

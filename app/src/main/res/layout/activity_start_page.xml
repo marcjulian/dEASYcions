@@ -93,7 +93,6 @@
             android:id="@+id/random"
             android:background="@drawable/button_shape"
             android:gravity="center"
-            android:onClick="startRandom"
             android:textSize="19dp"
             android:textStyle="bold"
             android:layout_marginLeft="5dp"

@@ -118,18 +118,14 @@ public class Category {
      * @param newName to change the entry name to
      * @throws IndexOutOfBoundsException
      */
-    public void changeEntryName(String currentName, String newName)
-            throws IndexOutOfBoundsException {
-        if (isEmpty()) {
-            throw new IndexOutOfBoundsException();
-        }
-
+    public void changeEntryName(String currentName, String newName)        {
         Entry current = first;
-        while(!current.getName().equals(currentName)){
+        while(current.getName().equals(currentName)){
+            if(current.getName().equals(currentName)){
+                current.setName(newName);
+            }
             current = current.next;
         }
-
-        current.setName(newName);
     }
 
     /**

@@ -37,7 +37,6 @@ public class LongHoldClickListener implements View.OnLongClickListener {
         ListenerUtility.editTextPosition = position;
         EditText current = editText[position];
         current.setFocusableInTouchMode(true);
-        current.setTextSize(20);
         current.requestFocus();
         imm.showSoftInput(current, InputMethodManager.SHOW_IMPLICIT);
         if (onEditorActionListener instanceof CategoryDoneEditorListener) {
