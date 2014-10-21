@@ -15,6 +15,8 @@ import de.deasycions.data.SharedData;
  */
 public class SplashScreen extends Activity {
 
+    private static String NEXT_PAGE = "de.deasycions.StartPage";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,7 @@ public class SplashScreen extends Activity {
                     e.printStackTrace();
                 }finally{
                     //Starting the Startpage
-                    Intent intent = new Intent("de.deasycions.StartPage");
+                    Intent intent = new Intent(NEXT_PAGE);
                     startActivity(intent);
                 }
             }

@@ -17,6 +17,7 @@ import de.deasycions.listener.EntryDoneEditorListener;
 import de.deasycions.listener.FirstOnClickListener;
 import de.deasycions.listener.LongHoldClickListener;
 import de.deasycions.listener.OnClickCategoryListener;
+import de.deasycions.utilities.ActivityUtility;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -26,24 +27,20 @@ import de.deasycions.utilities.ListenerUtility;
  * @author Marc Stammerjohann
  */
 public class CategoryPage extends Activity {
+    /**
+     * Constant for receiving the category name in the intent.
+     */
+    public final static String CATEGORY_NAME = "categorypage.CATEGORY.NAME";
     private CategoryStorage categoryStorage;
     private Category newCategory;
     private EditText[] editText;
     private TextView message;
     private Button category_button;
 
-    private static final String categoryString = "CategoryNameExtra";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
-        Intent intent = getIntent();
-        String categoryName = intent.getStringExtra(StartPage.CATEGORY_NAME);
-        ((Button) findViewById(R.id.categoryName)).setText(categoryName);
-        categoryStorage = CategoryStorage.getInstance();
-        newCategory = categoryStorage.getCategory(categoryName);
-
         initialize();
         displayEntries();
     }
@@ -80,25 +77,23 @@ public class CategoryPage extends Activity {
     }
 
     private void initialize() {
+        //Intent-Section
+        Intent intent = getIntent();
+        String categoryName = intent.getStringExtra(StartPage.CATEGORY_NAME);
+        //Category-Section
+        categoryStorage = CategoryStorage.getInstance();
+        newCategory = categoryStorage.getCategory(categoryName);
+        //Widget-Section
         message = (TextView) findViewById(R.id.ContainsMessage);
         category_button = (Button) findViewById(R.id.categoryName);
-        Intent openCategoryPageRandomize = new Intent(this, CategoryPageRandomize.class);
-        category_button.setOnClickListener(new OnClickCategoryListener(this, category_button, newCategory.getName()));
+        category_button.setText(newCategory.getName());
+        editText = ActivityUtility.createEditText(this);
+        //Listener-Section
+        FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         EntryDoneEditorListener entryDoneEditorListener = new EntryDoneEditorListener(this, message, newCategory);
-
-        editText = new EditText[6];
-        editText[0] = (EditText) findViewById(R.id.cetLU);
-        editText[1] = (EditText) findViewById(R.id.cetRU);
-        editText[2] = (EditText) findViewById(R.id.cetR);
-        editText[3] = (EditText) findViewById(R.id.cetRD);
-        editText[4] = (EditText) findViewById(R.id.cetLD);
-        editText[5] = (EditText) findViewById(R.id.cetL);
-
-        for (int i = 0; i < editText.length; i++) {
-            editText[i].setOnClickListener(new FirstOnClickListener(this, editText));
-            editText[i].setOnEditorActionListener(entryDoneEditorListener);
-            editText[i].setOnLongClickListener(new LongHoldClickListener(this, editText, entryDoneEditorListener));
-        }
+        LongHoldClickListener longHoldClickListener = new LongHoldClickListener(this, editText, entryDoneEditorListener);
+        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener, longHoldClickListener);
+        category_button.setOnClickListener(new OnClickCategoryListener(this, newCategory.getName()));
     }
 
     public void addEntry(String newEntryName) {
@@ -112,10 +107,11 @@ public class CategoryPage extends Activity {
         });
     }
 
-
     public void startCategoryPageRandomizeActivity(String categoryName) {
-        Intent intent = new Intent(this, CategoryPageRandomize.class);
-        intent.putExtra("CategoryNameExtra", categoryName);
-        startActivity(intent);
+        if (!newCategory.isEmpty()) {
+            Intent intent = new Intent(this, CategoryPageRandomize.class);
+            intent.putExtra(CATEGORY_NAME, categoryName);
+            startActivity(intent);
+        }
     }
 }

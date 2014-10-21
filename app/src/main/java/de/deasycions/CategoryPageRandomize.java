@@ -10,21 +10,24 @@ import android.widget.TextView;
 
 import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
-import de.deasycions.listener.FirstOnClickListener;
-import de.deasycions.listener.LongHoldClickListener;
 import de.deasycions.listener.OnClickRandomListener;
-import de.deasycions.utilities.ListenerUtility;
+import de.deasycions.utilities.ActivityUtility;
 
 /**
  * @author Gary         //TODO auskommentieren!!
  */
 public class CategoryPageRandomize extends Activity {
+
+    /**
+     * Constant for receiving the category name in the intent.
+     */
+    public final static String RESULT = "categorypagerandomize.RESULT";
     private EditText[] editText;
     private CategoryStorage categoryStorage;
-    private Category newCategory;
+    private Category currentCategory;
     private Button randomize;
-    String categoryName;
-    TextView categoryTextView;
+    private String categoryName;
+    private TextView categoryTextView;
 
 
     @Override
@@ -32,56 +35,7 @@ public class CategoryPageRandomize extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page_random);
         initialize();
-        Intent intent = getIntent();
-        categoryName = intent.getStringExtra("CategoryNameExtra");
-        newCategory = categoryStorage.getCategory(categoryName);
-        ((TextView) findViewById(R.id.displayCategoryName)).setText(categoryName);
         displayEntries();
-    }
-
-
-
-    private void initialize() {
-        categoryStorage = CategoryStorage.getInstance();
-        randomize = (Button) findViewById(R.id.categoryName);
-
-        categoryTextView = (TextView) findViewById(R.id.displayCategoryName);
-
-        editText = new EditText[6];
-        editText[0] = (EditText) findViewById(R.id.cetLU);
-        editText[1] = (EditText) findViewById(R.id.cetRU);
-        editText[2] = (EditText) findViewById(R.id.cetR);
-        editText[3] = (EditText) findViewById(R.id.cetRD);
-        editText[4] = (EditText) findViewById(R.id.cetLD);
-        editText[5] = (EditText) findViewById(R.id.cetL);
-
-        randomize.setOnClickListener(new OnClickRandomListener(this, randomize, editText));
-    }
-
-    public void setNextETVisible(final EditText et, final EditText etNext){
-        et.setTextSize(20);
-        etNext.setVisibility(View.VISIBLE);
-        et.performHapticFeedback(1);
-        et.setEnabled(false);
-
-        String entryName = et.getText().toString();
-        newCategory.addEntry(entryName);
-    }
-    private void displayEntries() {
-        int size = newCategory.size();
-        for (int i = 0; i < size; i++) {
-            EditText currentEditText = editText[i];
-            currentEditText.setTextSize(20);
-            currentEditText.setVisibility(View.VISIBLE);
-            editText[i].setText(newCategory.getEntry(i).getName());
-            editText[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //do nothing
-                }
-            });
-        }
-
     }
 
     @Override
@@ -90,9 +44,34 @@ public class CategoryPageRandomize extends Activity {
         finish();
     }
 
+    private void initialize() {
+        //Intent-Section
+        Intent intent = getIntent();
+        categoryName = intent.getStringExtra(CategoryPage.CATEGORY_NAME);
+        //Category-Section
+        categoryStorage = CategoryStorage.getInstance();
+        currentCategory = categoryStorage.getCategory(categoryName);
+        //Widget-Section
+        randomize = (Button) findViewById(R.id.categoryName);
+        categoryTextView = (TextView) findViewById(R.id.displayCategoryName);
+        categoryTextView.setText(categoryName);
+        editText = ActivityUtility.createEditText(this);
+        //Listener-Section
+        randomize.setOnClickListener(new OnClickRandomListener(this, currentCategory));
+    }
+
+    private void displayEntries() {
+        int size = currentCategory.size();
+        for (int i = 0; i < size; i++) {
+            EditText currentEditText = editText[i];
+            currentEditText.setVisibility(View.VISIBLE);
+            editText[i].setText(currentCategory.getEntry(i).getName());
+        }
+    }
+
     public void startResultPageActivity(String result) {
         Intent intent = new Intent(this, ResultPage.class);
-        intent.putExtra("Result", result);
+        intent.putExtra(RESULT, result);
         startActivity(intent);
     }
 }

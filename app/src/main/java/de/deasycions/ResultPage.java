@@ -8,20 +8,22 @@ import android.widget.TextView;
 /**
  * @author Gary             //TODO auskommentieren!!
  */
-public class ResultPage extends Activity{
-    TextView result;
-    String resultString;
-
+public class ResultPage extends Activity {
+    private TextView result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_page);
-        result = (TextView) findViewById(R.id.resultTextView);
+        initialize();
+    }
+
+    private void initialize() {
+        //Intent-Section
         Intent intent = getIntent();
-        resultString = intent.getStringExtra("Result");
-        ((TextView) findViewById(R.id.resultTextView)).setText(resultString);
-
-
+        String resultString = intent.getStringExtra(CategoryPageRandomize.RESULT);
+        //Widget-Section
+        result = (TextView) findViewById(R.id.resultTextView);
+        result.setText(resultString);
     }
 }

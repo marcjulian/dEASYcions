@@ -17,6 +17,7 @@ import de.deasycions.listener.CategoryDoneEditorListener;
 import de.deasycions.listener.FirstOnClickListener;
 import de.deasycions.listener.LongHoldClickListener;
 import de.deasycions.listener.SecondOnClickListener;
+import de.deasycions.utilities.ActivityUtility;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -30,9 +31,9 @@ import de.deasycions.utilities.ListenerUtility;
  */
 public class StartPage extends Activity {
     /**
-     * Constant for recieving the category name in the intent.
+     * Constant for receiving the category name in the intent.
      */
-    public final static String CATEGORY_NAME = "de.deasycions.MESSAGE";
+    public final static String CATEGORY_NAME = "startpage.CATEGORY.NAME";
     private EditText[] editText;
     private TextView message;
     private CategoryStorage categoryStorage;
@@ -54,27 +55,19 @@ public class StartPage extends Activity {
     }
 
     private void initialize() {
+        //Category-Section
         categoryStorage = CategoryStorage.getInstance();
+        //Widget-Section
         message = (TextView) findViewById(R.id.ContainsMessage);
+        editText = ActivityUtility.createEditText(this);
+        //Listener-Section
+        FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         CategoryDoneEditorListener categoryDoneEditorListener = new CategoryDoneEditorListener(this, message);
-
-        editText = new EditText[6];
-        editText[0] = (EditText) findViewById(R.id.etLU);
-        editText[1] = (EditText) findViewById(R.id.etRU);
-        editText[2] = (EditText) findViewById(R.id.etR);
-        editText[3] = (EditText) findViewById(R.id.etRD);
-        editText[4] = (EditText) findViewById(R.id.etLD);
-        editText[5] = (EditText) findViewById(R.id.etL);
-
-        for (int i = 0; i < editText.length; i++) {
-            editText[i].setOnClickListener(new FirstOnClickListener(this, editText));
-            editText[i].setOnEditorActionListener(categoryDoneEditorListener);
-            editText[i].setOnLongClickListener(new LongHoldClickListener(this, editText, categoryDoneEditorListener));
-        }
+        LongHoldClickListener longHoldClickListener = new LongHoldClickListener(this, editText, categoryDoneEditorListener);
+        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener, longHoldClickListener);
     }
 
     /**
-     *
      * @param categoryName
      */
     public void createCategory(String categoryName) {

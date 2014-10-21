@@ -84,6 +84,12 @@ public class CategoryDoneEditorListener implements TextView.OnEditorActionListen
             infoMessage = "The category name must not be empty!";
             return false;
         }
+        if(currentName != null){
+            if(currentName.toLowerCase().equals(input.toLowerCase())) {
+                infoMessage = "";
+                return false;
+            }
+        }
         if (categoryStorage.containsCategory(input)) {
             infoMessage = "The category " + input + " already exists";
             return false;

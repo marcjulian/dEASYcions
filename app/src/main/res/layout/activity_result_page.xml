@@ -10,7 +10,6 @@
         android:id="@+id/resultTextView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:text="Result"
         android:gravity="center"
         android:textSize="100dp"
         android:textColor="@android:color/black"

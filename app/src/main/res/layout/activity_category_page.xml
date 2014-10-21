@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:gravity="top"
         android:textSize="20dp"
-        android:textColor="#000"
+        android:textColor="#fff"
         android:paddingBottom="125dp"
         android:visibility="invisible"/>
 
@@ -26,7 +26,7 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
         <EditText
-            android:id = "@+id/cetLU"
+            android:id = "@+id/etLU"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
@@ -37,13 +37,13 @@
             android:textSize="50dp"
             android:textColorHint="#000000"
             android:hapticFeedbackEnabled="true"
-            android:maxLength="7"
+            android:maxLength="10"
             android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="text"
             />
         <EditText
-            android:id = "@+id/cetRU"
+            android:id = "@+id/etRU"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
@@ -55,7 +55,7 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
-            android:maxLength="7"
+            android:maxLength="10"
             android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -67,7 +67,7 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
         <EditText
-            android:id = "@+id/cetL"
+            android:id = "@+id/etL"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
@@ -78,7 +78,7 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
-            android:maxLength="7"
+            android:maxLength="10"
             android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -96,7 +96,7 @@
             android:hapticFeedbackEnabled="true"
             android:clickable="true"/>
         <EditText
-            android:id = "@+id/cetR"
+            android:id = "@+id/etR"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
@@ -107,7 +107,7 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
-            android:maxLength="7"
+            android:maxLength="10"
             android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="text"
@@ -120,7 +120,7 @@
         android:orientation="horizontal"
         android:layout_gravity="center">
         <EditText
-            android:id = "@+id/cetLD"
+            android:id = "@+id/etLD"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
@@ -132,14 +132,14 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
-            android:maxLength="7"
+            android:maxLength="10"
             android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="text"
 
             />
         <EditText
-            android:id = "@+id/cetRD"
+            android:id = "@+id/etRD"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:hint="@string/plus"
@@ -151,7 +151,7 @@
             android:textColorHint="#000000"
             android:visibility="invisible"
             android:hapticFeedbackEnabled="true"
-            android:maxLength="7"
+            android:maxLength="10"
             android:focusable="false"
             android:imeOptions="actionDone"
             android:inputType="text"

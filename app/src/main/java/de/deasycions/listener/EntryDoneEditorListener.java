@@ -73,6 +73,12 @@ public class EntryDoneEditorListener implements TextView.OnEditorActionListener 
             infoMessage = "The entry name must not be empty!";
             return false;
         }
+        if(currentName != null){
+            if(currentName.toLowerCase().equals(input.toLowerCase())) {
+                infoMessage = "";
+                return false;
+            }
+        }
         if (currentCategory.containsEntry(input)) {
             infoMessage = "The entry " + input + " already exists";
             return false;
