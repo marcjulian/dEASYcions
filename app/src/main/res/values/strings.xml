@@ -7,5 +7,6 @@
     <string name="plus">+</string>
     <string name="title_activity_category_page">CategoryPage</string>
     <string name="hello_world">Hello world!</string>
+    <string name="categories">Categories</string>
 
 </resources>

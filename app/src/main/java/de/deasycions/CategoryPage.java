@@ -1,6 +1,7 @@
 package de.deasycions;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import de.deasycions.listener.CategoryDoneEditorListener;
 import de.deasycions.listener.EntryDoneEditorListener;
 import de.deasycions.listener.FirstOnClickListener;
 import de.deasycions.listener.LongHoldClickListener;
+import de.deasycions.listener.OnClickCategoryListener;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -28,6 +30,9 @@ public class CategoryPage extends Activity {
     private Category newCategory;
     private EditText[] editText;
     private TextView message;
+    private Button category_button;
+
+    private static final String categoryString = "CategoryNameExtra";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,9 @@ public class CategoryPage extends Activity {
 
     private void initialize() {
         message = (TextView) findViewById(R.id.ContainsMessage);
+        category_button = (Button) findViewById(R.id.categoryName);
+        Intent openCategoryPageRandomize = new Intent(this, CategoryPageRandomize.class);
+        category_button.setOnClickListener(new OnClickCategoryListener(this, category_button, newCategory.getName()));
         EntryDoneEditorListener entryDoneEditorListener = new EntryDoneEditorListener(this, message, newCategory);
 
         editText = new EditText[6];
@@ -102,5 +110,12 @@ public class CategoryPage extends Activity {
                 //do nothing
             }
         });
+    }
+
+
+    public void startCategoryPageRandomizeActivity(String categoryName) {
+        Intent intent = new Intent(this, CategoryPageRandomize.class);
+        intent.putExtra("CategoryNameExtra", categoryName);
+        startActivity(intent);
     }
 }

@@ -12,10 +12,10 @@ import de.deasycions.data.EmptyCategoryException;
  */
 public class Deasycions {
 
-    public Category.Entry random(Category category) throws EmptyCategoryException {
-        if (category.isEmpty()) {
-            throw new EmptyCategoryException();
-        }
+    public static Category.Entry random(Category category)throws EmptyCategoryException {
+       if (category.isEmpty()) {
+          throw new EmptyCategoryException();
+       }
 
         Random random = new Random();
         return category.getEntry( random.nextInt(category.size()));

@@ -93,7 +93,8 @@
             android:textStyle="bold"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:hapticFeedbackEnabled="true"/>
+            android:hapticFeedbackEnabled="true"
+            android:clickable="true"/>
         <EditText
             android:id = "@+id/cetR"
             android:layout_width="100dp"
