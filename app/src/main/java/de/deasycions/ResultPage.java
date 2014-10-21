@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import de.deasycions.utilities.ActivityUtility;
+
 /**
  * @author Gary             //TODO auskommentieren!!
  */
@@ -21,7 +23,7 @@ public class ResultPage extends Activity {
     private void initialize() {
         //Intent-Section
         Intent intent = getIntent();
-        String resultString = intent.getStringExtra(CategoryPageRandomize.RESULT);
+        String resultString = intent.getStringExtra(ActivityUtility.RESULT);
         //Widget-Section
         result = (TextView) findViewById(R.id.resultTextView);
         result.setText(resultString);

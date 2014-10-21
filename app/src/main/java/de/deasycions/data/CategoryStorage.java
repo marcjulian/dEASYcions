@@ -1,6 +1,6 @@
 package de.deasycions.data;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,12 +9,12 @@ import java.util.Set;
  */
 public class CategoryStorage {
 
-    private HashMap<String, Category> savedCategories;
+    private LinkedHashMap<String, Category> savedCategories;
 
     private static CategoryStorage instance;
 
     private CategoryStorage() {
-        savedCategories = new HashMap<String, Category>();
+        savedCategories = new LinkedHashMap<String, Category>();
     }
 
     public static CategoryStorage getInstance() {

@@ -3,6 +3,7 @@ package de.deasycions;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,15 +28,14 @@ import de.deasycions.utilities.ListenerUtility;
  * @author Marc Stammerjohann
  */
 public class CategoryPage extends Activity {
-    /**
-     * Constant for receiving the category name in the intent.
-     */
-    public final static String CATEGORY_NAME = "categorypage.CATEGORY.NAME";
+
     private CategoryStorage categoryStorage;
     private Category newCategory;
     private EditText[] editText;
     private TextView message;
-    private Button category_button;
+    private Button categoryButton;
+    //swaping color of the button to the selected category
+    private int currentCategoryPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class CategoryPage extends Activity {
         setContentView(R.layout.activity_category_page);
         initialize();
         displayEntries();
+        ActivityUtility.swapBackgroundColor(categoryButton, editText, currentCategoryPosition);
     }
 
     @Override
@@ -79,21 +80,22 @@ public class CategoryPage extends Activity {
     private void initialize() {
         //Intent-Section
         Intent intent = getIntent();
-        String categoryName = intent.getStringExtra(StartPage.CATEGORY_NAME);
+        String categoryName = intent.getStringExtra(ActivityUtility.CATEGORY_NAME);
+        currentCategoryPosition = intent.getIntExtra(ActivityUtility.CATEGORY_POSITION, -1);
         //Category-Section
         categoryStorage = CategoryStorage.getInstance();
         newCategory = categoryStorage.getCategory(categoryName);
         //Widget-Section
         message = (TextView) findViewById(R.id.ContainsMessage);
-        category_button = (Button) findViewById(R.id.categoryName);
-        category_button.setText(newCategory.getName());
+        categoryButton = (Button) findViewById(R.id.categoryName);
+        categoryButton.setText(newCategory.getName());
         editText = ActivityUtility.createEditText(this);
         //Listener-Section
         FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         EntryDoneEditorListener entryDoneEditorListener = new EntryDoneEditorListener(this, message, newCategory);
         LongHoldClickListener longHoldClickListener = new LongHoldClickListener(this, editText, entryDoneEditorListener);
         ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener, longHoldClickListener);
-        category_button.setOnClickListener(new OnClickCategoryListener(this, newCategory.getName()));
+        categoryButton.setOnClickListener(new OnClickCategoryListener(this, newCategory.getName()));
     }
 
     public void addEntry(String newEntryName) {
@@ -110,7 +112,8 @@ public class CategoryPage extends Activity {
     public void startCategoryPageRandomizeActivity(String categoryName) {
         if (!newCategory.isEmpty()) {
             Intent intent = new Intent(this, CategoryPageRandomize.class);
-            intent.putExtra(CATEGORY_NAME, categoryName);
+            intent.putExtra(ActivityUtility.CATEGORY_NAME, categoryName);
+            intent.putExtra(ActivityUtility.CATEGORY_POSITION, currentCategoryPosition);
             startActivity(intent);
         }
     }

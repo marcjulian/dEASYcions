@@ -30,10 +30,6 @@ import de.deasycions.utilities.ListenerUtility;
  * @author Marc Stammerjohann
  */
 public class StartPage extends Activity {
-    /**
-     * Constant for receiving the category name in the intent.
-     */
-    public final static String CATEGORY_NAME = "startpage.CATEGORY.NAME";
     private EditText[] editText;
     private TextView message;
     private CategoryStorage categoryStorage;
@@ -100,7 +96,8 @@ public class StartPage extends Activity {
      */
     public void startCategoryPageActivity(String categoryName) {
         Intent intent = new Intent(this, CategoryPage.class);
-        intent.putExtra(CATEGORY_NAME, categoryName);
+        intent.putExtra(ActivityUtility.CATEGORY_NAME, categoryName);
+        intent.putExtra(ActivityUtility.CATEGORY_POSITION, ListenerUtility.editTextPosition);
         startActivity(intent);
     }
 

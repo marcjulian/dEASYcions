@@ -18,17 +18,14 @@ import de.deasycions.utilities.ActivityUtility;
  */
 public class CategoryPageRandomize extends Activity {
 
-    /**
-     * Constant for receiving the category name in the intent.
-     */
-    public final static String RESULT = "categorypagerandomize.RESULT";
     private EditText[] editText;
     private CategoryStorage categoryStorage;
     private Category currentCategory;
     private Button randomize;
     private String categoryName;
     private TextView categoryTextView;
-
+    //swaping color of the button to the selected category
+    private int currentCategoryPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +33,7 @@ public class CategoryPageRandomize extends Activity {
         setContentView(R.layout.activity_category_page_random);
         initialize();
         displayEntries();
+        ActivityUtility.swapBackgroundColor(randomize, editText, currentCategoryPosition);
     }
 
     @Override
@@ -47,7 +45,8 @@ public class CategoryPageRandomize extends Activity {
     private void initialize() {
         //Intent-Section
         Intent intent = getIntent();
-        categoryName = intent.getStringExtra(CategoryPage.CATEGORY_NAME);
+        categoryName = intent.getStringExtra(ActivityUtility.CATEGORY_NAME);
+        currentCategoryPosition = intent.getIntExtra(ActivityUtility.CATEGORY_POSITION, -1);
         //Category-Section
         categoryStorage = CategoryStorage.getInstance();
         currentCategory = categoryStorage.getCategory(categoryName);
@@ -71,7 +70,7 @@ public class CategoryPageRandomize extends Activity {
 
     public void startResultPageActivity(String result) {
         Intent intent = new Intent(this, ResultPage.class);
-        intent.putExtra(RESULT, result);
+        intent.putExtra(ActivityUtility.RESULT, result);
         startActivity(intent);
     }
 }

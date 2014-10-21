@@ -1,7 +1,9 @@
 package de.deasycions.utilities;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,6 +15,20 @@ import de.deasycions.R;
  * @author Marc Stammerjohann
  */
 public final class ActivityUtility {
+    /**
+     * Intent constant.
+     */
+    public final static String RESULT = "RESULT";
+
+    /**
+     * Intent constant.
+     */
+    public final static String CATEGORY_NAME = "CATEGORY.NAME";
+
+    /**
+     * Intent constant.
+     */
+    public final static String CATEGORY_POSITION = "CATEGORY.POSITION";
 
     private ActivityUtility() {
         //this class has only static methods
@@ -38,7 +54,6 @@ public final class ActivityUtility {
     /**
      * Adding the given listeners to each editText field.
      *
-     *
      * @param editText
      * @param onClickListener
      * @param onEditorActionListener
@@ -58,4 +73,23 @@ public final class ActivityUtility {
         }
     }
 
+    /**
+     * Swaps the button and the selected category background color.
+     *
+     * @param button
+     * @param editText
+     * @param currentCategoryPosition
+     */
+    public static void swapBackgroundColor(Button button, EditText[] editText, int currentCategoryPosition) {
+        Drawable buttonBackground = button.getBackground();
+        if (currentCategoryPosition == -1) {
+            return;
+        }
+        Drawable editTextBackground = editText[currentCategoryPosition].getBackground();
+
+        //swap background
+        button.setBackground(editTextBackground);
+        editText[currentCategoryPosition].setBackground(buttonBackground);
+
+    }
 }
