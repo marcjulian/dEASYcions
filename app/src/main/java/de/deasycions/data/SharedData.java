@@ -3,6 +3,7 @@ package de.deasycions.data;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,9 +49,8 @@ public class SharedData {
     public void saveData() {
         int counter = 0;
         SharedPreferences.Editor editor = savedData.edit();
-        Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
-        for (Map.Entry<String, Category> entry : categorySet) {
-            Category currentCategory = entry.getValue();
+        Collection<Category> categoryValues = categoryStorage.getCategoryValues();
+        for(Category currentCategory : categoryValues){
             String categoryName = currentCategory.getName();
             editor.putString(CATEGORY + counter, categoryName);
             for (int i = 0; i < currentCategory.size(); i++) {

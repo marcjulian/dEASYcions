@@ -39,6 +39,7 @@ public class LongHoldClickListener implements View.OnLongClickListener {
         current.setFocusableInTouchMode(true);
         current.requestFocus();
         imm.showSoftInput(current, InputMethodManager.SHOW_IMPLICIT);
+        //TODO set cursor behind the text
         if (onEditorActionListener instanceof CategoryDoneEditorListener) {
             CategoryDoneEditorListener categoryDoneEditorListener = (CategoryDoneEditorListener) onEditorActionListener;
             categoryDoneEditorListener.setCurrentName(current.getText().toString());
