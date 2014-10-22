@@ -42,7 +42,7 @@ public final class ListenerUtility {
         } else {
             textView.setText(currentName);
         }
-        //TODO hide message test after few seconds
+        //TODO hide message text after few seconds
         //message.setVisibility(View.INVISIBLE);
     }
 }

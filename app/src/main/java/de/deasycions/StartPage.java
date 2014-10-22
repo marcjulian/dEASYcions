@@ -101,12 +101,10 @@ public class StartPage extends Activity {
         startActivity(intent);
     }
 
+    //TODO delete old Category
     //private void deleteCategory(String categoryName) {
     //    categoryStorage.deleteCategory(categoryName);
     //    editText[position].setOnClickListener(new SecondOnClickListener(this, editText));
     //    startCategoryPageActivity(categoryName);
     // }
-    //TODO delete old Category, create Category with edited name (if edited) with same entries
-
-
 }
