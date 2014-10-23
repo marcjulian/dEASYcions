@@ -27,5 +27,4 @@ public class OnClickCategoryListener implements View.OnClickListener {
         }
     }
 
-
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -77,9 +78,8 @@ public class StartPage extends Activity {
     private void displayCategories() {
         int position = 0;
         if (!categoryStorage.isEmpty()) {
-            Set<Map.Entry<String, Category>> categorySet = categoryStorage.getCategorySet();
-            for (Map.Entry<String, Category> entry : categorySet) {
-                Category currentCategory = entry.getValue();
+            Collection<Category> categoryValues = categoryStorage.getCategoryValues();
+            for (Category currentCategory : categoryValues) {
                 editText[position].setTextSize(20);
                 editText[position].setText(currentCategory.getName());
                 editText[position].setOnClickListener(new SecondOnClickListener(this, editText));
@@ -101,10 +101,13 @@ public class StartPage extends Activity {
         startActivity(intent);
     }
 
-    //TODO delete old Category
+    //TODO delete Category
     //private void deleteCategory(String categoryName) {
     //    categoryStorage.deleteCategory(categoryName);
     //    editText[position].setOnClickListener(new SecondOnClickListener(this, editText));
     //    startCategoryPageActivity(categoryName);
     // }
+
+
+
 }

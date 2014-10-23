@@ -1,5 +1,6 @@
 package de.deasycions.data;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -53,9 +54,8 @@ public class CategoryStorage {
         return savedCategories.get(name.toLowerCase());
     }
 
-
-    public Set<Map.Entry<String, Category>> getCategorySet() {
-        return savedCategories.entrySet();
+    public Collection<Category> getCategoryValues(){
+        return savedCategories.values();
     }
 
     /**

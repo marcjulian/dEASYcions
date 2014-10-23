@@ -33,7 +33,7 @@ public final class ListenerUtility {
         return counter;
     }
 
-    public static void setInfoTextMessage(TextView message, TextView textView, String infoMessage, String currentName){
+    public static void setInfoTextMessage(final TextView message, TextView textView, String infoMessage, String currentName){
         message.setText(infoMessage);
         message.setVisibility(View.VISIBLE);
         if (currentName == null) {
@@ -42,7 +42,8 @@ public final class ListenerUtility {
         } else {
             textView.setText(currentName);
         }
-        //TODO hide message text after few seconds
-        //message.setVisibility(View.INVISIBLE);
+        message.postDelayed(new Runnable() {
+            public void run() {
+                message.setVisibility(View.INVISIBLE); } }, 3000);
     }
 }
