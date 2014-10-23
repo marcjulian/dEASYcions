@@ -20,6 +20,12 @@ public class ResultPage extends Activity {
         initialize();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
     private void initialize() {
         //Intent-Section
         Intent intent = getIntent();

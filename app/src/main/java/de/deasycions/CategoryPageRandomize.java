@@ -3,6 +3,7 @@ package de.deasycions;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,9 @@ import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
 import de.deasycions.listener.OnClickRandomListener;
 import de.deasycions.utilities.ActivityUtility;
+import android.graphics.drawable.AnimationDrawable;
+import android.widget.ImageView;
+
 
 /**
  * @author Gary         //TODO auskommentieren!!
@@ -24,6 +28,7 @@ public class CategoryPageRandomize extends Activity {
     private Button randomize;
     private String categoryName;
     private TextView categoryTextView;
+    private ImageView countdown;
     //swaping color of the button to the selected category
     private int currentCategoryPosition;
 
@@ -69,8 +74,23 @@ public class CategoryPageRandomize extends Activity {
     }
 
     public void startResultPageActivity(String result) {
-        Intent intent = new Intent(this, ResultPage.class);
+
+        setContentView(R.layout.countdown_animation);
+        countdown = (ImageView) findViewById(R.id.countdownImageView);
+        countdown.setBackgroundResource(R.drawable.animation_countdown_drawable);
+        final AnimationDrawable animationDrawable = (AnimationDrawable) countdown.getBackground();
+
+        final Intent intent = new Intent(this, ResultPage.class);
         intent.putExtra(ActivityUtility.RESULT, result);
-        startActivity(intent);
+
+       final Handler handler = new Handler();
+       final Runnable runnable = new Runnable() {
+
+            public void run() {
+                    startActivity(intent);
+                }
+            };
+        animationDrawable.start();
+        handler.postDelayed(runnable, 2250);
     }
 }
