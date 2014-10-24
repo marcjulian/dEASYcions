@@ -36,6 +36,9 @@ public class StartPage extends Activity {
     private EditText[] editText;
     private TextView message;
     private CategoryStorage categoryStorage;
+    private View.OnLongClickListener longHoldClickListener;
+    private View.OnClickListener secondOnClickListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,19 +70,22 @@ public class StartPage extends Activity {
         //Listener-Section
         FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         CategoryDoneEditorListener categoryDoneEditorListener = new CategoryDoneEditorListener(this, message);
-        LongHoldClickListener longHoldClickListener = new LongHoldClickListener(this, editText, categoryDoneEditorListener);
-        EditTextOnTouchListener editTextOnTouchListener = new EditTextOnTouchListener();
-        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener, longHoldClickListener, editTextOnTouchListener);
+        longHoldClickListener = new LongHoldClickListener(this, editText, categoryDoneEditorListener);
+        secondOnClickListener = new SecondOnClickListener(this, editText);
+        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener);
     }
 
     /**
      * @param categoryName
      */
     public void createCategory(String categoryName) {
+        EditText currentEditText = editText[ListenerUtility.editTextPosition];
         editText[(ListenerUtility.editTextPosition + 1) % editText.length].setVisibility(View.VISIBLE);
-        editText[ListenerUtility.editTextPosition].performHapticFeedback(1);
+        currentEditText.performHapticFeedback(1);
         categoryStorage.createCategory(categoryName);
-        editText[ListenerUtility.editTextPosition].setOnClickListener(new SecondOnClickListener(this, editText));
+        ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, new EditTextOnTouchListener(currentEditText.getX(), currentEditText.getY()));
+        currentEditText.setOnLongClickListener(longHoldClickListener);
+        currentEditText.setOnClickListener(secondOnClickListener);
         startCategoryPageActivity(categoryName);
     }
 
@@ -88,9 +94,10 @@ public class StartPage extends Activity {
         if (!categoryStorage.isEmpty()) {
             Collection<Category> categoryValues = categoryStorage.getCategoryValues();
             for (Category currentCategory : categoryValues) {
-                editText[position].setTextSize(20);
-                editText[position].setText(currentCategory.getName());
-                editText[position].setOnClickListener(new SecondOnClickListener(this, editText));
+                EditText currentEditText = editText[position];
+                currentEditText.setTextSize(20);
+                currentEditText.setText(currentCategory.getName());
+                ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, new EditTextOnTouchListener(currentEditText.getX(), currentEditText.getY()));
                 editText[position + 1].setVisibility(View.VISIBLE);
                 position++;
             }
@@ -115,7 +122,6 @@ public class StartPage extends Activity {
     //    editText[position].setOnClickListener(new SecondOnClickListener(this, editText));
     //    startCategoryPageActivity(categoryName);
     // }
-
 
 
 }

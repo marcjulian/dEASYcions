@@ -8,8 +8,8 @@ import android.view.View;
  */
 public class EditTextOnTouchListener implements View.OnTouchListener {
 
-    private float firstXAxis = 0;
-    private float firstYAxis = 0;
+    private final float firstXAxis;
+    private final float firstYAxis ;
 
     private float lastXAxis;
     private float lastYAxis;
@@ -17,17 +17,16 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private float currentXAxis;
     private float currentYAxis;
 
+    public EditTextOnTouchListener(float firstXAxis, float firstYAxis){
+        this.firstXAxis = firstXAxis;
+        this.firstYAxis = firstYAxis;
+    }
+
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         int performedAction = event.getAction();
         switch (performedAction) {
             case MotionEvent.ACTION_DOWN:
-                if(firstXAxis == 0){
-                    firstXAxis = view.getX();
-                }
-                if(firstYAxis == 0){
-                    firstYAxis = view.getY();
-                }
                 lastXAxis = currentXAxis = event.getX();
                 lastYAxis = currentYAxis = event.getY();
                 break;

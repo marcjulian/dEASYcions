@@ -15,6 +15,7 @@ import de.deasycions.data.CategoryStorage;
 import de.deasycions.data.SharedData;
 import de.deasycions.listener.CategoryDoneEditorListener;
 import de.deasycions.listener.EditTextOnTouchListener;
+import de.deasycions.listener.EmptyOnClickListener;
 import de.deasycions.listener.EntryDoneEditorListener;
 import de.deasycions.listener.FirstOnClickListener;
 import de.deasycions.listener.LongHoldClickListener;
@@ -35,6 +36,8 @@ public class CategoryPage extends Activity {
     private EditText[] editText;
     private TextView message;
     private Button categoryButton;
+    private View.OnClickListener emptyOnClickListener;
+    private View.OnLongClickListener longHoldClickListener;
     //swaping color of the button to the selected category
     private int currentCategoryPosition;
 
@@ -67,13 +70,8 @@ public class CategoryPage extends Activity {
             EditText currentEditText = editText[i];
             currentEditText.setTextSize(20);
             currentEditText.setVisibility(View.VISIBLE);
-            editText[i].setText(newCategory.getEntry(i).getName());
-            editText[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //do nothing
-                }
-            });
+            currentEditText.setText(newCategory.getEntry(i).getName());
+            ActivityUtility.addListenerToEditText(currentEditText, emptyOnClickListener, longHoldClickListener, new EditTextOnTouchListener(currentEditText.getX(), currentEditText.getY()));
         }
         editText[size % editText.length].setVisibility(View.VISIBLE);
     }
@@ -94,21 +92,17 @@ public class CategoryPage extends Activity {
         //Listener-Section
         FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         EntryDoneEditorListener entryDoneEditorListener = new EntryDoneEditorListener(this, message, newCategory);
-        LongHoldClickListener longHoldClickListener = new LongHoldClickListener(this, editText, entryDoneEditorListener);
-        EditTextOnTouchListener editTextOnTouchListener = new EditTextOnTouchListener();
-        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener, longHoldClickListener, editTextOnTouchListener);
+        longHoldClickListener = new LongHoldClickListener(this, editText, entryDoneEditorListener);
+        emptyOnClickListener = new EmptyOnClickListener();
+        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener);
         categoryButton.setOnClickListener(new OnClickCategoryListener(this, newCategory.getName()));
     }
 
     public void addEntry(String newEntryName) {
+        EditText currentEditText = editText[ListenerUtility.editTextPosition];
         editText[(ListenerUtility.editTextPosition + 1) % editText.length].setVisibility(View.VISIBLE);
         newCategory.addEntry(newEntryName);
-        editText[ListenerUtility.editTextPosition].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //do nothing
-            }
-        });
+        ActivityUtility.addListenerToEditText(currentEditText, emptyOnClickListener, longHoldClickListener, new EditTextOnTouchListener(currentEditText.getX(), currentEditText.getY()));
     }
 
     public void startCategoryPageRandomizeActivity(String categoryName) {

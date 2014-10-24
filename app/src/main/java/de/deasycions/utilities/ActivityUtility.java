@@ -54,13 +54,12 @@ public final class ActivityUtility {
 
     /**
      * Adding the given listeners to each editText field.
-     *
+     * EditTexts only need onclick and Editor Listener, when they are initialized.
      * @param editTexts
      * @param onClickListener
      * @param onEditorActionListener
-     * @param onLongClickListener
      */
-    public static void addListenerToEditText(EditText[] editTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener, View.OnLongClickListener onLongClickListener, View.OnTouchListener onTouchListener) {
+    public static void addListenerToEditText(EditText[] editTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener) {
         for (int i = 0; i < editTexts.length; i++) {
             EditText currentEditText = editTexts[i];
             if (onClickListener != null) {
@@ -69,12 +68,26 @@ public final class ActivityUtility {
             if (onEditorActionListener != null) {
                 currentEditText.setOnEditorActionListener(onEditorActionListener);
             }
-            if (onLongClickListener != null) {
-                currentEditText.setOnLongClickListener(onLongClickListener);
-            }
-            if (onTouchListener != null) {
-                currentEditText.setOnTouchListener(onTouchListener);
-            }
+        }
+    }
+
+    /**
+     * Adding the given listeners to one editText field.
+     * After initialized, when text is entered, new listeners are added.
+     *
+     * @param currentEditText
+     * @param secondOnClickListener
+     * @param longHoldClickListener
+     */
+    public static void addListenerToEditText(EditText currentEditText, View.OnClickListener secondOnClickListener, View.OnLongClickListener longHoldClickListener, View.OnTouchListener onTouchListener) {
+        if(secondOnClickListener != null){
+            currentEditText.setOnClickListener(secondOnClickListener);
+        }
+        if(longHoldClickListener != null){
+            currentEditText.setOnLongClickListener(longHoldClickListener);
+        }
+        if(onTouchListener != null){
+            currentEditText.setOnTouchListener(onTouchListener);
         }
     }
 
@@ -97,4 +110,6 @@ public final class ActivityUtility {
         editText[currentCategoryPosition].setBackground(buttonBackground);
 
     }
+
+
 }
