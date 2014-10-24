@@ -14,6 +14,7 @@ import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
 import de.deasycions.data.SharedData;
 import de.deasycions.listener.CategoryDoneEditorListener;
+import de.deasycions.listener.EditTextOnTouchListener;
 import de.deasycions.listener.EntryDoneEditorListener;
 import de.deasycions.listener.FirstOnClickListener;
 import de.deasycions.listener.LongHoldClickListener;
@@ -94,7 +95,8 @@ public class CategoryPage extends Activity {
         FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         EntryDoneEditorListener entryDoneEditorListener = new EntryDoneEditorListener(this, message, newCategory);
         LongHoldClickListener longHoldClickListener = new LongHoldClickListener(this, editText, entryDoneEditorListener);
-        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener, longHoldClickListener);
+        EditTextOnTouchListener editTextOnTouchListener = new EditTextOnTouchListener();
+        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener, longHoldClickListener, editTextOnTouchListener);
         categoryButton.setOnClickListener(new OnClickCategoryListener(this, newCategory.getName()));
     }
 

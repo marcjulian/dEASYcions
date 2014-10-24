@@ -3,6 +3,7 @@ package de.deasycions;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
 import de.deasycions.data.SharedData;
 import de.deasycions.listener.CategoryDoneEditorListener;
+import de.deasycions.listener.EditTextOnTouchListener;
 import de.deasycions.listener.FirstOnClickListener;
 import de.deasycions.listener.LongHoldClickListener;
 import de.deasycions.listener.SecondOnClickListener;
@@ -51,6 +53,11 @@ public class StartPage extends Activity {
         sharedData.saveData();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
     private void initialize() {
         //Category-Section
         categoryStorage = CategoryStorage.getInstance();
@@ -61,7 +68,8 @@ public class StartPage extends Activity {
         FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         CategoryDoneEditorListener categoryDoneEditorListener = new CategoryDoneEditorListener(this, message);
         LongHoldClickListener longHoldClickListener = new LongHoldClickListener(this, editText, categoryDoneEditorListener);
-        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener, longHoldClickListener);
+        EditTextOnTouchListener editTextOnTouchListener = new EditTextOnTouchListener();
+        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener, longHoldClickListener, editTextOnTouchListener);
     }
 
     /**

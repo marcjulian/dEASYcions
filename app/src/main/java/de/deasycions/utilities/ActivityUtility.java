@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import de.deasycions.R;
+import de.deasycions.listener.EditTextOnTouchListener;
 
 /**
  * Utility class for Activities.
@@ -54,21 +55,25 @@ public final class ActivityUtility {
     /**
      * Adding the given listeners to each editText field.
      *
-     * @param editText
+     * @param editTexts
      * @param onClickListener
      * @param onEditorActionListener
      * @param onLongClickListener
      */
-    public static void addListenerToEditText(EditText[] editText, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener, View.OnLongClickListener onLongClickListener) {
-        for (int i = 0; i < editText.length; i++) {
+    public static void addListenerToEditText(EditText[] editTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener, View.OnLongClickListener onLongClickListener, View.OnTouchListener onTouchListener) {
+        for (int i = 0; i < editTexts.length; i++) {
+            EditText currentEditText = editTexts[i];
             if (onClickListener != null) {
-                editText[i].setOnClickListener(onClickListener);
+                currentEditText.setOnClickListener(onClickListener);
             }
             if (onEditorActionListener != null) {
-                editText[i].setOnEditorActionListener(onEditorActionListener);
+                currentEditText.setOnEditorActionListener(onEditorActionListener);
             }
             if (onLongClickListener != null) {
-                editText[i].setOnLongClickListener(onLongClickListener);
+                currentEditText.setOnLongClickListener(onLongClickListener);
+            }
+            if (onTouchListener != null) {
+                currentEditText.setOnTouchListener(onTouchListener);
             }
         }
     }
