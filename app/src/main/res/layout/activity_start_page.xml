@@ -160,5 +160,16 @@
         android:textSize="50dp"
         android:layout_below="@id/etL"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trash"
+        android:src="@drawable/ic_launcher"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="invisible"
+        />
+
 
 </RelativeLayout>

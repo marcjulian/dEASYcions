@@ -1,11 +1,14 @@
 package de.deasycions;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collection;
@@ -38,6 +41,9 @@ public class StartPage extends Activity {
     private CategoryStorage categoryStorage;
     private View.OnLongClickListener longHoldClickListener;
     private View.OnClickListener secondOnClickListener;
+    private View.OnTouchListener editTextOnTouchListener;
+    private Button randomButton;
+    private ImageView trashView;
 
 
     @Override
@@ -59,6 +65,7 @@ public class StartPage extends Activity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);
+        //TODO if an edittext is focused and the background is touched, lose focus of the edittext! Should save text?!
     }
 
     private void initialize() {
@@ -67,11 +74,15 @@ public class StartPage extends Activity {
         //Widget-Section
         message = (TextView) findViewById(R.id.ContainsMessage);
         editText = ActivityUtility.createEditText(this);
+        randomButton = (Button) findViewById(R.id.random);
+        trashView = (ImageView) findViewById(R.id.trash);
         //Listener-Section
         FirstOnClickListener firstOnClickListener = new FirstOnClickListener(this, editText);
         CategoryDoneEditorListener categoryDoneEditorListener = new CategoryDoneEditorListener(this, message);
         longHoldClickListener = new LongHoldClickListener(this, editText, categoryDoneEditorListener);
         secondOnClickListener = new SecondOnClickListener(this, editText);
+
+        editTextOnTouchListener = new EditTextOnTouchListener(randomButton, getString(R.string.random), trashView);
         ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener);
     }
 
@@ -83,7 +94,7 @@ public class StartPage extends Activity {
         editText[(ListenerUtility.editTextPosition + 1) % editText.length].setVisibility(View.VISIBLE);
         currentEditText.performHapticFeedback(1);
         categoryStorage.createCategory(categoryName);
-        ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, new EditTextOnTouchListener(currentEditText.getX(), currentEditText.getY()));
+        ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
         currentEditText.setOnLongClickListener(longHoldClickListener);
         currentEditText.setOnClickListener(secondOnClickListener);
         startCategoryPageActivity(categoryName);
@@ -97,7 +108,7 @@ public class StartPage extends Activity {
                 EditText currentEditText = editText[position];
                 currentEditText.setTextSize(20);
                 currentEditText.setText(currentCategory.getName());
-                ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, new EditTextOnTouchListener(currentEditText.getX(), currentEditText.getY()));
+                ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
                 editText[position + 1].setVisibility(View.VISIBLE);
                 position++;
             }

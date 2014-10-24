@@ -108,8 +108,5 @@ public final class ActivityUtility {
         //swap background
         button.setBackground(editTextBackground);
         editText[currentCategoryPosition].setBackground(buttonBackground);
-
     }
-
-
 }
