@@ -58,7 +58,7 @@ public class CategoryPageRandomize extends Activity implements IStartActivity {
         categoryStorage = CategoryStorage.getInstance();
         currentCategory = categoryStorage.getCategory(categoryName);
         //Widget-Section
-        randomize = (Button) findViewById(R.id.categoryName);
+        randomize = (Button) findViewById(R.id.random);
         categoryTextView = (TextView) findViewById(R.id.displayCategoryName);
         categoryTextView.setText(categoryName);
         editText = ActivityUtility.createEditText(this);

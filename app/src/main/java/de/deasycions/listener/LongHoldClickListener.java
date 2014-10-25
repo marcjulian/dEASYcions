@@ -28,7 +28,7 @@ public class LongHoldClickListener implements View.OnLongClickListener {
 
     @Override
     public boolean onLongClick(View view) {
-        //if(isViewMoving(view)) {
+        if(!isViewMoving(view)) {
             view.performHapticFeedback(1);
             int position = ListenerUtility.getEditTextPosition(view, editText);
             ListenerUtility.editTextPosition = position;
@@ -40,11 +40,11 @@ public class LongHoldClickListener implements View.OnLongClickListener {
             ContentDoneEditorListener contentDoneEditorListener = (ContentDoneEditorListener) onEditorActionListener;
             contentDoneEditorListener.setCurrentName(currentEditText.getText().toString());
             currentEditText.setOnEditorActionListener(contentDoneEditorListener);
-       // }
+       }
         return false;
     }
 
-    //TODO is not working correct
+
     private boolean isViewMoving(View view){
         float viewX = view.getX();
         float viewY = view.getY();
