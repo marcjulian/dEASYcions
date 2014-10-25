@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -46,15 +48,21 @@ public class CategoryPage extends Activity implements IdEASYcionsContent {
     private int currentCategoryPosition;
     private InputMethodManager inputMethodManager;
     private String description;
+    float height;
+    float width;
+    float density;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
+
         initialize();
         displayContent();
         ActivityUtility.swapBackgroundColor(categoryButton, editText, currentCategoryPosition);
+
     }
 
     @Override
@@ -88,6 +96,15 @@ public class CategoryPage extends Activity implements IdEASYcionsContent {
         categoryButton.setText(newCategory.getName());
         editText = ActivityUtility.createEditText(this);
         trashView = (ImageView) findViewById(R.id.trash);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics ();
+        display.getMetrics(outMetrics);
+        density = getResources().getDisplayMetrics().density;
+        height = outMetrics.heightPixels;
+        width  = outMetrics.widthPixels;
+        density = getResources().getDisplayMetrics().density;
+
         //Keyboard-Section
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         //Listener-Section
@@ -95,7 +112,7 @@ public class CategoryPage extends Activity implements IdEASYcionsContent {
         ContentDoneEditorListener entryDoneEditorListener = new ContentDoneEditorListener(this);
         longHoldClickListener = new LongHoldClickListener(this, editText, entryDoneEditorListener);
         emptyOnClickListener = new EmptyOnClickListener();
-        editTextOnTouchListener = new EditTextOnTouchListener(null, null, trashView);
+        editTextOnTouchListener = new EditTextOnTouchListener(null, null, trashView, height, width, density);
         ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener);
         categoryButton.setOnClickListener(new OnClickCategoryListener(this, newCategory.getName()));
     }

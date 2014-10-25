@@ -1,10 +1,14 @@
 package de.deasycions.listener;
 
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import de.deasycions.StartPage;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -26,13 +30,21 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private float currentXAxis;
     private float currentYAxis;
 
-    public EditTextOnTouchListener(Button button, String tempButtonName, ImageView trashView) {
+    float Height;
+    float Width;
+    float density;
+
+    public EditTextOnTouchListener(Button button, String tempButtonName, ImageView trashView, float Height, float Width, float density) {
         this.button = button;
         if(button != null) {
             currentButtonName = button.getText().toString();
         }
         this.tempButtonName = tempButtonName;
         this.trashView = trashView;
+        this.Width = Width;
+        this.Height=Height;
+        this.density = density;
+
     }
 
     @Override
@@ -58,21 +70,21 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_MOVE:
                 currentXAxis += mouseX - lastXAxis;
                 currentYAxis += mouseY - lastYAxis;
-                //TODO can not move to the info message text field, calculate the width of the info message text and the circle radius
-                if (currentYAxis < 100) {
-                    currentYAxis = 100;
+//TODO ersetze 170 mit höhe Textview + Schriftgröße im Textview + PaddingTop
+                if (currentYAxis < 170) {
+                    currentYAxis = 170;
                 }
-                // TODO can not move to the bottom edge of the screen, calculate radius of the circle and the width of the screen
-                if (currentYAxis > 1100) {
-                    currentYAxis = 1100;
+//TODO ersetze 100 durch Höhe editTextkugeln
+                if (currentYAxis > Height-(100*density+5)) {
+                    currentYAxis = Height-(100*density+5);
                 }
-                // TODO can not move to the right edge of the screen, calculate radius of the circle and the width of the screen
+
                 if (currentXAxis < 5) {
                     currentXAxis = 5;
                 }
-                // TODO can not move to the left edge of the screen, calculate radius of the circle and the width of the screen
-                if (currentXAxis > 560) {
-                    currentXAxis = 560;
+
+                if (currentXAxis > Width-(100*density+5)) {
+                    currentXAxis = Width-(100*density+5);
                 }
                 view.setX(currentXAxis);
                 view.setY(currentYAxis);

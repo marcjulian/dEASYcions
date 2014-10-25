@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -48,6 +50,10 @@ public class StartPage extends Activity implements IdEASYcionsContent {
     private InputMethodManager inputMethodManager;
     private String description;
 
+    float height;
+    float width;
+    float density;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class StartPage extends Activity implements IdEASYcionsContent {
         setContentView(R.layout.activity_start_page);
         initialize();
         displayContent();
+
     }
 
     @Override
@@ -81,6 +88,15 @@ public class StartPage extends Activity implements IdEASYcionsContent {
         editText = ActivityUtility.createEditText(this);
         randomButton = (Button) findViewById(R.id.random);
         trashView = (ImageView) findViewById(R.id.trash);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics ();
+        display.getMetrics(outMetrics);
+        density = getResources().getDisplayMetrics().density;
+        height = outMetrics.heightPixels ;
+        width  = outMetrics.widthPixels ;
+
+
         //Keyboard-Section
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         //Listener-Section
@@ -89,7 +105,7 @@ public class StartPage extends Activity implements IdEASYcionsContent {
         longHoldClickListener = new LongHoldClickListener(this, editText, categoryDoneEditorListener);
         secondOnClickListener = new SecondOnClickListener(this, editText);
 
-        editTextOnTouchListener = new EditTextOnTouchListener(randomButton, getString(R.string.random), trashView);
+        editTextOnTouchListener = new EditTextOnTouchListener(randomButton, getString(R.string.random), trashView, height,width,density);
         ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener);
     }
 
