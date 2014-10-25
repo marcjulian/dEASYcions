@@ -50,9 +50,9 @@ public class StartPage extends Activity implements IdEASYcionsContent {
     private InputMethodManager inputMethodManager;
     private String description;
 
-    float height;
-    float width;
-    float density;
+    private float height;
+    private float width;
+    private float density;
 
 
     @Override

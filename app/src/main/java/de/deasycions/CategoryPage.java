@@ -48,9 +48,9 @@ public class CategoryPage extends Activity implements IdEASYcionsContent {
     private int currentCategoryPosition;
     private InputMethodManager inputMethodManager;
     private String description;
-    float height;
-    float width;
-    float density;
+    private float height;
+    private float width;
+    private float density;
 
 
 

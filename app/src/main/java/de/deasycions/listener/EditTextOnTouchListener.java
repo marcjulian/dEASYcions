@@ -30,9 +30,9 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private float currentXAxis;
     private float currentYAxis;
 
-    float Height;
-    float Width;
-    float density;
+    private float Height;
+    private float Width;
+    private float density;
 
     public EditTextOnTouchListener(Button button, String tempButtonName, ImageView trashView, float Height, float Width, float density) {
         this.button = button;
