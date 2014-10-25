@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
+import de.deasycions.interfaces.IStartActivity;
 import de.deasycions.listener.OnClickRandomListener;
 import de.deasycions.utilities.ActivityUtility;
+
 import android.graphics.drawable.AnimationDrawable;
 import android.widget.ImageView;
 
@@ -20,7 +22,7 @@ import android.widget.ImageView;
 /**
  * @author Gary         //TODO auskommentieren!!
  */
-public class CategoryPageRandomize extends Activity {
+public class CategoryPageRandomize extends Activity implements IStartActivity {
 
     private EditText[] editText;
     private CategoryStorage categoryStorage;
@@ -37,7 +39,7 @@ public class CategoryPageRandomize extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page_random);
         initialize();
-        displayEntries();
+        displayContent();
         ActivityUtility.swapBackgroundColor(randomize, editText, currentCategoryPosition);
     }
 
@@ -64,7 +66,7 @@ public class CategoryPageRandomize extends Activity {
         randomize.setOnClickListener(new OnClickRandomListener(this, currentCategory));
     }
 
-    private void displayEntries() {
+    public void displayContent() {
         int size = currentCategory.size();
         for (int i = 0; i < size; i++) {
             EditText currentEditText = editText[i];
@@ -73,8 +75,7 @@ public class CategoryPageRandomize extends Activity {
         }
     }
 
-    public void startResultPageActivity(String result) {
-
+    private void startResultPageActivity(String result) {
         setContentView(R.layout.countdown_animation);
         countdown = (ImageView) findViewById(R.id.countdownImageView);
         countdown.setBackgroundResource(R.drawable.animation_countdown_drawable);
@@ -83,14 +84,19 @@ public class CategoryPageRandomize extends Activity {
         final Intent intent = new Intent(this, ResultPage.class);
         intent.putExtra(ActivityUtility.RESULT, result);
 
-       final Handler handler = new Handler();
-       final Runnable runnable = new Runnable() {
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
 
             public void run() {
-                    startActivity(intent);
-                }
-            };
+                startActivity(intent);
+            }
+        };
         animationDrawable.start();
         handler.postDelayed(runnable, 2250);
     }
+
+    public void startNextActivity(String contentName) {
+        startResultPageActivity(contentName);
+    }
+
 }

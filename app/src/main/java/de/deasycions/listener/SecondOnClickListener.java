@@ -1,10 +1,9 @@
 package de.deasycions.listener;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 
-import de.deasycions.StartPage;
+import de.deasycions.interfaces.IdEASYcionsContent;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -15,11 +14,11 @@ import de.deasycions.utilities.ListenerUtility;
  */
 public class SecondOnClickListener implements View.OnClickListener {
 
-    private Activity currentActivity;
+    private IdEASYcionsContent contentPage;
     private EditText[] editText;
 
-    public SecondOnClickListener(Activity currentActivity, EditText[] editText) {
-        this.currentActivity = currentActivity;
+    public SecondOnClickListener(IdEASYcionsContent contentPage, EditText[] editText) {
+        this.contentPage = contentPage;
         this.editText = editText;
     }
 
@@ -27,8 +26,6 @@ public class SecondOnClickListener implements View.OnClickListener {
     public void onClick(View view) {
         int position = ListenerUtility.getEditTextPosition(view, editText);
         ListenerUtility.editTextPosition = position;
-        if (currentActivity instanceof StartPage) {
-            ((StartPage) currentActivity).startCategoryPageActivity(editText[position].getText().toString());
-        }
+        contentPage.startNextActivity(editText[position].getText().toString());
     }
 }

@@ -1,14 +1,10 @@
 package de.deasycions.listener;
 
-import android.app.Activity;
-import android.content.Context;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import de.deasycions.CategoryPage;
-import de.deasycions.data.Category;
+import de.deasycions.interfaces.IdEASYcionsContent;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -19,36 +15,43 @@ import de.deasycions.utilities.ListenerUtility;
  */
 public class LongHoldClickListener implements View.OnLongClickListener {
 
+    private IdEASYcionsContent contentPage;
     private final TextView.OnEditorActionListener onEditorActionListener;
     private EditText[] editText;
-    private InputMethodManager imm;
 
-    public LongHoldClickListener(Activity currentActivity, EditText[] editText, TextView.OnEditorActionListener onEditorActionListener) {
+    public LongHoldClickListener(IdEASYcionsContent contentPage, EditText[] editText, TextView.OnEditorActionListener onEditorActionListener) {
+        this.contentPage = contentPage;
         this.editText = editText;
         this.onEditorActionListener = onEditorActionListener;
-        imm = (InputMethodManager) currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
 
     @Override
     public boolean onLongClick(View view) {
-        view.performHapticFeedback(1);
-        int position = ListenerUtility.getEditTextPosition(view, editText);
-        ListenerUtility.editTextPosition = position;
-        EditText current = editText[position];
-        current.setFocusableInTouchMode(true);
-        current.requestFocus();
-        imm.showSoftInput(current, InputMethodManager.SHOW_IMPLICIT);
-        //TODO set cursor behind the text
-        if (onEditorActionListener instanceof CategoryDoneEditorListener) {
-            CategoryDoneEditorListener categoryDoneEditorListener = (CategoryDoneEditorListener) onEditorActionListener;
-            categoryDoneEditorListener.setCurrentName(current.getText().toString());
-            current.setOnEditorActionListener(categoryDoneEditorListener);
-        } else if (onEditorActionListener instanceof EntryDoneEditorListener) {
-            EntryDoneEditorListener entryDoneEditorListener = (EntryDoneEditorListener) onEditorActionListener;
-            entryDoneEditorListener.setCurrentName(current.getText().toString());
-            current.setOnEditorActionListener(entryDoneEditorListener);
-        }
+        //if(isViewMoving(view)) {
+            view.performHapticFeedback(1);
+            int position = ListenerUtility.getEditTextPosition(view, editText);
+            ListenerUtility.editTextPosition = position;
+            EditText currentEditText = editText[position];
+            currentEditText.setFocusableInTouchMode(true);
+            currentEditText.requestFocus();
+            contentPage.showKeyboard(currentEditText);
+            //TODO set cursor behind the text
+            ContentDoneEditorListener contentDoneEditorListener = (ContentDoneEditorListener) onEditorActionListener;
+            contentDoneEditorListener.setCurrentName(currentEditText.getText().toString());
+            currentEditText.setOnEditorActionListener(contentDoneEditorListener);
+       // }
         return false;
+    }
+
+    //TODO is not working correct
+    private boolean isViewMoving(View view){
+        float viewX = view.getX();
+        float viewY = view.getY();
+        //if they are same as the initialPosition, the view isn't moving
+        if(viewX == ListenerUtility.initialXAxis && viewY == ListenerUtility.initialYAxis){
+            return false;
+        }
+        return true;
     }
 }

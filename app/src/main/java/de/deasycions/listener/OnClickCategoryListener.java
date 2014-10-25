@@ -1,30 +1,24 @@
 package de.deasycions.listener;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
-import android.widget.Button;
 
-import de.deasycions.CategoryPage;
-import de.deasycions.StartPage;
+import de.deasycions.interfaces.IdEASYcionsContent;
 
 /**
  * @author Gary                 //TODO auskommentieren!!
  */
 public class OnClickCategoryListener implements View.OnClickListener {
-    private Activity currentActivity;
+    private IdEASYcionsContent contentPage;
     private String categoryName;
 
-    public OnClickCategoryListener(Activity currentActivity, String categoryName) {
-        this.currentActivity = currentActivity;
+    public OnClickCategoryListener(IdEASYcionsContent contentPage, String categoryName) {
+        this.contentPage = contentPage;
         this.categoryName = categoryName;
     }
 
     @Override
     public void onClick(View view) {
-        if (currentActivity instanceof CategoryPage) {
-            ((CategoryPage) currentActivity).startCategoryPageRandomizeActivity(categoryName);
-        }
+        contentPage.startNextActivity(categoryName);
     }
 
 }

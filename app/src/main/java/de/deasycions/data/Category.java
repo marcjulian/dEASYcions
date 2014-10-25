@@ -38,7 +38,6 @@ public class Category {
     }
 
 
-
     /**
      * returns an entry at the given position.
      *
@@ -117,13 +116,13 @@ public class Category {
      * changes the entry name at the given position.
      *
      * @param currentName of the entry
-     * @param newName to change the entry name to
+     * @param newName     to change the entry name to
      * @throws IndexOutOfBoundsException
      */
-    public void changeEntryName(String currentName, String newName)        {
+    public void changeEntryName(String currentName, String newName) {
         Entry current = first;
-        while(current.getName().equals(currentName)){
-            if(current.getName().equals(currentName)){
+        while (current.getName().equals(currentName)) {
+            if (current.getName().equals(currentName)) {
                 current.setName(newName);
             }
             current = current.next;

@@ -14,6 +14,10 @@ public final class ListenerUtility {
 
     public static int editTextPosition;
 
+    //don't change the values of initial
+    public static float initialXAxis;
+    public static float initialYAxis;
+
     private ListenerUtility(){
         //this class has only static methods
     }
@@ -46,4 +50,5 @@ public final class ListenerUtility {
             public void run() {
                 message.setVisibility(View.INVISIBLE); } }, 3000);
     }
+
 }

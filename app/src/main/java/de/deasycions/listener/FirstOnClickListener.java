@@ -1,11 +1,9 @@
 package de.deasycions.listener;
 
-import android.app.Activity;
-import android.content.Context;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import de.deasycions.interfaces.IdEASYcionsContent;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -16,12 +14,12 @@ import de.deasycions.utilities.ListenerUtility;
  */
 public class FirstOnClickListener implements View.OnClickListener {
 
-    private InputMethodManager imm;
+    private IdEASYcionsContent contentPage;
     private EditText[] editText;
 
-    public FirstOnClickListener(Activity currentActivity, EditText[] editText) {
+    public FirstOnClickListener(IdEASYcionsContent contentPage, EditText[] editText) {
+        this.contentPage = contentPage;
         this.editText = editText;
-        imm = (InputMethodManager) currentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
 
@@ -36,6 +34,6 @@ public class FirstOnClickListener implements View.OnClickListener {
         current.setTextSize(20);
         current.requestFocus();
         //shows keyboard
-        imm.showSoftInput(current, InputMethodManager.SHOW_IMPLICIT);
+        contentPage.showKeyboard(current);
     }
 }

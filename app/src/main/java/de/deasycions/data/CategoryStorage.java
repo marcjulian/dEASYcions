@@ -2,10 +2,11 @@ package de.deasycions.data;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
+ * {@link de.deasycions.data.CategoryStorage} is a singleton, which stores the categories in a map.
+ * Every class can only get access to the same map.
+ *
  * @author Marc Stammerjohann
  */
 public class CategoryStorage {
@@ -27,17 +28,22 @@ public class CategoryStorage {
 
     /**
      * It is Case-insensitivity.
+     *
      * @param categoryName
      */
     public void createCategory(String categoryName) {
         Category category = new Category(categoryName);
+        addCategory(category);
+    }
+
+    private void addCategory(Category category){
         savedCategories.put(category.getName().toLowerCase(), category);
     }
 
+
     public void deleteCategory(String categoryName) {
-        Category category = new Category(categoryName);
-        if (getCategory(categoryName) != null) {
-            savedCategories.remove(category);
+        if (containsCategory(categoryName)) {
+            savedCategories.remove(categoryName);
         }
     }
 
@@ -47,6 +53,7 @@ public class CategoryStorage {
 
     /**
      * It is Case-insensitivity.
+     *
      * @param name
      * @return
      */
@@ -54,7 +61,7 @@ public class CategoryStorage {
         return savedCategories.get(name.toLowerCase());
     }
 
-    public Collection<Category> getCategoryValues(){
+    public Collection<Category> getCategoryValues() {
         return savedCategories.values();
     }
 
@@ -71,5 +78,7 @@ public class CategoryStorage {
     public void setNewCategoryName(String currentName, String newCategoryName) {
         Category category = getCategory(currentName);
         category.changeCategoryName(newCategoryName);
+        addCategory(category);
+        deleteCategory(currentName);
     }
 }

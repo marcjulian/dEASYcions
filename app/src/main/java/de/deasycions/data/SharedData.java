@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 
 import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 /**
+ * Saving and Loading the data with {@link android.content.SharedPreferences}.
+ *
  * @author Marc Stammerjohann
  */
 public class SharedData {
@@ -50,7 +50,7 @@ public class SharedData {
         int counter = 0;
         SharedPreferences.Editor editor = savedData.edit();
         Collection<Category> categoryValues = categoryStorage.getCategoryValues();
-        for(Category currentCategory : categoryValues){
+        for (Category currentCategory : categoryValues) {
             String categoryName = currentCategory.getName();
             editor.putString(CATEGORY + counter, categoryName);
             for (int i = 0; i < currentCategory.size(); i++) {

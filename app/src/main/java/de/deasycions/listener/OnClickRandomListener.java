@@ -1,28 +1,25 @@
 package de.deasycions.listener;
 
-import android.app.Activity;
 import android.view.View;
 
-import de.deasycions.CategoryPageRandomize;
 import de.deasycions.data.Category;
+import de.deasycions.interfaces.IStartActivity;
 
 /**
  * @author Gary                 //TODO auskommentieren!!
  */
 public class OnClickRandomListener implements View.OnClickListener {
     private Category currentCategory;
-    private Activity currentActivity;
+    private IStartActivity contentPage;
 
-    public OnClickRandomListener(Activity currentActivity, Category currentCategory) {
-        this.currentActivity = currentActivity;
+    public OnClickRandomListener(IStartActivity contentPage, Category currentCategory) {
+        this.contentPage = contentPage;
         this.currentCategory = currentCategory;
     }
 
     @Override
     public void onClick(View view) {
-        if (currentActivity instanceof CategoryPageRandomize) {
-            int randomPosition = (int) (Math.random() * currentCategory.size());
-            ((CategoryPageRandomize) currentActivity).startResultPageActivity(currentCategory.getEntry(randomPosition).getName());
-        }
+        int randomPosition = (int) (Math.random() * currentCategory.size());
+        contentPage.startNextActivity(currentCategory.getEntry(randomPosition).getName());
     }
 }

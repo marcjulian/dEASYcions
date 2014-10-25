@@ -8,5 +8,7 @@
     <string name="title_activity_category_page">CategoryPage</string>
     <string name="hello_world">Hello world!</string>
     <string name="categories">Categories</string>
+    <string name="category">category</string>
+    <string name="entry">entry</string>
 
 </resources>
