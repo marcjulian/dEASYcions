@@ -100,6 +100,9 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP:
                 //if it the edit text didn't end up on the trash or randomize button, reset it to the initial position
+                //TODO listen for hovering over trash or middle button
+                //middle: start Activity CategoryPageRandomize
+                //trash: delete hovering category
                 view.setX(ListenerUtility.initialXAxis);
                 view.setY(ListenerUtility.initialYAxis);
 
