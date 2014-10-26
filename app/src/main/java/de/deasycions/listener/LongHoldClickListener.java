@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import de.deasycions.interfaces.IdEASYcionsContent;
+import de.deasycions.EditablePage;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -15,11 +15,11 @@ import de.deasycions.utilities.ListenerUtility;
  */
 public class LongHoldClickListener implements View.OnLongClickListener {
 
-    private IdEASYcionsContent contentPage;
+    private EditablePage contentPage;
     private final TextView.OnEditorActionListener onEditorActionListener;
     private EditText[] editText;
 
-    public LongHoldClickListener(IdEASYcionsContent contentPage, EditText[] editText, TextView.OnEditorActionListener onEditorActionListener) {
+    public LongHoldClickListener(EditablePage contentPage, EditText[] editText, TextView.OnEditorActionListener onEditorActionListener) {
         this.contentPage = contentPage;
         this.editText = editText;
         this.onEditorActionListener = onEditorActionListener;

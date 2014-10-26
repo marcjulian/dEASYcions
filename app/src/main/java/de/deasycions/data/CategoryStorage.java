@@ -51,6 +51,10 @@ public class CategoryStorage {
         return savedCategories.isEmpty();
     }
 
+    public int size(){
+        return savedCategories.size();
+    }
+
     /**
      * It is Case-insensitivity.
      *

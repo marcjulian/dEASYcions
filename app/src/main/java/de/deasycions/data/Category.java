@@ -104,6 +104,37 @@ public class Category {
     }
 
     /**
+     * removes an entry with the given name.
+     *
+     * @param name
+     * @throws IndexOutOfBoundsException
+     */
+    public void removeEntry(String name) {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Entry current = first;
+        while (!current.getName().equals(name)){
+            current = current.next;
+        }
+        Entry prev = current.prev;
+        Entry next = current.next;
+
+        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+        }
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+        }
+
+    }
+
+    /**
      * changes the category name.
      *
      * @param name to change the category name to
@@ -117,7 +148,6 @@ public class Category {
      *
      * @param currentName of the entry
      * @param newName     to change the entry name to
-     * @throws IndexOutOfBoundsException
      */
     public void changeEntryName(String currentName, String newName) {
         Entry current = first;
@@ -129,9 +159,9 @@ public class Category {
         }
     }
 
-    public int getEntryPosition(String currentName){
+    public int getEntryPosition(String currentName) {
         Entry current = first;
-        int position=0;
+        int position = 0;
         while (!(current.getName().equals(currentName))) {
             if (!(current.getName().equals(currentName))) {
                 position++;

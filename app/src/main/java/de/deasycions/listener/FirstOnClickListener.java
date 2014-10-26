@@ -3,7 +3,7 @@ package de.deasycions.listener;
 import android.view.View;
 import android.widget.EditText;
 
-import de.deasycions.interfaces.IdEASYcionsContent;
+import de.deasycions.EditablePage;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -14,10 +14,10 @@ import de.deasycions.utilities.ListenerUtility;
  */
 public class FirstOnClickListener implements View.OnClickListener {
 
-    private IdEASYcionsContent contentPage;
+    private EditablePage contentPage;
     private EditText[] editText;
 
-    public FirstOnClickListener(IdEASYcionsContent contentPage, EditText[] editText) {
+    public FirstOnClickListener(EditablePage contentPage, EditText[] editText) {
         this.contentPage = contentPage;
         this.editText = editText;
     }

@@ -1,5 +1,9 @@
 package de.deasycions.interfaces;
 
+import android.view.View;
+
+import de.deasycions.Page;
+
 /**
  * Define method to start the next activity.
  *
@@ -9,7 +13,7 @@ public interface IStartActivity {
 
     public void displayContent();
 
-    public void startNextActivity(String contentName);
+    public void startNextActivity(String contentName, Page page);
 
-    public void deleteContent(String categoryName);
+    public void deleteContent(View currentView);
 }

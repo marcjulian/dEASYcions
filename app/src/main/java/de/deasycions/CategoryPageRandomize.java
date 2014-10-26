@@ -75,7 +75,7 @@ public class CategoryPageRandomize extends Activity implements IStartActivity {
         }
     }
 
-    private void startResultPageActivity(String result) {
+    public void startNextActivity(String result, Page page) {
         setContentView(R.layout.countdown_animation);
         countdown = (ImageView) findViewById(R.id.countdownImageView);
         countdown.setBackgroundResource(R.drawable.animation_countdown_drawable);
@@ -95,13 +95,7 @@ public class CategoryPageRandomize extends Activity implements IStartActivity {
         handler.postDelayed(runnable, 2250);
     }
 
-    public void startNextActivity(String contentName) {
-        startResultPageActivity(contentName);
-    }
-
-    @Override
-    public void deleteContent(String categoryName) {            //downvote
+    public void deleteContent(View currentView) {
 
     }
-
 }

@@ -2,6 +2,7 @@ package de.deasycions.listener;
 
 import android.view.View;
 
+import de.deasycions.Page;
 import de.deasycions.data.Category;
 import de.deasycions.interfaces.IStartActivity;
 
@@ -20,6 +21,6 @@ public class OnClickRandomListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         int randomPosition = (int) (Math.random() * currentCategory.size());
-        contentPage.startNextActivity(currentCategory.getEntry(randomPosition).getName());
+        contentPage.startNextActivity(currentCategory.getEntry(randomPosition).getName(), Page.RANDOMIZE_PAGE);
     }
 }

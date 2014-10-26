@@ -1,16 +1,14 @@
 package de.deasycions.listener;
 
-import android.content.res.Resources;
-import android.util.DisplayMetrics;
-import android.view.Display;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import de.deasycions.StartPage;
-import de.deasycions.interfaces.IStartActivity;
+import de.deasycions.EditablePage;
+import de.deasycions.Page;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -21,6 +19,7 @@ import de.deasycions.utilities.ListenerUtility;
  * @author Marc Stammerjohann
  */
 public class EditTextOnTouchListener implements View.OnTouchListener {
+    private EditablePage contentPage;
     private final Button button;
     private String currentButtonName;
     private final String tempButtonName;
@@ -32,38 +31,35 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private float currentXAxis;
     private float currentYAxis;
 
-    private float Height;
-    private float Width;
+    private float height;
+    private float width;
     private float density;
 
-    private IStartActivity contentPage;
-
-
-    public EditTextOnTouchListener(Button button, String tempButtonName, ImageView trashView, float Height, float Width, float density,IStartActivity contentPage ) {
+    public EditTextOnTouchListener(EditablePage contentPage, Button button, String tempButtonName, ImageView trashView, float height, float width, float density) {
+        this.contentPage = contentPage;
         this.button = button;
-        if(button != null) {
+        if (button != null) {
             currentButtonName = button.getText().toString();
         }
         this.tempButtonName = tempButtonName;
         this.trashView = trashView;
-        this.Width = Width;
-        this.Height=Height;
+        this.width = width;
+        this.height = height;
         this.density = density;
-        this.contentPage = contentPage;
-
-
-
     }
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         boolean handled = false;
         int performedAction = event.getAction();
+        //view
         float viewX = view.getX();
         float viewY = view.getY();
+        float viewRadius = view.getHeight() / 2;
+
+        //mouse
         float mouseX = event.getX();
         float mouseY = event.getY();
-
         switch (performedAction) {
             case MotionEvent.ACTION_DOWN:
                 ListenerUtility.initialXAxis = viewX;
@@ -79,21 +75,20 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_MOVE:
                 currentXAxis += mouseX - lastXAxis;
                 currentYAxis += mouseY - lastYAxis;
-//TODO ersetze 170 mit höhe Textview + Schriftgröße im Textview + PaddingTop
+                //TODO ersetze 170 mit höhe Textview + Schriftgröße im Textview + PaddingTop
                 if (currentYAxis < 170) {
                     currentYAxis = 170;
                 }
-//TODO ersetze 100 durch Höhe editTextkugeln
-                if (currentYAxis > Height-(100*density+5)) {
-                    currentYAxis = Height-(100*density+5);
+                if (currentYAxis > height - (viewRadius * density + 5)) {
+                    currentYAxis = height - (viewRadius * density + 5);
                 }
 
                 if (currentXAxis < 5) {
                     currentXAxis = 5;
                 }
 
-                if (currentXAxis > Width-(100*density+5)) {
-                    currentXAxis = Width-(100*density+5);
+                if (currentXAxis > width - (viewRadius * density + 5)) {
+                    currentXAxis = width - (viewRadius * density + 5);
                 }
                 view.setX(currentXAxis);
                 view.setY(currentYAxis);
@@ -103,35 +98,73 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 }
                 if (trashView != null) {
                     trashView.setVisibility(View.VISIBLE);
-
                 }
                 // the other listeners won't react
                 handled = true;
                 break;
             case MotionEvent.ACTION_UP:
-                //if it the edit text didn't end up on the trash or randomize button, reset it to the initial position
                 //TODO listen for hovering over trash or middle button
-                //middle: start Activity CategoryPageRandomize
-                //trash: delete hovering category
-                view.setX(ListenerUtility.initialXAxis);
-                view.setY(ListenerUtility.initialYAxis);
-                //TODO deleteContent does not get called
-                if(Math.abs(currentXAxis-trashView.getX())<100  && Math.abs(currentYAxis-trashView.getY())<100){
-                contentPage.deleteContent(((EditText) view).getText().toString());
-                }
-
                 if (button != null) {
+                    if (isViewAboveButton(view)) {
+                        if (view instanceof EditText) {
+                            contentPage.startNextActivity(((EditText) view).getText().toString(), Page.RANDOMIZE_PAGE);
+                            handled = true;
+                        }
+                    }
                     button.setText(currentButtonName);
                 }
                 if (trashView != null) {
+                    if (isViewAboveTrash(view)) {
+                        System.out.println("trash");
+                        if (view instanceof EditText) {
+                            contentPage.deleteContent(view);
+                            handled = true;
+                        }
+                    }
                     trashView.setVisibility(View.INVISIBLE);
                 }
+                //reset view to its initial position
+                view.setX(ListenerUtility.initialXAxis);
+                view.setY(ListenerUtility.initialYAxis);
                 break;
             default:
-
                 break;
         }
         // if return true the other listeners are not called
         return handled;
+    }
+
+    private boolean isViewAboveButton(View view) {
+        final Rect buttonRect = createButtonRect();
+
+        float viewX = view.getX();
+        float viewY = view.getY();
+        return buttonRect.contains((int) viewX, (int) viewY);
+    }
+
+
+    public boolean isViewAboveTrash(View view) {
+        final Rect imageTrash = createTrashRect();
+
+        float viewX = view.getX();
+        float viewY = view.getY();
+        return imageTrash.contains((int) viewX, (int) viewY);
+    }
+
+    private Rect createButtonRect() {
+        float buttonX = button.getX();
+        float buttonY = button.getY();
+        float buttonRange = button.getHeight() / 4;
+
+        return new Rect((int) (buttonX - buttonRange), (int) (buttonY - buttonRange), (int) (buttonX + buttonRange), (int) (buttonY + buttonRange));
+    }
+
+    private Rect createTrashRect() {
+        float trashX = trashView.getX();
+        float trashY = trashView.getY();
+        float buttonHalfHeight = trashView.getHeight();
+        float buttonHalfWidth = trashView.getWidth();
+
+        return new Rect((int) (trashX - buttonHalfWidth), (int) (trashY - buttonHalfHeight), (int) (trashX + buttonHalfWidth), (int) (trashY + buttonHalfHeight));
     }
 }

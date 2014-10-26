@@ -4,8 +4,8 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import de.deasycions.EditablePage;
 import de.deasycions.data.CategoryStorage;
-import de.deasycions.interfaces.IdEASYcionsContent;
 
 /**
  * {@link ContentDoneEditorListener} reacts on the DONE click on a keyboard.
@@ -16,13 +16,13 @@ import de.deasycions.interfaces.IdEASYcionsContent;
 public class ContentDoneEditorListener implements TextView.OnEditorActionListener {
 
 
-    private final IdEASYcionsContent contentPage;
+    private final EditablePage contentPage;
 
     private String infoMessage;
     private String currentName;
     private CategoryStorage categoryStorage;
 
-    public ContentDoneEditorListener(IdEASYcionsContent contentPage) {
+    public ContentDoneEditorListener(EditablePage contentPage) {
         this.contentPage = contentPage;
         this.categoryStorage = CategoryStorage.getInstance();
     }
