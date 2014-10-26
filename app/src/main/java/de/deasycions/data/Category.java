@@ -129,6 +129,19 @@ public class Category {
         }
     }
 
+    public int getEntryPosition(String currentName){
+        Entry current = first;
+        int position=0;
+        while (!(current.getName().equals(currentName))) {
+            if (!(current.getName().equals(currentName))) {
+                position++;
+            }
+            current = current.next;
+        }
+        return position;
+
+    }
+
     /**
      * Returns whether an entry of the same name exists already or not.
      * It is Case-insensitivity.

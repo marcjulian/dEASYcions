@@ -105,7 +105,7 @@ public class StartPage extends Activity implements IdEASYcionsContent {
         longHoldClickListener = new LongHoldClickListener(this, editText, categoryDoneEditorListener);
         secondOnClickListener = new SecondOnClickListener(this, editText);
 
-        editTextOnTouchListener = new EditTextOnTouchListener(randomButton, getString(R.string.random), trashView, height,width,density);
+        editTextOnTouchListener = new EditTextOnTouchListener(randomButton, getString(R.string.random), trashView, height,width,density,this);
         ActivityUtility.addListenerToEditText(editText, firstOnClickListener, categoryDoneEditorListener);
     }
 
@@ -157,7 +157,8 @@ public class StartPage extends Activity implements IdEASYcionsContent {
 
 
     public void deleteContent(String contentName) {
-        //TODO delete category
+        categoryStorage.deleteCategory(contentName);
+        onCreate(Bundle.EMPTY);
     }
 
 
@@ -192,12 +193,6 @@ public class StartPage extends Activity implements IdEASYcionsContent {
         categoryStorage.setNewCategoryName(currentName, newContentName);
     }
 
-    //TODO delete Category
-    //private void deleteCategory(String categoryName) {
-    //    categoryStorage.deleteCategory(categoryName);
-    //    editText[position].setOnClickListener(new SecondOnClickListener(this, editText));
-    //    startCategoryPageActivity(categoryName);
-    // }
 
 
 }

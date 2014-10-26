@@ -6,9 +6,11 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import de.deasycions.StartPage;
+import de.deasycions.interfaces.IStartActivity;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -34,7 +36,10 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private float Width;
     private float density;
 
-    public EditTextOnTouchListener(Button button, String tempButtonName, ImageView trashView, float Height, float Width, float density) {
+    private IStartActivity contentPage;
+
+
+    public EditTextOnTouchListener(Button button, String tempButtonName, ImageView trashView, float Height, float Width, float density,IStartActivity contentPage ) {
         this.button = button;
         if(button != null) {
             currentButtonName = button.getText().toString();
@@ -44,6 +49,9 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
         this.Width = Width;
         this.Height=Height;
         this.density = density;
+        this.contentPage = contentPage;
+
+
 
     }
 
@@ -55,6 +63,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
         float viewY = view.getY();
         float mouseX = event.getX();
         float mouseY = event.getY();
+
         switch (performedAction) {
             case MotionEvent.ACTION_DOWN:
                 ListenerUtility.initialXAxis = viewX;
@@ -94,6 +103,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 }
                 if (trashView != null) {
                     trashView.setVisibility(View.VISIBLE);
+
                 }
                 // the other listeners won't react
                 handled = true;
@@ -105,6 +115,10 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 //trash: delete hovering category
                 view.setX(ListenerUtility.initialXAxis);
                 view.setY(ListenerUtility.initialYAxis);
+                //TODO deleteContent does not get called
+                if(Math.abs(currentXAxis-trashView.getX())<100  && Math.abs(currentYAxis-trashView.getY())<100){
+                contentPage.deleteContent(((EditText) view).getText().toString());
+                }
 
                 if (button != null) {
                     button.setText(currentButtonName);

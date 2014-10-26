@@ -99,4 +99,9 @@ public class CategoryPageRandomize extends Activity implements IStartActivity {
         startResultPageActivity(contentName);
     }
 
+    @Override
+    public void deleteContent(String categoryName) {            //downvote
+
+    }
+
 }

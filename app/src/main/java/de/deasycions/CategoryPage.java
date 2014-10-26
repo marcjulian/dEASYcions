@@ -112,7 +112,7 @@ public class CategoryPage extends Activity implements IdEASYcionsContent {
         ContentDoneEditorListener entryDoneEditorListener = new ContentDoneEditorListener(this);
         longHoldClickListener = new LongHoldClickListener(this, editText, entryDoneEditorListener);
         emptyOnClickListener = new EmptyOnClickListener();
-        editTextOnTouchListener = new EditTextOnTouchListener(null, null, trashView, height, width, density);
+        editTextOnTouchListener = new EditTextOnTouchListener(null, null, trashView, height, width, density,this);
         ActivityUtility.addListenerToEditText(editText, firstOnClickListener, entryDoneEditorListener);
         categoryButton.setOnClickListener(new OnClickCategoryListener(this, newCategory.getName()));
     }
@@ -151,7 +151,8 @@ public class CategoryPage extends Activity implements IdEASYcionsContent {
 
 
     public void deleteContent(String contentName) {
-        //TODO delete Entry
+        newCategory.removeEntry(newCategory.getEntryPosition(contentName));     //TODO Marc: Look over getEntryPosition or change to ListenerUtility.getEditTextPosition
+        onCreate(Bundle.EMPTY);
     }
 
 

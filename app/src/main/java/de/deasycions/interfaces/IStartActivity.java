@@ -10,4 +10,6 @@ public interface IStartActivity {
     public void displayContent();
 
     public void startNextActivity(String contentName);
+
+    public void deleteContent(String categoryName);
 }
