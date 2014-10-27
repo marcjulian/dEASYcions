@@ -18,7 +18,7 @@ public final class ListenerUtility {
     public static float initialXAxis;
     public static float initialYAxis;
 
-    private ListenerUtility(){
+    private ListenerUtility() {
         //this class has only static methods
     }
 
@@ -37,18 +37,36 @@ public final class ListenerUtility {
         return counter;
     }
 
-    public static void setInfoTextMessage(final TextView message, TextView textView, String infoMessage, String currentName){
+    /**
+     * Displays an info messages to the user.
+     *
+     * @param message     where the info message is displayed
+     * @param infoMessage which is to be displayed
+     */
+    public static void setInfoTextMessage(final TextView message, String infoMessage) {
         message.setText(infoMessage);
         message.setVisibility(View.VISIBLE);
-        if (currentName == null) {
-            textView.setText("");
-            textView.setTextSize(50);
-        } else {
-            textView.setText(currentName);
-        }
         message.postDelayed(new Runnable() {
             public void run() {
-                message.setVisibility(View.INVISIBLE); } }, 3000);
+                message.setVisibility(View.INVISIBLE);
+            }
+        }, 3000);
+    }
+
+    /**
+     * Checks if the given view is moving compared to its initial position.
+     *
+     * @param view
+     * @return
+     */
+    public static boolean isViewMoving(View view) {
+        float viewX = view.getX();
+        float viewY = view.getY();
+        //if they are same as the initialPosition, the view isn't moving
+        if (viewX == ListenerUtility.initialXAxis && viewY == ListenerUtility.initialYAxis) {
+            return false;
+        }
+        return true;
     }
 
 }

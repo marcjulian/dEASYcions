@@ -35,7 +35,7 @@ public abstract class EditablePage extends Activity implements IStartActivity {
     protected ImageView trashView;
     //Listener
     protected View.OnLongClickListener longHoldClickListener;
-    protected  View.OnClickListener firstOnClickListener;
+    protected View.OnClickListener firstOnClickListener;
     //Keyboard
     private InputMethodManager inputMethodManager;
     // Variables
@@ -95,11 +95,43 @@ public abstract class EditablePage extends Activity implements IStartActivity {
         this.description = description;
     }
 
-    public void displayInfoMessage(String infoMessage, TextView textView, String currentName) {
-        ListenerUtility.setInfoTextMessage(message, textView, infoMessage, currentName);
+    public void displayInfoMessage(String infoMessage) {
+        ListenerUtility.setInfoTextMessage(message, infoMessage);
     }
 
     public void startNextActivity(String contentName, Page page) {
         //do nothing, sub-class must override
+    }
+
+    public void resetEditText(EditText currentEditText){
+        currentEditText.setText("");
+        currentEditText.setTextSize(50);
+        currentEditText.setOnClickListener(firstOnClickListener);
+        currentEditText.setFocusableInTouchMode(false);
+        currentEditText.clearFocus();
+    }
+
+    public void refreshDisplay(EditText currentEditText) {
+        int position = ListenerUtility.getEditTextPosition(currentEditText, editText);
+        int positionBefore = (position - 1 + editText.length) % editText.length;
+        int positionBehind = (position + 1) % editText.length;
+        EditText before = editText[positionBefore];
+        EditText behind = editText[positionBehind];
+
+        if(categoryStorage.size() == 5){
+            resetEditText(currentEditText);
+        }else if(before.getText().toString().equals("")){
+            currentEditText.setVisibility(View.INVISIBLE);
+        }else if(!before.getText().toString().equals("")){
+            while(!behind.getText().toString().equals("")){
+                currentEditText.setTextSize(20);
+                currentEditText.setText(behind.getText().toString());
+                currentEditText = behind;
+                position++;
+                behind = editText[(position + 1) % editText.length];
+            }
+            resetEditText(currentEditText);
+            behind.setVisibility(View.INVISIBLE);
+        }
     }
 }

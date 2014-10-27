@@ -36,7 +36,13 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
             contentPage.hideKeyboard(textView.getWindowToken());
 
             if (!verifyNewCategoryName(newContentName)) {
-                contentPage.displayInfoMessage(infoMessage, textView, currentName);
+                contentPage.displayInfoMessage(infoMessage);
+                if (currentName == null) {
+                    textView.setText("");
+                    textView.setTextSize(50);
+                } else {
+                    textView.setText(currentName);
+                }
             } else {
                 if (currentName == null) {
                     contentPage.createContent(newContentName);

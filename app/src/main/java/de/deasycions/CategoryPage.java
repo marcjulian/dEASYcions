@@ -84,17 +84,8 @@ public class CategoryPage extends EditablePage {
         if(currentView instanceof EditText){
             EditText currentEditText = (EditText) currentView;
             newCategory.removeEntry(currentEditText.getText().toString());
-            currentEditText.setText("");
-            currentEditText.setTextSize(50);
-            currentEditText.setOnClickListener(firstOnClickListener);
-            currentEditText.clearFocus();
-            currentEditText.setFocusableInTouchMode(false);
             refreshDisplay(currentEditText);
         }
-    }
-
-    private void refreshDisplay(EditText currentEditText) {
-        //TODO rearrange edittext, do not have any gap
     }
 
     public boolean containsContent(String content) {

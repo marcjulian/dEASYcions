@@ -25,8 +25,10 @@ public class SecondOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        int position = ListenerUtility.getEditTextPosition(view, editText);
-        ListenerUtility.editTextPosition = position;
-        contentPage.startNextActivity(editText[position].getText().toString(), Page.CATEGORY_PAGE);
+        if(!ListenerUtility.isViewMoving(view)) {
+            int position = ListenerUtility.getEditTextPosition(view, editText);
+            ListenerUtility.editTextPosition = position;
+            contentPage.startNextActivity(editText[position].getText().toString(), Page.CATEGORY_PAGE);
+        }
     }
 }

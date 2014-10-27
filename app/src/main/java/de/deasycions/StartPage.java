@@ -94,20 +94,11 @@ public class StartPage extends EditablePage {
         if (currentView instanceof EditText) {
             EditText currentEditText = (EditText) currentView;
             categoryStorage.deleteCategory(currentEditText.getText().toString());
-            currentEditText.setText("");
-            currentEditText.setTextSize(50);
-            currentEditText.setOnClickListener(firstOnClickListener);
-            currentEditText.clearFocus();
-            currentEditText.setFocusableInTouchMode(false);
             refreshDisplay(currentEditText);
         }
     }
 
-    private void refreshDisplay(EditText currentEditText) {
-        if (categoryStorage.size() < 5) {
-            //TODO set invisible or rearrange edittext, no gaps are allowed
-        }
-    }
+
 
     /**
      * Starting the {@link de.deasycions.CategoryPage}-Activity.

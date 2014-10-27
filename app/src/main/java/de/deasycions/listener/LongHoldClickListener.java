@@ -28,7 +28,7 @@ public class LongHoldClickListener implements View.OnLongClickListener {
 
     @Override
     public boolean onLongClick(View view) {
-        if(!isViewMoving(view)) {
+        if(!ListenerUtility.isViewMoving(view)) {
             view.performHapticFeedback(1);
             int position = ListenerUtility.getEditTextPosition(view, editText);
             ListenerUtility.editTextPosition = position;
@@ -45,13 +45,5 @@ public class LongHoldClickListener implements View.OnLongClickListener {
     }
 
 
-    private boolean isViewMoving(View view){
-        float viewX = view.getX();
-        float viewY = view.getY();
-        //if they are same as the initialPosition, the view isn't moving
-        if(viewX == ListenerUtility.initialXAxis && viewY == ListenerUtility.initialYAxis){
-            return false;
-        }
-        return true;
-    }
+
 }
