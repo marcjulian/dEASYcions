@@ -40,10 +40,9 @@ public class CategoryStorage {
         savedCategories.put(category.getName().toLowerCase(), category);
     }
 
-
     public void deleteCategory(String categoryName) {
         if (containsCategory(categoryName)) {
-            savedCategories.remove(categoryName);
+            savedCategories.remove(categoryName.toLowerCase());
         }
     }
 

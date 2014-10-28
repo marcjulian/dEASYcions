@@ -79,7 +79,8 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 if (currentYAxis < 170) {
                     currentYAxis = 170;
                 }
-                if (currentYAxis > height - (viewRadius * density + 5)) {
+                //if (currentYAxis > height - (viewRadius * density + 5)) {
+                if (currentYAxis > height - (100 * density + 5)) {
                     currentYAxis = height - (viewRadius * density + 5);
                 }
 
@@ -87,7 +88,8 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                     currentXAxis = 5;
                 }
 
-                if (currentXAxis > width - (viewRadius * density + 5)) {
+                //if (currentXAxis > width - (viewRadius * density + 5)) {
+                if (currentXAxis > width - (100 * density + 5)) {
                     currentXAxis = width - (viewRadius * density + 5);
                 }
                 view.setX(currentXAxis);
@@ -103,7 +105,6 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 handled = true;
                 break;
             case MotionEvent.ACTION_UP:
-                //TODO listen for hovering over trash or middle button
                 if (button != null) {
                     if (isViewAboveButton(view)) {
                         if (view instanceof EditText) {
@@ -115,7 +116,6 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 }
                 if (trashView != null) {
                     if (isViewAboveTrash(view)) {
-                        System.out.println("trash");
                         if (view instanceof EditText) {
                             contentPage.deleteContent(view);
                             handled = true;

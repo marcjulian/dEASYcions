@@ -121,6 +121,7 @@ public abstract class EditablePage extends Activity implements IStartActivity {
         if(categoryStorage.size() == 5){
             resetEditText(currentEditText);
         }else if(before.getText().toString().equals("")){
+            resetEditText(currentEditText);
             currentEditText.setVisibility(View.INVISIBLE);
         }else if(!before.getText().toString().equals("")){
             while(!behind.getText().toString().equals("")){

@@ -28,6 +28,7 @@ public class LongHoldClickListener implements View.OnLongClickListener {
 
     @Override
     public boolean onLongClick(View view) {
+        boolean handled = false;
         if(!ListenerUtility.isViewMoving(view)) {
             view.performHapticFeedback(1);
             int position = ListenerUtility.getEditTextPosition(view, editText);
@@ -35,13 +36,14 @@ public class LongHoldClickListener implements View.OnLongClickListener {
             EditText currentEditText = editText[position];
             currentEditText.setFocusableInTouchMode(true);
             currentEditText.requestFocus();
+            currentEditText.setSelection(currentEditText.getText().length());
             contentPage.showKeyboard(currentEditText);
-            //TODO set cursor behind the text
             ContentDoneEditorListener contentDoneEditorListener = (ContentDoneEditorListener) onEditorActionListener;
             contentDoneEditorListener.setCurrentName(currentEditText.getText().toString());
             currentEditText.setOnEditorActionListener(contentDoneEditorListener);
+            handled = true;
        }
-        return false;
+        return handled;
     }
 
 
