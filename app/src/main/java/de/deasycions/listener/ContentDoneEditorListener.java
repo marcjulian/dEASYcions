@@ -73,7 +73,7 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
      */
     private boolean verifyNewCategoryName(String input) {
         if (input.equals("")) {
-            infoMessage = String.format("The %s name must not be empty!", contentPage.getDescription());
+            infoMessage = String.format("Please enter %s name!", contentPage.getDescription());
             return false;
         }
         if (currentName != null) {
