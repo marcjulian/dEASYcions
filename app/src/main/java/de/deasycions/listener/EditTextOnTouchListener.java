@@ -81,7 +81,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 }
                 //if (currentYAxis > height - (viewRadius * density + 5)) {
                 if (currentYAxis > height - (100 * density + 5)) {
-                    currentYAxis = height - (viewRadius * density + 5);
+                    currentYAxis = height - (100 * density + 5);
                 }
 
                 if (currentXAxis < 5) {
@@ -90,7 +90,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
 
                 //if (currentXAxis > width - (viewRadius * density + 5)) {
                 if (currentXAxis > width - (100 * density + 5)) {
-                    currentXAxis = width - (viewRadius * density + 5);
+                    currentXAxis = width - (100 * density + 5);
                 }
                 view.setX(currentXAxis);
                 view.setY(currentYAxis);
@@ -101,6 +101,17 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 if (trashView != null) {
                     trashView.setVisibility(View.VISIBLE);
                 }
+
+                if (button != null) {
+                    if (isViewAboveButton(view)) {
+                        if (view instanceof EditText) {
+                            view.performHapticFeedback(1);
+                            handled = true;
+                        }
+                    }
+
+                }
+
                 // the other listeners won't react
                 handled = true;
                 break;
@@ -108,6 +119,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 if (button != null) {
                     if (isViewAboveButton(view)) {
                         if (view instanceof EditText) {
+                            view.performHapticFeedback(1);
                             contentPage.startNextActivity(((EditText) view).getText().toString(), Page.RANDOMIZE_PAGE);
                             handled = true;
                         }
@@ -140,6 +152,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
         float viewX = view.getX();
         float viewY = view.getY();
         return buttonRect.contains((int) viewX, (int) viewY);
+
     }
 
 
@@ -154,9 +167,9 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private Rect createButtonRect() {
         float buttonX = button.getX();
         float buttonY = button.getY();
-        float buttonRange = button.getHeight() / 4;
-
-        return new Rect((int) (buttonX - buttonRange), (int) (buttonY - buttonRange), (int) (buttonX + buttonRange), (int) (buttonY + buttonRange));
+        float buttonRange = button.getHeight()/2;
+        return new Rect((int) (buttonX - buttonRange), (int)
+                (buttonY - buttonRange), (int) (buttonX + buttonRange), (int) (buttonY + buttonRange));
     }
 
     private Rect createTrashRect() {

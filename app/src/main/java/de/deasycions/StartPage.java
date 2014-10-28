@@ -2,6 +2,7 @@ package de.deasycions;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -113,7 +114,10 @@ public class StartPage extends EditablePage {
                 break;
             case RANDOMIZE_PAGE:
                 if (!categoryStorage.getCategory(contentName).isEmpty()) {
+
                     intent = new Intent(this, CategoryPageRandomize.class);
+                }else{
+                    displayInfoMessage("Category must not be empty!");
                 }
                 break;
             default:
@@ -129,6 +133,7 @@ public class StartPage extends EditablePage {
     public boolean containsContent(String content) {
         return categoryStorage.containsCategory(content);
     }
+
 
     public void setNewContentName(String currentName, String newContentName) {
         categoryStorage.setNewCategoryName(currentName, newContentName);

@@ -1,6 +1,8 @@
 package de.deasycions.listener;
 
+import android.app.Activity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
@@ -22,6 +24,8 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
     private String currentName;
     private CategoryStorage categoryStorage;
 
+
+
     public ContentDoneEditorListener(EditablePage contentPage) {
         this.contentPage = contentPage;
         this.categoryStorage = CategoryStorage.getInstance();
@@ -29,8 +33,10 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
+
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_DONE) {
+
             String newContentName = textView.getText().toString();
             // hiding the keyboard
             contentPage.hideKeyboard(textView.getWindowToken());
@@ -86,4 +92,7 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
     public void setCurrentName(String currentName) {
         this.currentName = currentName;
     }
+
+
+
 }

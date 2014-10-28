@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public abstract class EditablePage extends Activity implements IStartActivity {
 
     protected void initialize() {
         //Category-Section
-        categoryStorage = CategoryStorage.getInstance();
+       categoryStorage = CategoryStorage.getInstance();
 
         //Keyboard-Section
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -135,4 +136,5 @@ public abstract class EditablePage extends Activity implements IStartActivity {
             behind.setVisibility(View.INVISIBLE);
         }
     }
+
 }
