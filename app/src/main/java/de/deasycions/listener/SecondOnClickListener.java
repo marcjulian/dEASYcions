@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import de.deasycions.EditablePage;
 import de.deasycions.Page;
+import de.deasycions.customText.EasyText;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -16,19 +17,18 @@ import de.deasycions.utilities.ListenerUtility;
 public class SecondOnClickListener implements View.OnClickListener {
 
     private EditablePage contentPage;
-    private EditText[] editText;
 
-    public SecondOnClickListener(EditablePage contentPage, EditText[] editText) {
+    public SecondOnClickListener(EditablePage contentPage) {
         this.contentPage = contentPage;
-        this.editText = editText;
     }
 
     @Override
     public void onClick(View view) {
-        if(!ListenerUtility.isViewMoving(view)) {
-            int position = ListenerUtility.getEditTextPosition(view, editText);
-            ListenerUtility.editTextPosition = position;
-            contentPage.startNextActivity(editText[position].getText().toString(), Page.CATEGORY_PAGE);
+        if (view instanceof EasyText) {
+            EasyText currentEasyText = (EasyText) view;
+            if (!ListenerUtility.isViewMoving(currentEasyText)) {
+                contentPage.startNextActivity(currentEasyText, Page.CATEGORY_PAGE);
+            }
         }
     }
 }

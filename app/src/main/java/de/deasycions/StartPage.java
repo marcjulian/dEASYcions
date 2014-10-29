@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import java.util.Collection;
 
+import de.deasycions.customText.EasyText;
 import de.deasycions.data.Category;
 import de.deasycions.data.SharedData;
 import de.deasycions.listener.EditTextOnTouchListener;
@@ -48,19 +49,6 @@ public class StartPage extends EditablePage {
         sharedData.saveData();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                View currentFocus = getWindow().getCurrentFocus();
-
-                break;
-            default:
-                break;
-        }
-        return super.onTouchEvent(event);
-    }
-
     protected void initialize() {
         super.initialize();
         //String-Section
@@ -68,7 +56,7 @@ public class StartPage extends EditablePage {
         //Widget-Section
         randomButton = (Button) findViewById(R.id.random);
         //Listener-Section
-        secondOnClickListener = new SecondOnClickListener(this, editText);
+        secondOnClickListener = new SecondOnClickListener(this);
         editTextOnTouchListener = new EditTextOnTouchListener(this, randomButton, getString(R.string.random), trashView, height, width, density);
     }
 
@@ -77,31 +65,29 @@ public class StartPage extends EditablePage {
         if (!categoryStorage.isEmpty()) {
             Collection<Category> categoryValues = categoryStorage.getCategoryValues();
             for (Category currentCategory : categoryValues) {
-                EditText currentEditText = editText[position];
-                currentEditText.setTextSize(20);
-                currentEditText.setText(currentCategory.getName());
-                ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
-                editText[(position + 1) % editText.length].setVisibility(View.VISIBLE);
+                EasyText currentEasyText = easyTexts[position];
+                currentEasyText.setTextSize(20);
+                currentEasyText.setText(currentCategory.getName());
+                ActivityUtility.addListenerToEditText(currentEasyText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
+                currentEasyText.getBehind().setVisibility(View.VISIBLE);
                 position++;
             }
         }
     }
 
-    public void createContent(String newCategoryName) {
-        EditText currentEditText = editText[ListenerUtility.editTextPosition];
-        editText[(ListenerUtility.editTextPosition + 1) % editText.length].setVisibility(View.VISIBLE);
-        currentEditText.performHapticFeedback(1);
+    public void createContent(EasyText currentEasyText) {
+        String newCategoryName = currentEasyText.getText().toString();
+        currentEasyText.getBehind().setVisibility(View.VISIBLE);
+        currentEasyText.performHapticFeedback(1);
         categoryStorage.createCategory(newCategoryName);
-        currentEditText.clearFocus();
-        ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
-        currentEditText.setOnLongClickListener(longHoldClickListener);
-        currentEditText.setOnClickListener(secondOnClickListener);
-        startNextActivity(newCategoryName, Page.CATEGORY_PAGE);
+        currentEasyText.clearFocus();
+        ActivityUtility.addListenerToEditText(currentEasyText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
+        startNextActivity(currentEasyText, Page.CATEGORY_PAGE);
     }
 
     public void deleteContent(View currentView) {
-        if (currentView instanceof EditText) {
-            EditText currentEditText = (EditText) currentView;
+        if (currentView instanceof EasyText) {
+            EasyText currentEditText = (EasyText) currentView;
             categoryStorage.deleteCategory(currentEditText.getText().toString());
             refreshDisplay(currentEditText, categoryStorage.size());
         }
@@ -110,10 +96,10 @@ public class StartPage extends EditablePage {
     /**
      * Starting the {@link de.deasycions.CategoryPage}-Activity.
      *
-     * @param contentName of the category which will be displayed.
      */
-    public void startNextActivity(String contentName, Page page) {
+    public void startNextActivity(EasyText currentEasyText, Page page) {
         Intent intent = null;
+        String contentName = currentEasyText.getText().toString();
         switch (page) {
             case CATEGORY_PAGE:
                 intent = new Intent(this, CategoryPage.class);
@@ -130,7 +116,7 @@ public class StartPage extends EditablePage {
         }
         if (intent != null) {
             intent.putExtra(ActivityUtility.CATEGORY_NAME, contentName);
-            intent.putExtra(ActivityUtility.CATEGORY_POSITION, ListenerUtility.editTextPosition);
+            intent.putExtra(ActivityUtility.CATEGORY_POSITION, currentEasyText.getPosition());
             startActivity(intent);
         }
     }

@@ -1,13 +1,12 @@
 package de.deasycions.listener;
 
-import android.app.Activity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import de.deasycions.EditablePage;
-import de.deasycions.data.CategoryStorage;
+import de.deasycions.customText.EasyText;
+import de.deasycions.utilities.ActivityUtility;
 
 /**
  * {@link ContentDoneEditorListener} reacts on the DONE click on a keyboard.
@@ -20,15 +19,8 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
 
     private final EditablePage contentPage;
 
-    private String infoMessage;
-    private String currentName;
-    private CategoryStorage categoryStorage;
-
-
-
     public ContentDoneEditorListener(EditablePage contentPage) {
         this.contentPage = contentPage;
-        this.categoryStorage = CategoryStorage.getInstance();
     }
 
     @Override
@@ -36,63 +28,13 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
 
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-
-            String newContentName = textView.getText().toString();
-            // hiding the keyboard
-            contentPage.hideKeyboard(textView.getWindowToken());
-
-            if (!verifyNewCategoryName(newContentName)) {
-                contentPage.displayInfoMessage(infoMessage);
-                if (currentName == null) {
-                    textView.setText("");
-                    textView.setTextSize(50);
-                } else {
-                    textView.setText(currentName);
-                }
-            } else {
-                if (currentName == null) {
-                    contentPage.createContent(newContentName);
-                } else {
-                    contentPage.setNewContentName(currentName, newContentName);
-                }
+            if(textView instanceof EasyText) {
+                EasyText currentEasyText = (EasyText) textView;
+                ActivityUtility.saveAtDoneClick(contentPage, currentEasyText);
+                handled = true;
             }
-            //disabled editing of the text
-            textView.setFocusableInTouchMode(false);
-            textView.clearFocus();
-            handled = true;
         }
         return handled;
     }
-
-    /**
-     * Verifies if the text is allowed for a new {@link de.deasycions.data.Category}.
-     * Also specifies the info message.
-     *
-     * @param input to verify for new category
-     * @return boolean whether the text is allowed or not
-     */
-    private boolean verifyNewCategoryName(String input) {
-        if (input.equals("")) {
-            infoMessage = String.format("Please enter %s name!", contentPage.getDescription());
-            return false;
-        }
-        if (currentName != null) {
-            if (currentName.toLowerCase().equals(input.toLowerCase())) {
-                infoMessage = "";
-                return false;
-            }
-        }
-        if (contentPage.containsContent(input)) {
-            infoMessage = String.format("The %s %s already exists!" , contentPage.getDescription(), input);
-            return false;
-        }
-        return true;
-    }
-
-    public void setCurrentName(String currentName) {
-        this.currentName = currentName;
-    }
-
-
 
 }

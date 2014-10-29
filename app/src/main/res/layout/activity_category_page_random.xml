@@ -23,7 +23,7 @@
         android:textSize="20dp"
         android:visibility="visible" />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etLU"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -38,7 +38,7 @@
         android:textColorHint="#000000"
         android:textSize="20dp" />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etRU"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -53,7 +53,7 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etL"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -86,7 +86,7 @@
         android:textSize="19dp"
         android:textStyle="bold" />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etR"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -102,7 +102,7 @@
         android:textColorHint="#000000"
         android:visibility="invisible" />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etLD"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -119,7 +119,7 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etRD"
         android:layout_width="100dp"
         android:layout_height="100dp"

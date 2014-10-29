@@ -25,7 +25,7 @@ public class OnClickRandomListener implements View.OnClickListener {
         contentPage.startNextActivity(getResult().getEntry(randomPosition).getName(), Page.RANDOMIZE_PAGE);
     }
 
-    public Category getResult(){
+    public Category getResult() {
         return CategoryPageRandomize.getResultAfterVoting();
     }
 }

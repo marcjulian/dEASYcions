@@ -1,7 +1,5 @@
 package de.deasycions.interfaces;
 
-import android.view.View;
-
 import de.deasycions.Page;
 
 /**
@@ -11,9 +9,5 @@ import de.deasycions.Page;
  */
 public interface IStartActivity {
 
-    public void displayContent();
-
     public void startNextActivity(String contentName, Page page);
-
-    public void deleteContent(View currentView);
 }

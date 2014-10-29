@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import de.deasycions.CategoryPageRandomize;
 import de.deasycions.EditablePage;
 import de.deasycions.Page;
+import de.deasycions.customText.EasyText;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -99,7 +100,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                 if (button != null) {
                     button.setText(tempButtonName);
                     if (isViewAboveButton(view)) {
-                            view.performHapticFeedback(1);
+                        view.performHapticFeedback(1);
                     }
                 }
                 if (trashView != null) {
@@ -114,20 +115,19 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 if (button != null) {
                     if (isViewAboveButton(view)) {
-                        if(!(contentPage instanceof CategoryPageRandomize)){
-                        if (view instanceof EditText) {
-                            view.performHapticFeedback(1);
-                            contentPage.startNextActivity(((EditText) view).getText().toString(), Page.RANDOMIZE_PAGE);
+                        if (view instanceof EasyText) {
+                            EasyText currentEasyText = (EasyText) view;
+                            currentEasyText.performHapticFeedback(1);
+                            if (!(contentPage instanceof CategoryPageRandomize)) {
+                                contentPage.startNextActivity(currentEasyText, Page.RANDOMIZE_PAGE);
+                            } else {
+                                contentPage.createContent(currentEasyText);
+                            }
                             handled = true;
                         }
-                    }else{
-                            view.performHapticFeedback(1);
-                            contentPage.createContent(((EditText) view).getText().toString());
-                        }
+                    }
+                    button.setText(currentButtonName);
                 }
-                button.setText(currentButtonName);
-            }
-
 
                 if (trashView != null) {
                     if (isViewAboveTrash(view)) {
@@ -148,6 +148,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
         // if return true the other listeners are not called
         return handled;
     }
+
 
     private boolean isViewAboveButton(View view) {
         final Rect buttonRect = createButtonRect();
@@ -170,7 +171,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private Rect createButtonRect() {
         float buttonX = button.getX();
         float buttonY = button.getY();
-        float buttonRange = button.getHeight()/4;
+        float buttonRange = button.getHeight() / 4;
 
         return new Rect((int) (buttonX - buttonRange), (int)
                 (buttonY - buttonRange), (int) (buttonX + buttonRange), (int) (buttonY + buttonRange));

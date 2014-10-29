@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import de.deasycions.EditablePage;
 import de.deasycions.R;
+import de.deasycions.customText.EasyText;
 import de.deasycions.listener.EditTextOnTouchListener;
 
 /**
@@ -41,27 +43,34 @@ public final class ActivityUtility {
      * @param currentActivity
      * @return
      */
-    public static EditText[] createEditText(Activity currentActivity) {
-        EditText[] editText = new EditText[6];
-        editText[0] = (EditText) currentActivity.findViewById(R.id.etLU);
-        editText[1] = (EditText) currentActivity.findViewById(R.id.etRU);
-        editText[2] = (EditText) currentActivity.findViewById(R.id.etR);
-        editText[3] = (EditText) currentActivity.findViewById(R.id.etRD);
-        editText[4] = (EditText) currentActivity.findViewById(R.id.etLD);
-        editText[5] = (EditText) currentActivity.findViewById(R.id.etL);
-        return editText;
+    public static EasyText[] createEasyText(Activity currentActivity) {
+        EasyText.resetID();
+        EasyText[] easyTexts = new EasyText[6];
+        easyTexts[0] = (EasyText) currentActivity.findViewById(R.id.etLU);
+        easyTexts[1] = (EasyText) currentActivity.findViewById(R.id.etRU);
+        easyTexts[2] = (EasyText) currentActivity.findViewById(R.id.etR);
+        easyTexts[3] = (EasyText) currentActivity.findViewById(R.id.etRD);
+        easyTexts[4] = (EasyText) currentActivity.findViewById(R.id.etLD);
+        easyTexts[5] = (EasyText) currentActivity.findViewById(R.id.etL);
+        int length = easyTexts.length;
+        for (int i = 0; i < length; i++) {
+            easyTexts[i].setBefore(easyTexts[((i - 1) + length) % length]);
+            easyTexts[i].setBehind(easyTexts[(i + 1) % length]);
+        }
+        return easyTexts;
     }
 
     /**
      * Adding the given listeners to each editText field.
      * EditTexts only need onclick and Editor Listener, when they are initialized.
-     * @param editTexts
+     *
+     * @param easyTexts
      * @param onClickListener
      * @param onEditorActionListener
      */
-    public static void addListenerToEditText(EditText[] editTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener) {
-        for (int i = 0; i < editTexts.length; i++) {
-            EditText currentEditText = editTexts[i];
+    public static void addListenerToEditText(EasyText[] easyTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener) {
+        for (int i = 0; i < easyTexts.length; i++) {
+            EditText currentEditText = easyTexts[i];
             if (onClickListener != null) {
                 currentEditText.setOnClickListener(onClickListener);
             }
@@ -75,19 +84,19 @@ public final class ActivityUtility {
      * Adding the given listeners to one editText field.
      * After initialized, when text is entered, new listeners are added.
      *
-     * @param currentEditText
+     * @param currentEasyText
      * @param secondOnClickListener
      * @param longHoldClickListener
      */
-    public static void addListenerToEditText(EditText currentEditText, View.OnClickListener secondOnClickListener, View.OnLongClickListener longHoldClickListener, View.OnTouchListener onTouchListener) {
-        if(secondOnClickListener != null){
-            currentEditText.setOnClickListener(secondOnClickListener);
+    public static void addListenerToEditText(EasyText currentEasyText, View.OnClickListener secondOnClickListener, View.OnLongClickListener longHoldClickListener, View.OnTouchListener onTouchListener) {
+        if (secondOnClickListener != null) {
+            currentEasyText.setOnClickListener(secondOnClickListener);
         }
-        if(longHoldClickListener != null){
-            currentEditText.setOnLongClickListener(longHoldClickListener);
+        if (longHoldClickListener != null) {
+            currentEasyText.setOnLongClickListener(longHoldClickListener);
         }
-        if(onTouchListener != null){
-            currentEditText.setOnTouchListener(onTouchListener);
+        if (onTouchListener != null) {
+            currentEasyText.setOnTouchListener(onTouchListener);
         }
     }
 
@@ -95,18 +104,53 @@ public final class ActivityUtility {
      * Swaps the button and the selected category background color.
      *
      * @param button
-     * @param editText
+     * @param easyTexts
      * @param currentCategoryPosition
      */
-    public static void swapBackgroundColor(Button button, EditText[] editText, int currentCategoryPosition) {
+    public static void swapBackgroundColor(Button button, EasyText[] easyTexts, int currentCategoryPosition) {
         Drawable buttonBackground = button.getBackground();
         if (currentCategoryPosition == -1) {
             return;
         }
-        Drawable editTextBackground = editText[currentCategoryPosition].getBackground();
+        Drawable editTextBackground = easyTexts[currentCategoryPosition].getBackground();
 
         //swap background
         button.setBackground(editTextBackground);
-        editText[currentCategoryPosition].setBackground(buttonBackground);
+        easyTexts[currentCategoryPosition].setBackground(buttonBackground);
+    }
+
+    /**
+     * It whether saves the new entered name or displays an info message.
+     * It is used in the {@link de.deasycions.listener.ContentDoneEditorListener} and in the onTouch-Method in StartPage and CategoryPage.
+     * It also is used when the keyboard is closed via toolbar
+     *
+     * @param contentPage
+     * @param currentEasyText
+     */
+    //TODO call this when the keyboard is closed via toolbar
+    public static void saveAtDoneClick(EditablePage contentPage, EasyText currentEasyText) {
+        // hiding the keyboard
+        contentPage.hideKeyboard(currentEasyText.getWindowToken());
+        String currentName = currentEasyText.getCurrentName();
+        String newContentName = currentEasyText.getNewName();
+        if (!currentEasyText.verifyNewCategoryName(contentPage)) {
+            if (currentName == null) {
+                currentEasyText.setText("");
+                currentEasyText.setTextSize(50);
+            } else {
+                currentEasyText.setText(currentName);
+            }
+        } else {
+            currentEasyText.setCurrentName(newContentName);
+            if (currentName == null) {
+                contentPage.createContent(currentEasyText);
+            } else {
+                contentPage.setNewContentName(currentName, newContentName);
+            }
+        }
+        //disabled editing of the text
+        currentEasyText.setFocusableInTouchMode(false);
+        currentEasyText.clearFocus();
+
     }
 }

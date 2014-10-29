@@ -1,6 +1,5 @@
 package de.deasycions;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import de.deasycions.customText.EasyText;
 import de.deasycions.data.Category;
 import de.deasycions.data.CategoryStorage;
 import de.deasycions.interfaces.IStartActivity;
@@ -27,7 +27,7 @@ import android.widget.ImageView;
  */
 public class CategoryPageRandomize extends EditablePage implements IStartActivity {
 
-    private EditText[] editText;
+    private EasyText[] easyTexts;
     private CategoryStorage categoryStorage;
     private String[] entries;
     private Category currentCategory;
@@ -41,15 +41,13 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
     private int currentCategoryPosition;
     private View.OnTouchListener editTextOnTouchListener;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page_random);
         initialize();
         displayContent();
-        ActivityUtility.swapBackgroundColor(randomize, editText, currentCategoryPosition);
+        ActivityUtility.swapBackgroundColor(randomize, easyTexts, currentCategoryPosition);
     }
 
     @Override
@@ -59,7 +57,6 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
     }
 
     protected void initialize() {
-
         //Intent-Section
         Intent intent = getIntent();
         categoryName = intent.getStringExtra(ActivityUtility.CATEGORY_NAME);
@@ -68,17 +65,14 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
         categoryStorage = CategoryStorage.getInstance();
         currentCategory = categoryStorage.getCategory(categoryName);
         entries = new String[currentCategory.size()];
-
-        for(int i = 0; i < currentCategory.size();i++){
+        for (int i = 0; i < currentCategory.size(); i++) {
             entries[i] = currentCategory.getEntry(i).getName();
         }
-
-
         //Widget-Section
         randomize = (Button) findViewById(R.id.random);
         categoryTextView = (TextView) findViewById(R.id.displayCategoryName);
         categoryTextView.setText(categoryName);
-        editText = ActivityUtility.createEditText(this);
+        easyTexts = ActivityUtility.createEasyText(this);
         this.trashView = (ImageView) findViewById(R.id.trash);
 
         //Display-Section
@@ -91,7 +85,7 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
 
         //Listener-Section
         randomize.setOnClickListener(new OnClickRandomListener(this));
-        editTextOnTouchListener = new EditTextOnTouchListener(this,randomize,"Upvote", trashView, height, width, density);
+        editTextOnTouchListener = new EditTextOnTouchListener(this, randomize, getString(R.string.vote), trashView, height, width, density);
 
     }
 
@@ -108,10 +102,10 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
     public void displayContent() {
         int size = currentCategory.size();
         for (int i = 0; i < size; i++) {
-            EditText currentEditText = editText[i];
+            EditText currentEditText = easyTexts[i];
             currentEditText.setVisibility(View.VISIBLE);
-            editText[i].setText(currentCategory.getEntry(i).getName());
-            ActivityUtility.addListenerToEditText(editText[i],null,null,editTextOnTouchListener);
+            easyTexts[i].setText(currentCategory.getEntry(i).getName());
+            ActivityUtility.addListenerToEditText(easyTexts[i], null, null, editTextOnTouchListener);
         }
     }
 
@@ -135,57 +129,65 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
         handler.postDelayed(runnable, 2250);
     }
 
-    public void deleteContent(View currentView) {     //Downvote
-        if(currentView instanceof EditText){
-            EditText currentEditText = (EditText) currentView;
-            if(lastPositionEntry(currentEditText.getText().toString())>=0){
-                entries = deleteFromEntries(lastPositionEntry(currentEditText.getText().toString()));
+    /**
+     * Downvote
+     *
+     * @param currentView
+     */
+    public void deleteContent(View currentView) {
+        if (currentView instanceof EasyText) {
+            EasyText currentEasyText = (EasyText) currentView;
+            if (lastPositionEntry(currentEasyText.getNewName()) >= 0) {
+                entries = deleteFromEntries(lastPositionEntry(currentEasyText.getNewName()));
             }
-        }resultAfterVoting = createResultCategoryFromEntries(entries);
+        }
+        resultAfterVoting = createResultCategoryFromEntries(entries);
     }
 
-    @Override
-    public void createContent(String newContentName) { //Upvote
-        String[] temp = new String[entries.length+1];
-        for(int i=0;i<entries.length;i++){
-            temp[i]= entries[i];
+
+    /**
+     * Upvote
+     *
+     * @param currentEasyText
+     */
+    public void createContent(EasyText currentEasyText) {
+        String newContentName = currentEasyText.getNewName();
+        String[] temp = new String[entries.length + 1];
+        for (int i = 0; i < entries.length; i++) {
+            temp[i] = entries[i];
         }
-        temp[temp.length-1] = newContentName;
+        temp[temp.length - 1] = newContentName;
         entries = temp;
 
         resultAfterVoting = createResultCategoryFromEntries(entries);
     }
 
-    private int lastPositionEntry(String entryname){
+    private int lastPositionEntry(String entryName) {
         int position = -1;
-        for(int i = 0; i < entries.length;i++){
-            if(entryname.equals(entries[i])){
+        for (int i = 0; i < entries.length; i++) {
+            if (entryName.equals(entries[i])) {
                 position = i;
-
             }
         }
         return position;
     }
 
-    private String[] deleteFromEntries(int position){
-        String[] temp = new String[entries.length-1];
-        for (int i = 0;i < position;i++){
+    private String[] deleteFromEntries(int position) {
+        String[] temp = new String[entries.length - 1];
+        for (int i = 0; i < position; i++) {
             temp[i] = entries[i];
         }
-        for(int j = position;j<temp.length;j++){
-            temp[j] = entries[j+1];
+        for (int j = position; j < temp.length; j++) {
+            temp[j] = entries[j + 1];
         }
-
         return temp;
     }
 
-    private Category createResultCategoryFromEntries(String[] entries){
-        Category result = new Category("Result");
-
-        for(int i = 0; i< entries.length;i++){
+    private Category createResultCategoryFromEntries(String[] entries) {
+        Category result = new Category(ActivityUtility.RESULT);
+        for (int i = 0; i < entries.length; i++) {
             result.addEntry(entries[i]);
         }
-
         return result;
     }
 

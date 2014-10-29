@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
+import de.deasycions.customText.EasyText;
 import de.deasycions.data.Category;
 import de.deasycions.listener.EditTextOnTouchListener;
 import de.deasycions.listener.EmptyOnClickListener;
 import de.deasycions.utilities.ActivityUtility;
-import de.deasycions.utilities.ListenerUtility;
 
 /**
  * Category age of dEASYcions app.
@@ -34,7 +33,7 @@ public class CategoryPage extends EditablePage {
 
         initialize();
         displayContent();
-        ActivityUtility.swapBackgroundColor(categoryButton, editText, currentCategoryPosition);
+        ActivityUtility.swapBackgroundColor(categoryButton, easyTexts, currentCategoryPosition);
     }
 
     @Override
@@ -64,27 +63,27 @@ public class CategoryPage extends EditablePage {
     public void displayContent() {
         int size = newCategory.size();
         for (int i = 0; i < size; i++) {
-            EditText currentEditText = editText[i];
-            currentEditText.setTextSize(20);
-            currentEditText.setVisibility(View.VISIBLE);
-            currentEditText.setText(newCategory.getEntry(i).getName());
-            ActivityUtility.addListenerToEditText(currentEditText, emptyOnClickListener, longHoldClickListener, editTextOnTouchListener);
+            EasyText currentEasyText = easyTexts[i];
+            currentEasyText.setTextSize(20);
+            currentEasyText.setVisibility(View.VISIBLE);
+            currentEasyText.setText(newCategory.getEntry(i).getName());
+            ActivityUtility.addListenerToEditText(currentEasyText, emptyOnClickListener, longHoldClickListener, editTextOnTouchListener);
         }
-        editText[size % editText.length].setVisibility(View.VISIBLE);
+        easyTexts[size % easyTexts.length].setVisibility(View.VISIBLE);
     }
 
-    public void createContent(String newEntryName) {
-        EditText currentEditText = editText[ListenerUtility.editTextPosition];
-        editText[(ListenerUtility.editTextPosition + 1) % editText.length].setVisibility(View.VISIBLE);
+    public void createContent(EasyText currentEasyText) {
+        String newEntryName = currentEasyText.getText().toString();
+        currentEasyText.getBehind().setVisibility(View.VISIBLE);
         newCategory.addEntry(newEntryName);
-        ActivityUtility.addListenerToEditText(currentEditText, emptyOnClickListener, longHoldClickListener, editTextOnTouchListener);
+        ActivityUtility.addListenerToEditText(currentEasyText, emptyOnClickListener, longHoldClickListener, editTextOnTouchListener);
     }
 
     public void deleteContent(View currentView) {
-        if(currentView instanceof EditText){
-            EditText currentEditText = (EditText) currentView;
-            newCategory.removeEntry(currentEditText.getText().toString());
-            refreshDisplay(currentEditText, newCategory.size());
+        if(currentView instanceof EasyText){
+            EasyText currentEasyText = (EasyText) currentView;
+            newCategory.removeEntry(currentEasyText.getText().toString());
+            refreshDisplay(currentEasyText, newCategory.size());
         }
     }
 

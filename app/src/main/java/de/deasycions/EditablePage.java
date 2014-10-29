@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import de.deasycions.customText.EasyText;
 import de.deasycions.data.CategoryStorage;
 import de.deasycions.interfaces.IStartActivity;
 import de.deasycions.listener.ContentDoneEditorListener;
@@ -27,13 +28,13 @@ import de.deasycions.utilities.ListenerUtility;
  *
  * @author Marc Stammerjohann
  */
-public abstract class EditablePage extends Activity implements IStartActivity {
+public abstract class EditablePage extends Activity {
 
     //Data
     protected CategoryStorage categoryStorage;
     //View
     private TextView message;
-    protected EditText[] editText;
+    protected EasyText[] easyTexts;
     protected ImageView trashView;
     //Listener
     protected View.OnLongClickListener longHoldClickListener;
@@ -48,13 +49,13 @@ public abstract class EditablePage extends Activity implements IStartActivity {
 
     protected void initialize() {
         //Category-Section
-       categoryStorage = CategoryStorage.getInstance();
+        categoryStorage = CategoryStorage.getInstance();
 
         //Keyboard-Section
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         //Widget-Section
-        editText = ActivityUtility.createEditText(this);
+        easyTexts = ActivityUtility.createEasyText(this);
         message = (TextView) findViewById(R.id.ContainsMessage);
         trashView = (ImageView) findViewById(R.id.trash);
 
@@ -67,10 +68,10 @@ public abstract class EditablePage extends Activity implements IStartActivity {
         width = outMetrics.widthPixels;
 
         //Listener-Section
-        firstOnClickListener = new FirstOnClickListener(this, editText);
+        firstOnClickListener = new FirstOnClickListener(this);
         ContentDoneEditorListener contentDoneEditorListener = new ContentDoneEditorListener(this);
-        longHoldClickListener = new LongHoldClickListener(this, editText, contentDoneEditorListener);
-        ActivityUtility.addListenerToEditText(editText, firstOnClickListener, contentDoneEditorListener);
+        longHoldClickListener = new LongHoldClickListener(this);
+        ActivityUtility.addListenerToEditText(easyTexts, firstOnClickListener, contentDoneEditorListener);
     }
 
     public abstract boolean containsContent(String content);
@@ -79,7 +80,31 @@ public abstract class EditablePage extends Activity implements IStartActivity {
 
     public abstract void deleteContent(View currentView);
 
-    public abstract void createContent(String newContentName);
+    public abstract void createContent(EasyText currentEasyText);
+
+    public abstract void displayContent();
+
+    /**
+     * Reacts when the background is touched. It reacts like on DoneClick, it tries to save the newcategory text.
+     *
+     * @param event
+     * @return
+     */
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                View currentFocus = getWindow().getCurrentFocus();
+                if (currentFocus instanceof EasyText) {
+                    EasyText currentEasyText = (EasyText) currentFocus;
+                    ActivityUtility.saveAtDoneClick(this, currentEasyText);
+
+                }
+                break;
+            default:
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
 
     public void showKeyboard(EditText currentEditText) {
         inputMethodManager.showSoftInput(currentEditText, InputMethodManager.SHOW_IMPLICIT);
@@ -101,54 +126,51 @@ public abstract class EditablePage extends Activity implements IStartActivity {
         ListenerUtility.setInfoTextMessage(message, infoMessage);
     }
 
-    public void startNextActivity(String contentName, Page page) {
+    public void startNextActivity(EasyText currentEasyText, Page page) {
         //do nothing, sub-class must override
     }
 
-    public void resetEditText(EditText currentEditText){
-        currentEditText.setText("");
-        currentEditText.setTextSize(50);
-        currentEditText.setOnClickListener(firstOnClickListener);
-        currentEditText.clearFocus();
-        currentEditText.setFocusableInTouchMode(false);
+    public void resetEditText(EasyText currentEasyText) {
+        currentEasyText.setText("");
+        currentEasyText.setTextSize(50);
+        currentEasyText.setOnClickListener(firstOnClickListener);
+        currentEasyText.clearFocus();
+        currentEasyText.setFocusableInTouchMode(false);
         //TouchListener and LongClick listener are not used, when the edittext is empty!
-        currentEditText.setOnTouchListener(new View.OnTouchListener() {
+        currentEasyText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //Do nothing
                 return false;
             }
         });
-        currentEditText.setOnLongClickListener(new View.OnLongClickListener() {
+        currentEasyText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 //Do nothing
                 return false;
             }
         });
+        currentEasyText.resetCurrentName();
     }
 
-    public void refreshDisplay(EditText currentEditText, int size) {
-        int position = ListenerUtility.getEditTextPosition(currentEditText, editText);
-        int positionBefore = (position - 1 + editText.length) % editText.length;
-        int positionBehind = (position + 1) % editText.length;
-        EditText before = editText[positionBefore];
-        EditText behind = editText[positionBehind];
+    public void refreshDisplay(EasyText currentEasyText, int size) {
+        EasyText before = currentEasyText.getBefore();
+        EasyText behind = currentEasyText.getBehind();
 
-        if(size == 5){
-            resetEditText(currentEditText);
-        }else if(before.getText().toString().equals("")){
-            resetEditText(currentEditText);
-            currentEditText.setVisibility(View.INVISIBLE);
-        }else if(!before.getText().toString().equals("")){
-            while(!behind.getText().toString().equals("")){
-                currentEditText.setTextSize(20);
-                currentEditText.setText(behind.getText().toString());
-                currentEditText = behind;
-                position++;
-                behind = editText[(position + 1) % editText.length];
+        if (size == 5) {
+            resetEditText(currentEasyText);
+        } else if (before.getText().toString().equals("")) {
+            resetEditText(currentEasyText);
+            currentEasyText.setVisibility(View.INVISIBLE);
+        } else if (!before.getText().toString().equals("")) {
+            while (!behind.getText().toString().equals("")) {
+                currentEasyText.setTextSize(20);
+                currentEasyText.setText(behind.getText().toString());
+                currentEasyText = behind;
+                behind = currentEasyText.getBehind();
             }
-            resetEditText(currentEditText);
+            resetEditText(currentEasyText);
             behind.setVisibility(View.INVISIBLE);
         }
     }

@@ -24,7 +24,7 @@
         android:layout_marginBottom="60dp"
         />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etLU"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -44,7 +44,7 @@
         android:layout_below="@id/ContainsMessage"
         />
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etRU"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -63,7 +63,7 @@
         android:textSize="50dp"
         android:layout_below="@id/ContainsMessage"/>
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etL"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -98,7 +98,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/etLU"/>
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etR"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -118,7 +118,7 @@
         android:textSize="50dp"
         android:layout_below="@id/etLU"/>
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etLD"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -139,7 +139,7 @@
         android:textSize="50dp"
         android:layout_below="@id/etL"/>
 
-    <EditText
+    <de.deasycions.customText.EasyText
         android:id="@+id/etRD"
         android:layout_width="100dp"
         android:layout_height="100dp"

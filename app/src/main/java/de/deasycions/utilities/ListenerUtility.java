@@ -12,29 +12,12 @@ import android.widget.TextView;
  */
 public final class ListenerUtility {
 
-    public static int editTextPosition;
-
     //don't change the values of initial
     public static float initialXAxis;
     public static float initialYAxis;
 
     private ListenerUtility() {
         //this class has only static methods
-    }
-
-    /**
-     * Returns the  position of the {@link android.widget.EditText} which was clicked.
-     *
-     * @param view
-     * @return position
-     */
-    public static int getEditTextPosition(View view, EditText[] editText) {
-        int id = view.getId();
-        int counter = 0;
-        while (editText[counter].getId() != id) {
-            counter++;
-        }
-        return counter;
     }
 
     /**

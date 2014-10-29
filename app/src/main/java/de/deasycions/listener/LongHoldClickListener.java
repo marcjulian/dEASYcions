@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import de.deasycions.EditablePage;
+import de.deasycions.customText.EasyText;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -16,36 +17,27 @@ import de.deasycions.utilities.ListenerUtility;
 public class LongHoldClickListener implements View.OnLongClickListener {
 
     private EditablePage contentPage;
-    private final TextView.OnEditorActionListener onEditorActionListener;
-    private EditText[] editText;
 
-    public LongHoldClickListener(EditablePage contentPage, EditText[] editText, TextView.OnEditorActionListener onEditorActionListener) {
+    public LongHoldClickListener(EditablePage contentPage) {
         this.contentPage = contentPage;
-        this.editText = editText;
-        this.onEditorActionListener = onEditorActionListener;
     }
-
 
     @Override
     public boolean onLongClick(View view) {
         boolean handled = false;
-        if(!ListenerUtility.isViewMoving(view)) {
-            view.performHapticFeedback(1);
-            int position = ListenerUtility.getEditTextPosition(view, editText);
-            ListenerUtility.editTextPosition = position;
-            EditText currentEditText = editText[position];
-            currentEditText.setFocusableInTouchMode(true);
-            currentEditText.requestFocus();
-            currentEditText.setSelection(currentEditText.getText().length());
-            contentPage.showKeyboard(currentEditText);
-            ContentDoneEditorListener contentDoneEditorListener = (ContentDoneEditorListener) onEditorActionListener;
-            contentDoneEditorListener.setCurrentName(currentEditText.getText().toString());
-            currentEditText.setOnEditorActionListener(contentDoneEditorListener);
-            handled = true;
-       }
+        if (view instanceof EasyText) {
+                EasyText currentEasyText = (EasyText) view;
+            if (!ListenerUtility.isViewMoving(currentEasyText)) {
+                view.performHapticFeedback(1);
+                currentEasyText.setFocusableInTouchMode(true);
+                currentEasyText.requestFocus();
+                currentEasyText.setSelection(currentEasyText.getText().length());
+                contentPage.showKeyboard(currentEasyText);
+                handled = true;
+            }
+        }
         return handled;
     }
-
 
 
 }

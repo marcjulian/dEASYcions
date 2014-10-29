@@ -10,5 +10,6 @@
     <string name="categories">Categories</string>
     <string name="category">category</string>
     <string name="entry">entry</string>
+    <string name="vote">Upvote</string>
 
 </resources>

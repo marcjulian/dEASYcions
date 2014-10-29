@@ -15,7 +15,7 @@ public class CategoryStorage {
 
     private static CategoryStorage instance;
 
-    protected CategoryStorage() {
+    private CategoryStorage() {
         savedCategories = new LinkedHashMap<String, Category>();
     }
 
