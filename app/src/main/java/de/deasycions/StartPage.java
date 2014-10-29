@@ -107,8 +107,6 @@ public class StartPage extends EditablePage {
         }
     }
 
-
-
     /**
      * Starting the {@link de.deasycions.CategoryPage}-Activity.
      *
