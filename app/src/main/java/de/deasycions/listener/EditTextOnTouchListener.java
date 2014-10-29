@@ -97,21 +97,16 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
 
                 if (button != null) {
                     button.setText(tempButtonName);
+                    if (isViewAboveButton(view)) {
+                            view.performHapticFeedback(1);
+                    }
                 }
                 if (trashView != null) {
                     trashView.setVisibility(View.VISIBLE);
-                }
-
-                if (button != null) {
-                    if (isViewAboveButton(view)) {
-                        if (view instanceof EditText) {
-                            view.performHapticFeedback(1);
-                            handled = true;
-                        }
+                    if (isViewAboveTrash(view)) {
+                        view.performHapticFeedback(1);
                     }
-
                 }
-
                 // the other listeners won't react
                 handled = true;
                 break;
@@ -167,7 +162,8 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private Rect createButtonRect() {
         float buttonX = button.getX();
         float buttonY = button.getY();
-        float buttonRange = button.getHeight()/2;
+        float buttonRange = button.getHeight()/4;
+
         return new Rect((int) (buttonX - buttonRange), (int)
                 (buttonY - buttonRange), (int) (buttonX + buttonRange), (int) (buttonY + buttonRange));
     }

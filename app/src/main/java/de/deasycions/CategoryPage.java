@@ -84,7 +84,7 @@ public class CategoryPage extends EditablePage {
         if(currentView instanceof EditText){
             EditText currentEditText = (EditText) currentView;
             newCategory.removeEntry(currentEditText.getText().toString());
-            refreshDisplay(currentEditText);
+            refreshDisplay(currentEditText, newCategory.size());
         }
     }
 

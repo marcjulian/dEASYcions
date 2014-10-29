@@ -112,14 +112,14 @@ public abstract class EditablePage extends Activity implements IStartActivity {
         currentEditText.clearFocus();
     }
 
-    public void refreshDisplay(EditText currentEditText) {
+    public void refreshDisplay(EditText currentEditText, int size) {
         int position = ListenerUtility.getEditTextPosition(currentEditText, editText);
         int positionBefore = (position - 1 + editText.length) % editText.length;
         int positionBehind = (position + 1) % editText.length;
         EditText before = editText[positionBefore];
         EditText behind = editText[positionBehind];
 
-        if(categoryStorage.size() == 5){
+        if(size == 5){
             resetEditText(currentEditText);
         }else if(before.getText().toString().equals("")){
             resetEditText(currentEditText);

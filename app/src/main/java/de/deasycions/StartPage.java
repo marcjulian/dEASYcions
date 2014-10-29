@@ -50,8 +50,15 @@ public class StartPage extends EditablePage {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                View currentFocus = getWindow().getCurrentFocus();
+
+                break;
+            default:
+                break;
+        }
         return super.onTouchEvent(event);
-        //TODO if an edittext is focused and the background is touched, lose focus of the edittext! Should save text?!
     }
 
     protected void initialize() {
@@ -85,6 +92,7 @@ public class StartPage extends EditablePage {
         editText[(ListenerUtility.editTextPosition + 1) % editText.length].setVisibility(View.VISIBLE);
         currentEditText.performHapticFeedback(1);
         categoryStorage.createCategory(newCategoryName);
+        currentEditText.clearFocus();
         ActivityUtility.addListenerToEditText(currentEditText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
         currentEditText.setOnLongClickListener(longHoldClickListener);
         currentEditText.setOnClickListener(secondOnClickListener);
@@ -95,7 +103,7 @@ public class StartPage extends EditablePage {
         if (currentView instanceof EditText) {
             EditText currentEditText = (EditText) currentView;
             categoryStorage.deleteCategory(currentEditText.getText().toString());
-            refreshDisplay(currentEditText);
+            refreshDisplay(currentEditText, categoryStorage.size());
         }
     }
 
@@ -114,7 +122,6 @@ public class StartPage extends EditablePage {
                 break;
             case RANDOMIZE_PAGE:
                 if (!categoryStorage.getCategory(contentName).isEmpty()) {
-
                     intent = new Intent(this, CategoryPageRandomize.class);
                 }else{
                     displayInfoMessage("Category must not be empty!");
