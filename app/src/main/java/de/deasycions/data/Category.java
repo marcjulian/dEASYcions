@@ -159,7 +159,7 @@ public class Category {
         }
     }
 
-    public int getEntryPosition(String currentName) {
+   /** public int getEntryPosition(String currentName) {
         Entry current = first;
         int position = 0;
         while (!(current.getName().equals(currentName))) {
@@ -170,8 +170,8 @@ public class Category {
         }
         return position;
 
-    }
-
+   }
+    **/
     /**
      * Returns whether an entry of the same name exists already or not.
      * It is Case-insensitivity.

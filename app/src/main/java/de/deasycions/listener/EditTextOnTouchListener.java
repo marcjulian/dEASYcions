@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import de.deasycions.CategoryPageRandomize;
 import de.deasycions.EditablePage;
 import de.deasycions.Page;
 import de.deasycions.utilities.ListenerUtility;
@@ -113,14 +114,21 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 if (button != null) {
                     if (isViewAboveButton(view)) {
+                        if(!(contentPage instanceof CategoryPageRandomize)){
                         if (view instanceof EditText) {
                             view.performHapticFeedback(1);
                             contentPage.startNextActivity(((EditText) view).getText().toString(), Page.RANDOMIZE_PAGE);
                             handled = true;
                         }
-                    }
-                    button.setText(currentButtonName);
+                    }else{
+                            view.performHapticFeedback(1);
+                            contentPage.createContent(((EditText) view).getText().toString());
+                        }
                 }
+                button.setText(currentButtonName);
+            }
+
+
                 if (trashView != null) {
                     if (isViewAboveTrash(view)) {
                         if (view instanceof EditText) {

@@ -136,5 +136,16 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/trash"
+        android:src="@drawable/trash_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="40dp"
+        android:visibility="invisible"
+        />
+
 
 </RelativeLayout>
