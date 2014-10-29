@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -108,8 +109,23 @@ public abstract class EditablePage extends Activity implements IStartActivity {
         currentEditText.setText("");
         currentEditText.setTextSize(50);
         currentEditText.setOnClickListener(firstOnClickListener);
-        currentEditText.setFocusableInTouchMode(false);
         currentEditText.clearFocus();
+        currentEditText.setFocusableInTouchMode(false);
+        //TouchListener and LongClick listener are not used, when the edittext is empty!
+        currentEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                //Do nothing
+                return false;
+            }
+        });
+        currentEditText.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //Do nothing
+                return false;
+            }
+        });
     }
 
     public void refreshDisplay(EditText currentEditText, int size) {
