@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import de.deasycions.EditablePage;
 import de.deasycions.customText.EasyText;
-import de.deasycions.utilities.ActivityUtility;
 
 /**
  * {@link ContentDoneEditorListener} reacts on the DONE click on a keyboard.
@@ -30,7 +29,7 @@ public class ContentDoneEditorListener implements TextView.OnEditorActionListene
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             if(textView instanceof EasyText) {
                 EasyText currentEasyText = (EasyText) textView;
-                ActivityUtility.saveAtDoneClick(contentPage, currentEasyText);
+                contentPage.saveAtDoneClick(currentEasyText);
                 handled = true;
             }
         }

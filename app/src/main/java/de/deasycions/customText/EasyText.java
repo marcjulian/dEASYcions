@@ -2,6 +2,7 @@ package de.deasycions.customText;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.widget.EditText;
 
 import de.deasycions.EditablePage;
@@ -14,6 +15,7 @@ import de.deasycions.EditablePage;
 public class EasyText extends EditText {
 
     private static int ID;
+    private static EditablePage contentPage;
     private String currentName;
     private int position;
 
@@ -35,9 +37,26 @@ public class EasyText extends EditText {
         setPosition();
     }
 
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK &&
+                event.getAction() == KeyEvent.ACTION_UP) {
+            contentPage.saveAtDoneClick(this);
+        }
+        return super.onKeyPreIme(keyCode, event);
+    }
+
     private void setPosition() {
         this.position = ID;
         ID++;
+    }
+
+    public static void setContentPage(EditablePage contentPage) {
+        EasyText.contentPage = contentPage;
+    }
+
+    public static void resetContentPage(){
+        EasyText.contentPage = null;
     }
 
     public void resetCurrentName() {

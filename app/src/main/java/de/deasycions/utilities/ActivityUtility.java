@@ -1,16 +1,13 @@
 package de.deasycions.utilities;
 
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import de.deasycions.EditablePage;
 import de.deasycions.R;
 import de.deasycions.customText.EasyText;
-import de.deasycions.listener.EditTextOnTouchListener;
 
 /**
  * Utility class for Activities.
@@ -40,23 +37,25 @@ public final class ActivityUtility {
     /**
      * Initialize EditText-Array for the given activity class.
      *
-     * @param currentActivity
+     * @param contentPage
      * @return
      */
-    public static EasyText[] createEasyText(Activity currentActivity) {
+    public static EasyText[] createEasyText(EditablePage contentPage) {
         EasyText.resetID();
+        EasyText.resetContentPage();
         EasyText[] easyTexts = new EasyText[6];
-        easyTexts[0] = (EasyText) currentActivity.findViewById(R.id.etLU);
-        easyTexts[1] = (EasyText) currentActivity.findViewById(R.id.etRU);
-        easyTexts[2] = (EasyText) currentActivity.findViewById(R.id.etR);
-        easyTexts[3] = (EasyText) currentActivity.findViewById(R.id.etRD);
-        easyTexts[4] = (EasyText) currentActivity.findViewById(R.id.etLD);
-        easyTexts[5] = (EasyText) currentActivity.findViewById(R.id.etL);
+        easyTexts[0] = (EasyText) contentPage.findViewById(R.id.etLU);
+        easyTexts[1] = (EasyText) contentPage.findViewById(R.id.etRU);
+        easyTexts[2] = (EasyText) contentPage.findViewById(R.id.etR);
+        easyTexts[3] = (EasyText) contentPage.findViewById(R.id.etRD);
+        easyTexts[4] = (EasyText) contentPage.findViewById(R.id.etLD);
+        easyTexts[5] = (EasyText) contentPage.findViewById(R.id.etL);
         int length = easyTexts.length;
         for (int i = 0; i < length; i++) {
             easyTexts[i].setBefore(easyTexts[((i - 1) + length) % length]);
             easyTexts[i].setBehind(easyTexts[(i + 1) % length]);
         }
+        EasyText.setContentPage(contentPage);
         return easyTexts;
     }
 
@@ -70,12 +69,12 @@ public final class ActivityUtility {
      */
     public static void addListenerToEditText(EasyText[] easyTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener) {
         for (int i = 0; i < easyTexts.length; i++) {
-            EditText currentEditText = easyTexts[i];
+            EasyText currentEasyText = easyTexts[i];
             if (onClickListener != null) {
-                currentEditText.setOnClickListener(onClickListener);
+                currentEasyText.setOnClickListener(onClickListener);
             }
             if (onEditorActionListener != null) {
-                currentEditText.setOnEditorActionListener(onEditorActionListener);
+                currentEasyText.setOnEditorActionListener(onEditorActionListener);
             }
         }
     }
@@ -117,40 +116,5 @@ public final class ActivityUtility {
         //swap background
         button.setBackground(editTextBackground);
         easyTexts[currentCategoryPosition].setBackground(buttonBackground);
-    }
-
-    /**
-     * It whether saves the new entered name or displays an info message.
-     * It is used in the {@link de.deasycions.listener.ContentDoneEditorListener} and in the onTouch-Method in StartPage and CategoryPage.
-     * It also is used when the keyboard is closed via toolbar
-     *
-     * @param contentPage
-     * @param currentEasyText
-     */
-    //TODO call this when the keyboard is closed via toolbar
-    public static void saveAtDoneClick(EditablePage contentPage, EasyText currentEasyText) {
-        // hiding the keyboard
-        contentPage.hideKeyboard(currentEasyText.getWindowToken());
-        String currentName = currentEasyText.getCurrentName();
-        String newContentName = currentEasyText.getNewName();
-        if (!currentEasyText.verifyNewCategoryName(contentPage)) {
-            if (currentName == null) {
-                currentEasyText.setText("");
-                currentEasyText.setTextSize(50);
-            } else {
-                currentEasyText.setText(currentName);
-            }
-        } else {
-            currentEasyText.setCurrentName(newContentName);
-            if (currentName == null) {
-                contentPage.createContent(currentEasyText);
-            } else {
-                contentPage.setNewContentName(currentName, newContentName);
-            }
-        }
-        //disabled editing of the text
-        currentEasyText.setFocusableInTouchMode(false);
-        currentEasyText.clearFocus();
-
     }
 }

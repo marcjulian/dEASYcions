@@ -2,6 +2,7 @@ package de.deasycions;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
@@ -47,6 +48,27 @@ public abstract class EditablePage extends Activity {
     protected float width;
     protected float density;
 
+    /**
+     * Reacts when the background is touched. It reacts like on DoneClick, it tries to save the newcategory text.
+     *
+     * @param event
+     * @return
+     */
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                View currentFocus = getWindow().getCurrentFocus();
+                if (currentFocus instanceof EasyText) {
+                    EasyText currentEasyText = (EasyText) currentFocus;
+                    saveAtDoneClick(currentEasyText);
+                }
+                break;
+            default:
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+
     protected void initialize() {
         //Category-Section
         categoryStorage = CategoryStorage.getInstance();
@@ -84,27 +106,6 @@ public abstract class EditablePage extends Activity {
 
     public abstract void displayContent();
 
-    /**
-     * Reacts when the background is touched. It reacts like on DoneClick, it tries to save the newcategory text.
-     *
-     * @param event
-     * @return
-     */
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                View currentFocus = getWindow().getCurrentFocus();
-                if (currentFocus instanceof EasyText) {
-                    EasyText currentEasyText = (EasyText) currentFocus;
-                    ActivityUtility.saveAtDoneClick(this, currentEasyText);
-
-                }
-                break;
-            default:
-                break;
-        }
-        return super.onTouchEvent(event);
-    }
 
     public void showKeyboard(EditText currentEditText) {
         inputMethodManager.showSoftInput(currentEditText, InputMethodManager.SHOW_IMPLICIT);
@@ -175,4 +176,36 @@ public abstract class EditablePage extends Activity {
         }
     }
 
+    /**
+     * It whether saves the new entered name or displays an info message.
+     * It is used in the {@link de.deasycions.listener.ContentDoneEditorListener} and in the onTouch-Method in StartPage and CategoryPage.
+     * It also is used when the keyboard is closed via toolbar
+     *
+     * @param currentEasyText
+     */
+    //TODO call this when the keyboard is closed via toolbar
+    public void saveAtDoneClick(EasyText currentEasyText) {
+        // hiding the keyboard
+        hideKeyboard(currentEasyText.getWindowToken());
+        String currentName = currentEasyText.getCurrentName();
+        String newContentName = currentEasyText.getNewName();
+        if (!currentEasyText.verifyNewCategoryName(this)) {
+            if (currentName == null) {
+                currentEasyText.setText("");
+                currentEasyText.setTextSize(50);
+            } else {
+                currentEasyText.setText(currentName);
+            }
+        } else {
+            currentEasyText.setCurrentName(newContentName);
+            if (currentName == null) {
+                createContent(currentEasyText);
+            } else {
+                setNewContentName(currentName, newContentName);
+            }
+        }
+        //disabled editing of the text
+        currentEasyText.setFocusableInTouchMode(false);
+        currentEasyText.clearFocus();
+    }
 }
