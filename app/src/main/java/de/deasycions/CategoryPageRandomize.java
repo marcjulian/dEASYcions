@@ -87,11 +87,19 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
         randomize.setOnClickListener(new OnClickRandomListener(this));
         editTextOnTouchListener = new EditTextOnTouchListener(this, randomize, getString(R.string.vote), trashView, height, width, density);
 
+        //Result-Section
+        resultAfterVoting = createResultCategoryFromEntries(entries);
     }
 
     @Override
     public boolean containsContent(String content) {
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        resultAfterVoting = null;
     }
 
     @Override
