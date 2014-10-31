@@ -14,7 +14,6 @@ import de.deasycions.EditablePage;
  */
 public class EasyText extends EditText {
 
-    private static int ID;
     private static EditablePage contentPage;
     private String currentName;
     private int position;
@@ -24,17 +23,14 @@ public class EasyText extends EditText {
 
     public EasyText(Context context) {
         super(context);
-        setPosition();
     }
 
     public EasyText(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setPosition();
     }
 
     public EasyText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setPosition();
     }
 
     @Override
@@ -46,16 +42,15 @@ public class EasyText extends EditText {
         return super.onKeyPreIme(keyCode, event);
     }
 
-    private void setPosition() {
-        this.position = ID;
-        ID++;
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     public static void setContentPage(EditablePage contentPage) {
         EasyText.contentPage = contentPage;
     }
 
-    public static void resetContentPage(){
+    public static void resetContentPage() {
         EasyText.contentPage = null;
     }
 
@@ -73,13 +68,6 @@ public class EasyText extends EditText {
 
     public String getNewName() {
         return getText().toString();
-    }
-
-    /**
-     * reset ID to zero when initializing the EasyText-Arrays.
-     */
-    public static void resetID() {
-        ID = 0;
     }
 
     public int getPosition() {

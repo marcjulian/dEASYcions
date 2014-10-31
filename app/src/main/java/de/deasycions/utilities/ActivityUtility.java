@@ -41,7 +41,6 @@ public final class ActivityUtility {
      * @return
      */
     public static EasyText[] createEasyText(EditablePage contentPage) {
-        EasyText.resetID();
         EasyText.resetContentPage();
         EasyText[] easyTexts = new EasyText[6];
         easyTexts[0] = (EasyText) contentPage.findViewById(R.id.etLU);
@@ -52,6 +51,7 @@ public final class ActivityUtility {
         easyTexts[5] = (EasyText) contentPage.findViewById(R.id.etL);
         int length = easyTexts.length;
         for (int i = 0; i < length; i++) {
+            easyTexts[i].setPosition(i);
             easyTexts[i].setBefore(easyTexts[((i - 1) + length) % length]);
             easyTexts[i].setBehind(easyTexts[(i + 1) % length]);
         }
