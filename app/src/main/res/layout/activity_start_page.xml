@@ -7,7 +7,8 @@
     android:focusableInTouchMode="true"
     android:orientation="horizontal"
     android:paddingTop="50dp"
-    tools:context=".StartPage">
+    tools:context=".StartPage"
+    android:splitMotionEvents="false">
 
     <TextView
         android:id="@+id/ContainsMessage"
