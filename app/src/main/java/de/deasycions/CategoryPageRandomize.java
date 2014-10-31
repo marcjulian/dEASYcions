@@ -17,6 +17,7 @@ import de.deasycions.interfaces.IStartActivity;
 import de.deasycions.listener.EditTextOnTouchListener;
 import de.deasycions.listener.OnClickRandomListener;
 import de.deasycions.utilities.ActivityUtility;
+import de.deasycions.utilities.ListenerUtility;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.widget.ImageView;
@@ -181,14 +182,21 @@ public class CategoryPageRandomize extends EditablePage implements IStartActivit
     }
 
     private String[] deleteFromEntries(int position) {
-        String[] temp = new String[entries.length - 1];
-        for (int i = 0; i < position; i++) {
-            temp[i] = entries[i];
+
+        if(entries.length <= 1){
+            ListenerUtility.setInfoTextMessage(categoryTextView, getString(R.string.random_page_error_downvote));
+            return entries;
         }
-        for (int j = position; j < temp.length; j++) {
-            temp[j] = entries[j + 1];
+        else {
+            String[] temp = new String[entries.length - 1];
+            for (int i = 0; i < position; i++) {
+                temp[i] = entries[i];
+            }
+            for (int j = position; j < temp.length; j++) {
+                temp[j] = entries[j + 1];
+            }
+            return temp;
         }
-        return temp;
     }
 
     private Category createResultCategoryFromEntries(String[] entries) {

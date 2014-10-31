@@ -1,5 +1,6 @@
 package de.deasycions.listener;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +38,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private float width;
     private float density;
 
+
     public EditTextOnTouchListener(EditablePage contentPage, Button button, String tempButtonName, ImageView trashView, float height, float width, float density) {
         this.contentPage = contentPage;
         this.button = button;
@@ -48,6 +50,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
         this.width = width;
         this.height = height;
         this.density = density;
+
     }
 
     @Override

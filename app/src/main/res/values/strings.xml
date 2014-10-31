@@ -11,5 +11,6 @@
     <string name="category">category</string>
     <string name="entry">entry</string>
     <string name="vote">Upvote</string>
+    <string name="random_page_error_downvote">There must be at least 1 entry after voting!</string>
 
 </resources>

@@ -21,7 +21,7 @@
         android:gravity="center"
         android:textColor="#fff"
         android:textSize="20dp"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <de.deasycions.customText.EasyText
         android:id="@+id/etLU"
