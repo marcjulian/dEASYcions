@@ -7,7 +7,7 @@
     android:focusableInTouchMode="true"
     android:orientation="horizontal"
     android:paddingTop="50dp"
-    tools:context=".StartPage">
+    tools:context=".CategoryPage">
 
     <TextView
         android:id="@+id/ContainsMessage"
@@ -23,42 +23,21 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
-    <de.deasycions.customText.EasyText
-        android:id="@+id/etLU"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@+id/categoryName"
-        android:layout_alignLeft="@id/etL"
-        android:layout_marginLeft="60dp"
-        android:background="@drawable/round_shape_violet"
-        android:focusable="false"
-        android:gravity="center"
-        android:hapticFeedbackEnabled="true"
-        android:hint="@string/plus"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLength="10"
-        android:textColorHint="#000000"
-        android:textSize="50dp" />
 
-    <de.deasycions.customText.EasyText
-        android:id="@+id/etRU"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@id/categoryName"
-        android:layout_marginRight="60dp"
-        android:layout_alignRight="@id/etR"
-        android:background="@drawable/round_shape_orange"
-        android:focusable="false"
+    <Button
+        android:id="@+id/categoryName"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/button_shape"
         android:gravity="center"
-        android:hapticFeedbackEnabled="true"
-        android:hint="@string/plus"
-        android:imeOptions="actionDone"
-        android:inputType="text"
-        android:maxLength="10"
-        android:textColorHint="#000000"
-        android:textSize="50dp"
-        android:visibility="invisible" />
+        android:text="@string/categories"
+        android:textSize="19dp"
+        android:textStyle="bold" />
+
 
     <de.deasycions.customText.EasyText
         android:id="@+id/etL"
@@ -78,21 +57,23 @@
         android:textSize="50dp"
         android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/categoryName"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/button_shape"
-        android:clickable="true"
+    <de.deasycions.customText.EasyText
+        android:id="@+id/etLU"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@id/categoryName"
+        android:layout_alignLeft="@id/etL"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/round_shape_violet"
+        android:focusable="false"
         android:gravity="center"
         android:hapticFeedbackEnabled="true"
-        android:text="@string/categories"
-        android:textSize="19dp"
-        android:textStyle="bold" />
+        android:hint="@string/plus"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="10"
+        android:textColorHint="#000000"
+        android:textSize="50dp" />
 
     <de.deasycions.customText.EasyText
         android:id="@+id/etR"
@@ -113,12 +94,32 @@
         android:visibility="invisible" />
 
     <de.deasycions.customText.EasyText
+        android:id="@+id/etRU"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@id/categoryName"
+        android:layout_alignRight="@id/etR"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/round_shape_orange"
+        android:focusable="false"
+        android:gravity="center"
+        android:hapticFeedbackEnabled="true"
+        android:hint="@string/plus"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="10"
+        android:textColorHint="#000000"
+        android:textSize="50dp"
+        android:visibility="invisible" />
+
+
+    <de.deasycions.customText.EasyText
         android:id="@+id/etLD"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignLeft="@id/etL"
         android:layout_below="@id/categoryName"
         android:layout_marginLeft="60dp"
-        android:layout_alignLeft="@id/etL"
         android:background="@drawable/round_shape_yellow"
         android:focusable="false"
         android:gravity="center"
@@ -135,9 +136,9 @@
         android:id="@+id/etRD"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_alignRight="@id/etR"
         android:layout_below="@id/categoryName"
         android:layout_marginRight="60dp"
-        android:layout_alignRight="@id/etR"
         android:background="@drawable/round_shape_blue"
         android:focusable="false"
         android:gravity="center"
