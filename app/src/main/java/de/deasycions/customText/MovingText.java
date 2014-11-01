@@ -7,7 +7,7 @@ import android.widget.EditText;
 /**
  * @author Marc Stammerjohann
  */
-public class MovingText extends EditText{
+public class MovingText extends EditText {
 
     //TODO add radius, alpha, initial x and y
 
@@ -50,5 +50,9 @@ public class MovingText extends EditText{
 
     public EditText getBehind() {
         return behind;
+    }
+
+    public String getNewName() {
+        return getText().toString();
     }
 }

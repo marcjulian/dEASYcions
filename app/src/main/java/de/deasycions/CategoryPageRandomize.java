@@ -118,10 +118,10 @@ public class CategoryPageRandomize extends ContentPage {
      * @param currentView
      */
     public void deleteContent(View currentView) {
-        if (currentView instanceof EasyText) {
-            EasyText currentEasyText = (EasyText) currentView;
-            if (lastPositionEntry(currentEasyText.getNewName()) >= 0) {
-                entries = deleteFromEntries(lastPositionEntry(currentEasyText.getNewName()));
+        if (currentView instanceof MovingText) {
+            MovingText currentMovingText = (MovingText) currentView;
+            if (lastPositionEntry(currentMovingText.getNewName()) >= 0) {
+                entries = deleteFromEntries(lastPositionEntry(currentMovingText.getNewName()));
             }
         }
         resultAfterVoting = createResultCategoryFromEntries(entries);
@@ -133,7 +133,7 @@ public class CategoryPageRandomize extends ContentPage {
      *
      * @param currentEasyText
      */
-    public void createContent(EasyText currentEasyText) {
+    public void createContent(MovingText currentEasyText) {
         String newContentName = currentEasyText.getNewName();
         String[] temp = new String[entries.length + 1];
         for (int i = 0; i < entries.length; i++) {

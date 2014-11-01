@@ -12,14 +12,10 @@ import de.deasycions.EditablePage;
  *
  * @author Marc Stammerjohann
  */
-public class EasyText extends EditText {
+public class EasyText extends MovingText {
 
     private static EditablePage contentPage;
     private String currentName;
-    private int position;
-
-    private EasyText before;
-    private EasyText behind;
 
     public EasyText(Context context) {
         super(context);
@@ -42,13 +38,6 @@ public class EasyText extends EditText {
         return super.onKeyPreIme(keyCode, event);
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
-
-    public int getPosition() {
-        return position;
-    }
 
     public static void setContentPage(EditablePage contentPage) {
         EasyText.contentPage = contentPage;
@@ -68,21 +57,5 @@ public class EasyText extends EditText {
 
     public String getNewName() {
         return getText().toString();
-    }
-
-    public void setBefore(EasyText before) {
-        this.before = before;
-    }
-
-    public EasyText getBefore() {
-        return before;
-    }
-
-    public void setBehind(EasyText behind) {
-        this.behind = behind;
-    }
-
-    public EasyText getBehind() {
-        return behind;
     }
 }

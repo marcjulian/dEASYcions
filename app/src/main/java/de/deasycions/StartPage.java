@@ -2,21 +2,18 @@ package de.deasycions;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import java.util.Collection;
 
 import de.deasycions.customText.EasyText;
+import de.deasycions.customText.MovingText;
 import de.deasycions.data.Category;
 import de.deasycions.data.SharedData;
 import de.deasycions.listener.EditTextOnTouchListener;
 import de.deasycions.listener.SecondOnClickListener;
 import de.deasycions.utilities.ActivityUtility;
-import de.deasycions.utilities.ListenerUtility;
 
 /**
  * Start Page of dEASYcions app.
@@ -83,7 +80,7 @@ public class StartPage extends EditablePage {
         }
     }
 
-    public void createContent(EasyText currentEasyText) {
+    public void createContent(MovingText currentEasyText) {
         String newCategoryName = currentEasyText.getText().toString();
         currentEasyText.getBehind().setVisibility(View.VISIBLE);
         currentEasyText.performHapticFeedback(1);
@@ -105,7 +102,7 @@ public class StartPage extends EditablePage {
      * Starting the {@link de.deasycions.CategoryPage}-Activity.
      *
      */
-    public void startNextActivity(EasyText currentEasyText, Page page) {
+    public void startNextActivity(MovingText currentEasyText, Page page) {
         Intent intent = null;
         String contentName = currentEasyText.getText().toString();
         switch (page) {

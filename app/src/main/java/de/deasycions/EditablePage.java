@@ -124,8 +124,8 @@ public abstract class EditablePage extends ContentPage {
     }
 
     public void refreshDisplay(EasyText currentEasyText, int size) {
-        EasyText before = currentEasyText.getBefore();
-        EasyText behind = currentEasyText.getBehind();
+        EasyText before = (EasyText) currentEasyText.getBefore();
+        EasyText behind = (EasyText) currentEasyText.getBehind();
 
         if (size == 5) {
             resetEditText(currentEasyText);
@@ -137,7 +137,7 @@ public abstract class EditablePage extends ContentPage {
                 currentEasyText.setTextSize(20);
                 currentEasyText.setText(behind.getText().toString());
                 currentEasyText = behind;
-                behind = currentEasyText.getBehind();
+                behind = (EasyText) currentEasyText.getBehind();
             }
             resetEditText(currentEasyText);
             behind.setVisibility(View.INVISIBLE);

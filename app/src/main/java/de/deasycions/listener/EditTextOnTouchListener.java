@@ -7,10 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import de.deasycions.CategoryPageRandomize;
 import de.deasycions.ContentPage;
 import de.deasycions.Page;
 import de.deasycions.customText.EasyText;
+import de.deasycions.customText.MovingText;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -120,13 +120,11 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                         if (view instanceof EasyText) {
                             EasyText currentEasyText = (EasyText) view;
                             currentEasyText.performHapticFeedback(1);
-                            if (!(contentPage instanceof CategoryPageRandomize)) {
-                                contentPage.startNextActivity(currentEasyText, Page.RANDOMIZE_PAGE);
-                            } else {
-                                contentPage.createContent(currentEasyText);
-                            }
-                            handled = true;
+                            contentPage.startNextActivity(currentEasyText, Page.RANDOMIZE_PAGE);
+                        } else if (view instanceof MovingText) {
+                            contentPage.createContent((MovingText) view);
                         }
+                        handled = true;
                     }
                     button.setText(currentButtonName);
                 }
@@ -173,7 +171,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private Rect createButtonRect() {
         float buttonX = button.getX();
         float buttonY = button.getY();
-        float buttonRange = button.getHeight() / 4;
+        float buttonRange = button.getHeight() / 2;
 
         return new Rect((int) (buttonX - buttonRange), (int)
                 (buttonY - buttonRange), (int) (buttonX + buttonRange), (int) (buttonY + buttonRange));

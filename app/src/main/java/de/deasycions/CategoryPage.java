@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import de.deasycions.customText.EasyText;
+import de.deasycions.customText.MovingText;
 import de.deasycions.data.Category;
 import de.deasycions.listener.EditTextOnTouchListener;
 import de.deasycions.listener.EmptyOnClickListener;
@@ -73,7 +74,7 @@ public class CategoryPage extends EditablePage {
         easyTexts[size % easyTexts.length].setVisibility(View.VISIBLE);
     }
 
-    public void createContent(EasyText currentEasyText) {
+    public void createContent(MovingText currentEasyText) {
         String newEntryName = currentEasyText.getText().toString();
         currentEasyText.getBehind().setVisibility(View.VISIBLE);
         newCategory.addEntry(newEntryName);

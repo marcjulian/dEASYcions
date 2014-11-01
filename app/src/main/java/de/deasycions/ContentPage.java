@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import de.deasycions.customText.EasyText;
+import de.deasycions.customText.MovingText;
 import de.deasycions.data.CategoryStorage;
 
 /**
@@ -45,13 +46,13 @@ public abstract class ContentPage extends Activity {
 
     public abstract void deleteContent(View currentView);
 
-    public abstract void createContent(EasyText currentEasyText);
+    public abstract void createContent(MovingText currentEasyText);
 
     public void startNextActivity(String result, Page page) {
         //do nothing, sub-class must override
     }
 
-    public void startNextActivity(EasyText currentEasyText, Page page) {
+    public void startNextActivity(MovingText currentEasyText, Page page) {
         //do nothing, sub-class must override
     }
 
