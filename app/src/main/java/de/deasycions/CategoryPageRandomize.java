@@ -30,7 +30,8 @@ public class CategoryPageRandomize extends ContentPage {
     private Button randomize;
     private String categoryName;
     private ImageView countdown;
-    private ImageView trashView;
+    private ImageView downvote;
+    private ImageView upvote;
     private static Category resultAfterVoting;
     //swaping color of the button to the selected category
     private int currentCategoryPosition;
@@ -66,11 +67,12 @@ public class CategoryPageRandomize extends ContentPage {
         randomize = (Button) findViewById(R.id.random);
         movingText = ActivityUtility.createMovingText(this);
         //TODO up- and downvote image
-        trashView = (ImageView) findViewById(R.id.trash);
+        downvote = (ImageView) findViewById(R.id.downvote);
+        upvote = (ImageView) findViewById(R.id.upvote);
 
         //Listener-Section
         randomize.setOnClickListener(new OnClickRandomListener(this));
-        editTextOnTouchListener = new EditTextOnTouchListener(this, randomize, getString(R.string.vote), trashView, height, width, density);
+        editTextOnTouchListener = new EditTextOnTouchListener(this, null, categoryName, downvote,upvote, height, width, density);
 
         //Result-Section
         resultAfterVoting = createResultCategoryFromEntries(entries);

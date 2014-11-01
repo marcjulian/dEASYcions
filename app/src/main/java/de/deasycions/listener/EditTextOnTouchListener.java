@@ -26,6 +26,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private String currentButtonName;
     private final String tempButtonName;
     private final ImageView trashView;
+    private ImageView upvote;
 
     private float lastXAxis;
     private float lastYAxis;
@@ -52,6 +53,25 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
 
     }
 
+    public EditTextOnTouchListener(ContentPage contentPage, Button button, String tempButtonName, ImageView trashView,ImageView upvote, float height, float width, float density) {
+        this.contentPage = contentPage;
+        this.button = button;
+        if (button != null) {
+            currentButtonName = button.getText().toString();
+        }
+        this.tempButtonName = tempButtonName;
+        this.trashView = trashView;
+        this.upvote = upvote;
+        this.width = width;
+        this.height = height;
+        this.density = density;
+
+
+
+
+
+
+    }
     @Override
     public boolean onTouch(View view, MotionEvent event) {
         boolean handled = false;
@@ -105,6 +125,13 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                         view.performHapticFeedback(1);
                     }
                 }
+
+                if(upvote != null){
+                    upvote.setVisibility(view.VISIBLE);
+                    if(isAboveUpvote(view)){
+                        view.performHapticFeedback(1);
+                    }
+                }
                 if (trashView != null) {
                     trashView.setVisibility(View.VISIBLE);
                     if (isViewAboveTrash(view)) {
@@ -129,6 +156,15 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                     button.setText(currentButtonName);
                 }
 
+                if(upvote != null){
+                    if(isAboveUpvote(view)){
+                       if(view instanceof MovingText){
+                           contentPage.createContent((MovingText) view);
+                       }
+                    }
+                    upvote.setVisibility(View.INVISIBLE);
+                }
+
                 if (trashView != null) {
                     if (isViewAboveTrash(view)) {
                         if (view instanceof EditText) {
@@ -138,6 +174,8 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
                     }
                     trashView.setVisibility(View.INVISIBLE);
                 }
+
+
                 //reset view to its initial position
                 view.setX(ListenerUtility.initialXAxis);
                 view.setY(ListenerUtility.initialYAxis);
@@ -148,6 +186,16 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
         // if return true the other listeners are not called
         return handled;
     }
+
+    private boolean isAboveUpvote(View view) {
+        final Rect imageUpvote = createUpvoteRect();
+
+        float viewX = view.getX();
+        float viewY = view.getY();
+        return imageUpvote.contains((int) viewX, (int) viewY);
+    }
+
+
 
 
     private boolean isViewAboveButton(View view) {
@@ -184,5 +232,14 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
         float buttonHalfWidth = trashView.getWidth();
 
         return new Rect((int) (trashX - buttonHalfWidth), (int) (trashY - buttonHalfHeight), (int) (trashX + buttonHalfWidth), (int) (trashY + buttonHalfHeight));
+    }
+
+    private Rect createUpvoteRect() {
+        float upvoteX = upvote.getX();
+        float upvoteY = upvote.getY();
+        float buttonHalfHeight = upvote.getHeight();
+        float buttonHalfWidth = upvote.getWidth();
+
+        return new Rect((int) (upvoteX - buttonHalfWidth), (int) (upvoteY - buttonHalfHeight), (int) (upvoteX + buttonHalfWidth), (int) (upvoteY + buttonHalfHeight));
     }
 }
