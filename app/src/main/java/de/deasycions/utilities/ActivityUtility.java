@@ -3,11 +3,14 @@ package de.deasycions.utilities;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import de.deasycions.ContentPage;
 import de.deasycions.EditablePage;
 import de.deasycions.R;
 import de.deasycions.customText.EasyText;
+import de.deasycions.customText.MovingText;
 
 /**
  * Utility class for Activities.
@@ -54,21 +57,43 @@ public final class ActivityUtility {
             easyTexts[i].setBefore(easyTexts[((i - 1) + length) % length]);
             easyTexts[i].setBehind(easyTexts[(i + 1) % length]);
         }
-        EasyText.setContentPage(contentPage);
         return easyTexts;
+    }
+
+    /**
+     * Initialize EditText-Array for the given activity class.
+     *
+     * @param contentPage
+     * @return
+     */
+    public static MovingText[] createMovingText(ContentPage contentPage) {
+        MovingText[] movingTexts = new MovingText[6];
+        movingTexts[0] = (MovingText) contentPage.findViewById(R.id.etLU);
+        movingTexts[1] = (MovingText) contentPage.findViewById(R.id.etRU);
+        movingTexts[2] = (MovingText) contentPage.findViewById(R.id.etR);
+        movingTexts[3] = (MovingText) contentPage.findViewById(R.id.etRD);
+        movingTexts[4] = (MovingText) contentPage.findViewById(R.id.etLD);
+        movingTexts[5] = (MovingText) contentPage.findViewById(R.id.etL);
+        int length = movingTexts.length;
+        for (int i = 0; i < length; i++) {
+            movingTexts[i].setPosition(i);
+            movingTexts[i].setBefore(movingTexts[((i - 1) + length) % length]);
+            movingTexts[i].setBehind(movingTexts[(i + 1) % length]);
+        }
+        return movingTexts;
     }
 
     /**
      * Adding the given listeners to each editText field.
      * EditTexts only need onclick and Editor Listener, when they are initialized.
      *
-     * @param easyTexts
+     * @param editTexts
      * @param onClickListener
      * @param onEditorActionListener
      */
-    public static void addListenerToEditText(EasyText[] easyTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener) {
-        for (int i = 0; i < easyTexts.length; i++) {
-            EasyText currentEasyText = easyTexts[i];
+    public static void addListenerToEditText(EditText[] editTexts, View.OnClickListener onClickListener, TextView.OnEditorActionListener onEditorActionListener) {
+        for (int i = 0; i < editTexts.length; i++) {
+            EditText currentEasyText = editTexts[i];
             if (onClickListener != null) {
                 currentEasyText.setOnClickListener(onClickListener);
             }
@@ -86,7 +111,7 @@ public final class ActivityUtility {
      * @param secondOnClickListener
      * @param longHoldClickListener
      */
-    public static void addListenerToEditText(EasyText currentEasyText, View.OnClickListener secondOnClickListener, View.OnLongClickListener longHoldClickListener, View.OnTouchListener onTouchListener) {
+    public static void addListenerToEditText(EditText currentEasyText, View.OnClickListener secondOnClickListener, View.OnLongClickListener longHoldClickListener, View.OnTouchListener onTouchListener) {
         if (secondOnClickListener != null) {
             currentEasyText.setOnClickListener(secondOnClickListener);
         }
@@ -102,18 +127,18 @@ public final class ActivityUtility {
      * Swaps the button and the selected category background color.
      *
      * @param button
-     * @param easyTexts
+     * @param editTexts
      * @param currentCategoryPosition
      */
-    public static void swapBackgroundColor(Button button, EasyText[] easyTexts, int currentCategoryPosition) {
+    public static void swapBackgroundColor(Button button, EditText[] editTexts, int currentCategoryPosition) {
         Drawable buttonBackground = button.getBackground();
         if (currentCategoryPosition == -1) {
             return;
         }
-        Drawable editTextBackground = easyTexts[currentCategoryPosition].getBackground();
+        Drawable editTextBackground = editTexts[currentCategoryPosition].getBackground();
 
         //swap background
         button.setBackground(editTextBackground);
-        easyTexts[currentCategoryPosition].setBackground(buttonBackground);
+        editTexts[currentCategoryPosition].setBackground(buttonBackground);
     }
 }

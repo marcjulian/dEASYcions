@@ -1,23 +1,14 @@
 package de.deasycions;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import de.deasycions.customText.EasyText;
-import de.deasycions.data.CategoryStorage;
-import de.deasycions.interfaces.IStartActivity;
 import de.deasycions.listener.ContentDoneEditorListener;
 import de.deasycions.listener.FirstOnClickListener;
 import de.deasycions.listener.LongHoldClickListener;
@@ -29,12 +20,9 @@ import de.deasycions.utilities.ListenerUtility;
  *
  * @author Marc Stammerjohann
  */
-public abstract class EditablePage extends Activity {
+public abstract class EditablePage extends ContentPage {
 
-    //Data
-    protected CategoryStorage categoryStorage;
     //View
-    private TextView message;
     protected EasyText[] easyTexts;
     protected ImageView trashView;
     //Listener
@@ -44,9 +32,6 @@ public abstract class EditablePage extends Activity {
     private InputMethodManager inputMethodManager;
     // Variables
     private String description;
-    protected float height;
-    protected float width;
-    protected float density;
 
     /**
      * Reacts when the background is touched. It reacts like on DoneClick, it tries to save the newcategory text.
@@ -70,24 +55,14 @@ public abstract class EditablePage extends Activity {
     }
 
     protected void initialize() {
-        //Category-Section
-        categoryStorage = CategoryStorage.getInstance();
-
+        super.initialize();
         //Keyboard-Section
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         //Widget-Section
         easyTexts = ActivityUtility.createEasyText(this);
-        message = (TextView) findViewById(R.id.ContainsMessage);
         trashView = (ImageView) findViewById(R.id.trash);
-
-        //Display-Section
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-        density = getResources().getDisplayMetrics().density;
-        height = outMetrics.heightPixels;
-        width = outMetrics.widthPixels;
+        EasyText.setContentPage(this);
 
         //Listener-Section
         firstOnClickListener = new FirstOnClickListener(this);
@@ -99,13 +74,6 @@ public abstract class EditablePage extends Activity {
     public abstract boolean containsContent(String content);
 
     public abstract void setNewContentName(String currentName, String newContentName);
-
-    public abstract void deleteContent(View currentView);
-
-    public abstract void createContent(EasyText currentEasyText);
-
-    public abstract void displayContent();
-
 
     public void showKeyboard(EditText currentEditText) {
         inputMethodManager.showSoftInput(currentEditText, InputMethodManager.SHOW_IMPLICIT);
@@ -124,7 +92,7 @@ public abstract class EditablePage extends Activity {
     }
 
     public void displayInfoMessage(String infoMessage) {
-        ListenerUtility.setInfoTextMessage(message, infoMessage);
+        ListenerUtility.setInfoTextMessage(messageText, infoMessage);
     }
 
     public void startNextActivity(EasyText currentEasyText, Page page) {

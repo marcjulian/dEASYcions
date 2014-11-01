@@ -11,7 +11,7 @@
     android:splitMotionEvents="false">
 
     <TextView
-        android:id="@+id/displayCategoryName"
+        android:id="@+id/ContainsMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -24,7 +24,7 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
-    <de.deasycions.customText.EasyText
+    <de.deasycions.customText.MovingText
         android:id="@+id/etLU"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -38,7 +38,7 @@
         android:textColorHint="#000000"
         android:textSize="20dp" />
 
-    <de.deasycions.customText.EasyText
+    <de.deasycions.customText.MovingText
         android:id="@+id/etRU"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -53,7 +53,7 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
-    <de.deasycions.customText.EasyText
+    <de.deasycions.customText.MovingText
         android:id="@+id/etL"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -83,7 +83,7 @@
         android:textSize="19dp"
         android:textStyle="bold" />
 
-    <de.deasycions.customText.EasyText
+    <de.deasycions.customText.MovingText
         android:id="@+id/etR"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -97,7 +97,7 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
-    <de.deasycions.customText.EasyText
+    <de.deasycions.customText.MovingText
         android:id="@+id/etLD"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -112,7 +112,7 @@
         android:textSize="20dp"
         android:visibility="invisible" />
 
-    <de.deasycions.customText.EasyText
+    <de.deasycions.customText.MovingText
         android:id="@+id/etRD"
         android:layout_width="100dp"
         android:layout_height="100dp"

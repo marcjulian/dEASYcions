@@ -115,7 +115,7 @@ public class Category {
         }
 
         Entry current = first;
-        while (!current.getName().equals(name)){
+        while (!current.getName().equals(name)) {
             current = current.next;
         }
         Entry prev = current.prev;
@@ -151,27 +151,16 @@ public class Category {
      */
     public void changeEntryName(String currentName, String newName) {
         Entry current = first;
-        while (current.getName().equals(currentName)) {
+        while (current != null) {
             if (current.getName().equals(currentName)) {
                 current.setName(newName);
+                return;
             }
             current = current.next;
         }
+
     }
 
-   /** public int getEntryPosition(String currentName) {
-        Entry current = first;
-        int position = 0;
-        while (!(current.getName().equals(currentName))) {
-            if (!(current.getName().equals(currentName))) {
-                position++;
-            }
-            current = current.next;
-        }
-        return position;
-
-   }
-    **/
     /**
      * Returns whether an entry of the same name exists already or not.
      * It is Case-insensitivity.

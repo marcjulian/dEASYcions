@@ -1,6 +1,5 @@
 package de.deasycions.listener;
 
-import android.content.Intent;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import de.deasycions.CategoryPageRandomize;
-import de.deasycions.EditablePage;
+import de.deasycions.ContentPage;
 import de.deasycions.Page;
 import de.deasycions.customText.EasyText;
 import de.deasycions.utilities.ListenerUtility;
@@ -22,7 +21,7 @@ import de.deasycions.utilities.ListenerUtility;
  * @author Marc Stammerjohann
  */
 public class EditTextOnTouchListener implements View.OnTouchListener {
-    private EditablePage contentPage;
+    private ContentPage contentPage;
     private final Button button;
     private String currentButtonName;
     private final String tempButtonName;
@@ -39,7 +38,7 @@ public class EditTextOnTouchListener implements View.OnTouchListener {
     private float density;
 
 
-    public EditTextOnTouchListener(EditablePage contentPage, Button button, String tempButtonName, ImageView trashView, float height, float width, float density) {
+    public EditTextOnTouchListener(ContentPage contentPage, Button button, String tempButtonName, ImageView trashView, float height, float width, float density) {
         this.contentPage = contentPage;
         this.button = button;
         if (button != null) {

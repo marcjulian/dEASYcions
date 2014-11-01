@@ -22,7 +22,6 @@ public class CategoryPage extends EditablePage {
     private Category newCategory;
     private Button categoryButton;
     private View.OnClickListener emptyOnClickListener;
-    private View.OnTouchListener editTextOnTouchListener;
     //swaping color of the button to the selected category
     private int currentCategoryPosition;
 
@@ -66,7 +65,9 @@ public class CategoryPage extends EditablePage {
             EasyText currentEasyText = easyTexts[i];
             currentEasyText.setTextSize(20);
             currentEasyText.setVisibility(View.VISIBLE);
-            currentEasyText.setText(newCategory.getEntry(i).getName());
+            String name = newCategory.getEntry(i).getName();
+            currentEasyText.setCurrentName(name);
+            currentEasyText.setText(name);
             ActivityUtility.addListenerToEditText(currentEasyText, emptyOnClickListener, longHoldClickListener, editTextOnTouchListener);
         }
         easyTexts[size % easyTexts.length].setVisibility(View.VISIBLE);

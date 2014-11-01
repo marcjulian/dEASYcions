@@ -46,6 +46,10 @@ public class EasyText extends EditText {
         this.position = position;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
     public static void setContentPage(EditablePage contentPage) {
         EasyText.contentPage = contentPage;
     }
@@ -66,10 +70,6 @@ public class EasyText extends EditText {
         return getText().toString();
     }
 
-    public int getPosition() {
-        return position;
-    }
-
     public void setBefore(EasyText before) {
         this.before = before;
     }
@@ -85,8 +85,4 @@ public class EasyText extends EditText {
     public EasyText getBehind() {
         return behind;
     }
-
-
-
-
 }

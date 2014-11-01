@@ -3,18 +3,18 @@ package de.deasycions.listener;
 import android.view.View;
 
 import de.deasycions.CategoryPageRandomize;
+import de.deasycions.ContentPage;
 import de.deasycions.Page;
 import de.deasycions.data.Category;
-import de.deasycions.interfaces.IStartActivity;
 
 /**
  * @author Gary                 //TODO auskommentieren!!
  */
 public class OnClickRandomListener implements View.OnClickListener {
 
-    private IStartActivity contentPage;
+    private ContentPage contentPage;
 
-    public OnClickRandomListener(IStartActivity contentPage) {
+    public OnClickRandomListener(ContentPage contentPage) {
         this.contentPage = contentPage;
 
     }

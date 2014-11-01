@@ -30,7 +30,6 @@ import de.deasycions.utilities.ListenerUtility;
 public class StartPage extends EditablePage {
 
     private View.OnClickListener secondOnClickListener;
-    private View.OnTouchListener editTextOnTouchListener;
     private Button randomButton;
 
     @Override
@@ -74,7 +73,9 @@ public class StartPage extends EditablePage {
             for (Category currentCategory : categoryValues) {
                 EasyText currentEasyText = easyTexts[position];
                 currentEasyText.setTextSize(20);
-                currentEasyText.setText(currentCategory.getName());
+                String name = currentCategory.getName();
+                currentEasyText.setCurrentName(name);
+                currentEasyText.setText(name);
                 ActivityUtility.addListenerToEditText(currentEasyText, secondOnClickListener, longHoldClickListener, editTextOnTouchListener);
                 currentEasyText.getBehind().setVisibility(View.VISIBLE);
                 position++;
