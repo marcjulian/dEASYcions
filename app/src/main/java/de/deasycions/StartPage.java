@@ -49,6 +49,13 @@ public class StartPage extends EditablePage {
         sharedData.saveData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // When returning to StartPage, the contentPage in easytext must be reset.
+        EasyText.setContentPage(this);
+    }
+
     protected void initialize() {
         super.initialize();
         //String-Section

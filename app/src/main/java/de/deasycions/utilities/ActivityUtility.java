@@ -41,7 +41,6 @@ public final class ActivityUtility {
      * @return
      */
     public static EasyText[] createEasyText(EditablePage contentPage) {
-        EasyText.resetContentPage();
         EasyText[] easyTexts = new EasyText[6];
         easyTexts[0] = (EasyText) contentPage.findViewById(R.id.etLU);
         easyTexts[1] = (EasyText) contentPage.findViewById(R.id.etRU);

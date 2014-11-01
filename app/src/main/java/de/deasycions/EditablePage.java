@@ -189,7 +189,7 @@ public abstract class EditablePage extends Activity {
         hideKeyboard(currentEasyText.getWindowToken());
         String currentName = currentEasyText.getCurrentName();
         String newContentName = currentEasyText.getNewName();
-        if (!currentEasyText.verifyNewCategoryName(this)) {
+        if (!verifyNewCategoryName(currentEasyText)) {
             if (currentName == null) {
                 currentEasyText.setText("");
                 currentEasyText.setTextSize(50);
@@ -207,5 +207,31 @@ public abstract class EditablePage extends Activity {
         //disabled editing of the text
         currentEasyText.setFocusableInTouchMode(false);
         currentEasyText.clearFocus();
+    }
+
+    /**
+     * Verifies if the text is allowed for a new {@link de.deasycions.data.Category}.
+     * Also specifies the info message.
+     *
+     * @return boolean whether the text is allowed or not
+     */
+    public boolean verifyNewCategoryName(EasyText currentEasyText) {
+        String currentName = currentEasyText.getCurrentName();
+        String newContentName = currentEasyText.getNewName();
+        String infoMessage = "";
+        boolean verified = true;
+        if (newContentName.equals("")) {
+            infoMessage = String.format("Please enter a %s name!", getDescription());
+            verified = false;
+        } else if (currentName != null) {
+            if (currentName.toLowerCase().equals(newContentName.toLowerCase())) {
+                verified = false;
+            }
+        } else if (containsContent(newContentName)) {
+            infoMessage = String.format("The %s %s already exists!", getDescription(), newContentName);
+            verified = false;
+        }
+        displayInfoMessage(infoMessage);
+        return verified;
     }
 }

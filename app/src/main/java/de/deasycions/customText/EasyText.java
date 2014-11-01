@@ -50,10 +50,6 @@ public class EasyText extends EditText {
         EasyText.contentPage = contentPage;
     }
 
-    public static void resetContentPage() {
-        EasyText.contentPage = null;
-    }
-
     public void resetCurrentName() {
         this.currentName = null;
     }
@@ -91,29 +87,6 @@ public class EasyText extends EditText {
     }
 
 
-    /**
-     * Verifies if the text is allowed for a new {@link de.deasycions.data.Category}.
-     * Also specifies the info message.
-     *
-     * @return boolean whether the text is allowed or not
-     */
-    public boolean verifyNewCategoryName(EditablePage contentPage) {
-        String newContentName = getNewName();
-        String infoMessage = "";
-        boolean verified = true;
-        if (newContentName.equals("")) {
-            infoMessage = String.format("Please enter a %s name!", contentPage.getDescription());
-            verified = false;
-        } else if (currentName != null) {
-            if (currentName.toLowerCase().equals(newContentName.toLowerCase())) {
-                verified = false;
-            }
-        } else if (contentPage.containsContent(newContentName)) {
-            infoMessage = String.format("The %s %s already exists!", contentPage.getDescription(), newContentName);
-            verified = false;
-        }
-        contentPage.displayInfoMessage(infoMessage);
-        return verified;
-    }
+
 
 }
