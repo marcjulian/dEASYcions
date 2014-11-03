@@ -95,10 +95,6 @@ public abstract class EditablePage extends ContentPage {
         ListenerUtility.setInfoTextMessage(messageText, infoMessage);
     }
 
-    public void startNextActivity(EasyText currentEasyText, Page page) {
-        //do nothing, sub-class must override
-    }
-
     public void resetEditText(EasyText currentEasyText) {
         currentEasyText.setText("");
         currentEasyText.setTextSize(50);

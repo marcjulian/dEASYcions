@@ -6,6 +6,7 @@ import android.widget.EditText;
 import de.deasycions.EditablePage;
 import de.deasycions.Page;
 import de.deasycions.customText.EasyText;
+import de.deasycions.customText.MovingText;
 import de.deasycions.utilities.ListenerUtility;
 
 /**
@@ -24,10 +25,10 @@ public class SecondOnClickListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (view instanceof EasyText) {
-            EasyText currentEasyText = (EasyText) view;
-            if (!ListenerUtility.isViewMoving(currentEasyText)) {
-                contentPage.startNextActivity(currentEasyText, Page.CATEGORY_PAGE);
+        if (view instanceof MovingText) {
+            MovingText currentMovingText = (MovingText) view;
+            if (!ListenerUtility.isViewMoving(currentMovingText)) {
+                contentPage.startNextActivity(currentMovingText, Page.CATEGORY_PAGE);
             }
         }
     }
