@@ -1,7 +1,6 @@
 package de.deasycions.listener;
 
 import android.view.View;
-import android.widget.EditText;
 
 import de.deasycions.EditablePage;
 import de.deasycions.Page;
