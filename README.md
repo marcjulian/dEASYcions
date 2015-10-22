@@ -5,7 +5,7 @@ New Android app to make decisions as easy as possible
 ---------------------------------------
 Logo festlegen (Gruppennamen?)
 ---------------------------------------
-Gary Großgarten, Yannik Herrmann, Marc Stammerjohann, Tobi Schäfer, Akin Sahin
+Gary, Yannik, Marc, Tobi, Akin
 ---------------------------------------
 
 IDE - Android Studio / Eclipse ADT
